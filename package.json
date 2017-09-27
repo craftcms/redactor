@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "craftcms-sass": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.0",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^3.1.0",
+    "gulp-sourcemaps": "^2.6.1",
+    "gulp-uglify": "^3.0.0"
+  }
+}
