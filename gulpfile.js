@@ -4,6 +4,7 @@ var uglify = require('gulp-uglify');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
+var autoprefixer = require('gulp-autoprefixer');
 
 var redactorPath = 'lib/redactor';
 var fieldPath = 'src/assets/field/dist';
@@ -36,6 +37,10 @@ gulp.task('field-js', function() {
 gulp.task('field-css', function() {
     return gulp.src(fieldPath+'/css/RedactorInput.scss')
         .pipe(sass().on('error', sass.logError))
+        .pipe(autoprefixer({
+            browsers: ['last 2 versions'],
+            cascade: false
+        }))
         .pipe(cleanCSS())
         .pipe(rename({ suffix: '.min' }))
         .pipe(gulp.dest(fieldPath+'/css'));
