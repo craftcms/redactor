@@ -5,7 +5,7 @@ body #redactor-modal {
   border-radius: $paneBorderRadius;
   background: #fff;
   z-index: 100;
-  @include box-shadow(0 25px 100px rgba(0,0,0,0.5));
+  box-shadow: 0 25px 100px rgba(0,0,0,0.5);
 }
 
 body #redactor-modal-overlay {
@@ -18,10 +18,10 @@ body #redactor-modal-overlay {
 .input .redactor-dropdown { @include menu-styles; }
 .input .redactor-dropdown a { @include menu-option-styles; }
 .input .redactor-dropdown a:hover { @include menu-option-active-styles; }
-.input .redactor-dropdown a:hover span { color: $textcolor !important; }
+.input .redactor-dropdown a:hover span { color: $textColor !important; }
 .input .redactor-box:not(.redactor-box-fullscreen) { @include text-input-styles; }
-.input .redactor-box.focus:not(.redactor-box-fullscreen) { @include text-input-focussed-styles; }
-.input.errors > div.redactor-box { border: 1px solid $errorcolor !important; }
+.input .redactor-box.focus:not(.redactor-box-fullscreen) { @include text-input-focused-styles; }
+.input.errors > div.redactor-box { border: 1px solid $errorColor !important; }
 
 /* redactor */
 .input .redactor-box,
@@ -29,13 +29,13 @@ body #redactor-modal-overlay {
 .input .redactor-box textarea { z-index: auto !important; }
 .input .redactor-box { margin-bottom: 0; }
 .input .redactor-box.redactor-box-fullscreen { z-index: 100 !important; }
-.input .redactor-toolbar { top: 0; background: none; @include box-shadow(none); }
+.input .redactor-toolbar { top: 0; background: none; box-shadow: none; }
 .input .redactor-toolbar.toolbar-fixed-box { @include pane; z-index: 102 !important; }
 .input .redactor-toolbar.toolbar-fixed-box + span + .redactor-layer { padding-top: 48px; }
-.input .redactor-toolbar li a { color: $textcolor; }
-.input .redactor-toolbar li a:hover { background-color: $lightselcolor; color: $textcolor; }
+.input .redactor-toolbar li a { color: $textColor; }
+.input .redactor-toolbar li a:hover { background-color: $lightSelColor; color: $textColor; }
 .input .redactor-toolbar li a:active,
-.input .redactor-toolbar li a.redactor-act { background-color: $darkselcolor; color: #fff; }
+.input .redactor-toolbar li a.redactor-act { background-color: $darkSelColor; color: #fff; }
 .input .redactor-toolbar li:first-child a { border-top-left-radius: 2px; }
 .input .redactor-dropdown { z-index: 100; }
 .input .redactor-dropdown li { border-bottom: none; background: none; }
