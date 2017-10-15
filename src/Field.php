@@ -22,7 +22,9 @@ use craft\models\Section;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\redactor\events\RegisterLinkOptionsEvent;
+use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
+use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\db\Schema;
 
@@ -38,6 +40,11 @@ class Field extends \craft\base\Field
     // =========================================================================
 
     /**
+     * @event RegisterPluginPathsEvent The event that is triggered when registering paths that contain Redactor plugins.
+     */
+    const EVENT_REGISTER_PLUGIN_PATHS = 'registerPluginPaths';
+
+    /**
      * @event RegisterLinkOptionsEvent The event that is triggered when registering the link options for the field.
      */
     const EVENT_REGISTER_LINK_OPTIONS = 'registerLinkOptions';
@@ -49,6 +56,11 @@ class Field extends \craft\base\Field
      * @var array List of the Redactor plugins that have already been registered for this request
      */
     private static $_registeredPlugins = [];
+
+    /**
+     * @var array|null List of the paths that may contain Redactor plugins
+     */
+    private static $_pluginPaths;
 
     /**
      * @inheritdoc
@@ -72,10 +84,7 @@ class Field extends \craft\base\Field
             return;
         }
 
-        $paths = [
-            Craft::getAlias('@config/redactor/plugins'),
-            dirname(__DIR__).'/lib/redactor-plugins',
-        ];
+        $paths = self::redactorPluginPaths();
 
         foreach ($paths as $path) {
             if (file_exists("{$path}/{$plugin}.js")) {
@@ -95,6 +104,28 @@ class Field extends \craft\base\Field
         }
 
         throw new InvalidConfigException('Redactor plugin not found: '.$plugin);
+    }
+
+    /**
+     * Returns the registered Redactor plugin paths.
+     *
+     * @return string[]
+     */
+    public static function redactorPluginPaths(): array
+    {
+        if (self::$_pluginPaths !== null) {
+            return self::$_pluginPaths;
+        }
+
+        $event = new RegisterPluginPathsEvent([
+            'paths' => [
+                Craft::getAlias('@config/redactor/plugins'),
+                dirname(__DIR__).'/lib/redactor-plugins',
+            ]
+        ]);
+        Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);
+
+        return self::$_pluginPaths = $event->paths;
     }
 
     // Properties
