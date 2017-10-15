@@ -5,7 +5,7 @@
  * @license   https://craftcms.com/license
  */
 
-namespace craft\redactor;
+namespace craft\redactor\events;
 
 use yii\base\Event;
 

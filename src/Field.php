@@ -21,6 +21,7 @@ use craft\helpers\StringHelper;
 use craft\models\Section;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
+use craft\redactor\events\RegisterLinkOptionsEvent;
 use craft\validators\HandleValidator;
 use yii\base\InvalidConfigException;
 use yii\db\Schema;
