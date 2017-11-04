@@ -744,8 +744,8 @@ class Field extends \craft\base\Field
     private function _includeRedactorLangFile(string $lang): bool
     {
         $redactorPath = Craft::getAlias('@lib/redactor');
-        $subPath = "/lang/{$lang}.js";
-        $fullPath = $redactorPath.$subPath;
+        $subPath = "lang/{$lang}.js";
+        $fullPath = $redactorPath.'/'.$subPath;
 
         if (!is_file($fullPath)) {
             return false;
@@ -753,7 +753,7 @@ class Field extends \craft\base\Field
 
         $am = Craft::$app->getAssetManager();
         $view = Craft::$app->getView();
-        $view->registerJsFile($am->getPublishedUrl($redactorPath).$subPath, [
+        $view->registerJsFile($am->getPublishedUrl($redactorPath, true, $subPath), [
             'depends' => RedactorAsset::class
         ]);
         self::$_redactorLang = $lang;
