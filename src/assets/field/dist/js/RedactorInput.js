@@ -132,7 +132,7 @@
                     .on('blur', $.proxy(this, 'onEditorBlur'));
 
                 if (this.redactor.opts.toolbarFixed && !Craft.RedactorInput.scrollPageOnReady) {
-                    Garnish.$doc.on('ready', function() {
+                    Garnish.$doc.ready(function() {
                         Garnish.$doc.trigger('scroll');
                     });
 
