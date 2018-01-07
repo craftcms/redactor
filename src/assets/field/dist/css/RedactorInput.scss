@@ -136,11 +136,7 @@ body {
     border-top: 1px solid $hairlineColor;
   }
 
-  .redactor-layer ul {
-    list-style: disc;
-  }
-
-  .redactor-layer ol {
-    @include padding-left(0 !important);
+  .redactor-styles {
+    @include readable;
   }
 }
