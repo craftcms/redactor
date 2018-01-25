@@ -1,7 +1,7 @@
 Changelog
 =========
 
-1.0.1 - 2018-01-15
+## 1.0.1 - 2018-01-15
 
 ### Changed
 - Applied Craft’s “readable” text styles to Redactor inputs.
