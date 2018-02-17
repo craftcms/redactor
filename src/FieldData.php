@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://craftcms.com/
+ * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   MIT
+ * @license MIT
  */
 
 namespace craft\redactor;
@@ -13,7 +13,7 @@ use Craft;
  * Stores the data for Redactor fields.
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class FieldData extends \Twig_Markup
 {
@@ -94,7 +94,6 @@ class FieldData extends \Twig_Markup
      * Returns a specific page.
      *
      * @param int $pageNumber
-     *
      * @return string|null
      */
     public function getPage(int $pageNumber)

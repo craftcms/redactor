@@ -1,8 +1,8 @@
 <?php
 /**
- * @link      https://craftcms.com/
+ * @link https://craftcms.com/
  * @copyright Copyright (c) Pixel & Tonic, Inc.
- * @license   MIT
+ * @license MIT
  */
 
 namespace craft\redactor;
@@ -32,7 +32,7 @@ use yii\db\Schema;
  * Redactor field type
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since  3.0
+ * @since 3.0
  */
 class Field extends \craft\base\Field
 {
@@ -74,7 +74,6 @@ class Field extends \craft\base\Field
      * Registers a Redactor plugin's JS & CSS files.
      *
      * @param string $plugin
-     *
      * @return void
      * @throws InvalidConfigException if the plugin can't be found
      */
@@ -393,7 +392,6 @@ class Field extends \craft\base\Field
      *
      * @param string $value
      * @param ElementInterface|null $element
-     *
      * @return string
      */
     private function _parseRefs(string $value, ElementInterface $element = null): string
@@ -413,9 +411,7 @@ class Field extends \craft\base\Field
 
     /**
      * Returns the link options available to the field.
-     *
      * Each link option is represented by an array with the following keys:
-     *
      * - `optionTitle` (required) – the user-facing option title that appears in the Link dropdown menu
      * - `elementType` (required) – the element type class that the option should be linking to
      * - `sources` (optional) – the sources that the user should be able to select elements from
@@ -423,7 +419,6 @@ class Field extends \craft\base\Field
      * - `storageKey` (optional) – the localStorage key that should be used to store the element selector modal state (defaults to RedactorInput.LinkTo[ElementType])
      *
      * @param Element|null $element The element the field is associated with, if there is one
-     *
      * @return array
      */
     private function _getLinkOptions(Element $element = null): array
@@ -474,7 +469,6 @@ class Field extends \craft\base\Field
      * Returns the available section sources.
      *
      * @param Element|null $element The element the field is associated with, if there is one
-     *
      * @return array
      */
     private function _getSectionSources(Element $element = null): array
@@ -506,7 +500,6 @@ class Field extends \craft\base\Field
      * Returns the available category sources.
      *
      * @param Element|null $element The element the field is associated with, if there is one
-     *
      * @return array
      */
     private function _getCategorySources(Element $element = null): array
@@ -598,7 +591,6 @@ class Field extends \craft\base\Field
      * Returns the available Redactor config options.
      *
      * @param string $dir The directory name within the config/ folder to look for config files
-     *
      * @return array
      */
     private function _getCustomConfigOptions(string $dir): array
@@ -623,9 +615,8 @@ class Field extends \craft\base\Field
     /**
      * Returns a JSON-decoded config, if it exists.
      *
-     * @param string      $dir  The directory name within the config/ folder to look for the config file
+     * @param string $dir The directory name within the config/ folder to look for the config file
      * @param string|null $file The filename to load
-     *
      * @return array|false The config, or false if the file doesn't exist
      */
     private function _getConfig(string $dir, string $file = null)
@@ -675,7 +666,6 @@ class Field extends \craft\base\Field
      * Registers the front end resources for the field.
      *
      * @param array $redactorConfig
-     *
      * @return void
      */
     private function _registerFieldResources(array $redactorConfig)
@@ -728,7 +718,6 @@ class Field extends \craft\base\Field
      * Attempts to include a Redactor language file.
      *
      * @param string $lang
-     *
      * @return bool
      */
     private function _includeRedactorLangFile(string $lang): bool
