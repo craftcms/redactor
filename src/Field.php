@@ -239,7 +239,7 @@ class Field extends \craft\base\Field
 
         $view = Craft::$app->getView();
         $id = $view->formatInputId($this->handle);
-        $site = ($element ? $element->getSite() : Craft::$app->getSites()->currentSite);
+        $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
 
         $settings = [
             'id' => $view->namespaceInputId($id),
