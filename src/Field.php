@@ -219,8 +219,12 @@ class Field extends \craft\base\Field
      */
     public function normalizeValue($value, ElementInterface $element = null)
     {
-        if ($value === null || $value instanceof FieldData) {
+        if ($value instanceof FieldData) {
             return $value;
+        }
+
+        if (!$value) {
+            return null;
         }
 
         // Prevent everyone from having to use the |raw filter when outputting RTE content

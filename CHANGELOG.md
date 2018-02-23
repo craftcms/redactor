@@ -1,6 +1,11 @@
 Changelog
 =========
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where empty field values would still normalize to a `craft\redactor\FieldData` object, rather than `null`.
+
 ## 1.0.1 - 2018-01-15
 
 ### Changed
