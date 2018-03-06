@@ -220,6 +220,7 @@
                         criteria: {siteId: this.elementSiteId, kind: 'image'},
                         onSelect: $.proxy(function(assets, transform) {
                             if (assets.length) {
+                                console.log(this.redactor);
                                 this.redactor.selection.restore();
                                 for (var i = 0; i < assets.length; i++) {
                                     var asset = assets[i],
