@@ -230,7 +230,11 @@
                                         url += ':transform:' + transform;
                                     }
 
-                                    this.redactor.insert.node($('<span><img src="' + url + '" /></span>')[0]);
+                                    var imgContainer = $(document.createElement(this.redactor.opts.imageTag));
+                                    var img = $(document.createElement('img')).attr('src', url);
+                                    imgContainer.append(img);
+
+                                    this.redactor.insert.node($(imgContainer)[0]);
                                     this.redactor.code.sync();
                                 }
                                 this.redactor.observe.images();
