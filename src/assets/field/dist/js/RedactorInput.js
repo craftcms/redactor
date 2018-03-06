@@ -223,14 +223,15 @@
                                 this.redactor.selection.restore();
                                 for (var i = 0; i < assets.length; i++) {
                                     var asset = assets[i],
-                                        url = asset.url + '#asset:' + asset.id;
+                                        url = asset.url + '#asset:' + asset.id,
+                                        label = asset.label || '';
 
                                     if (transform) {
                                         url += ':transform:' + transform;
                                     }
 
                                     var imgContainer = $(document.createElement(this.redactor.opts.imageTag));
-                                    var img = $(document.createElement('img')).attr('src', url);
+                                    var img = $(document.createElement('img')).attr({ src: url, alt: label });
                                     imgContainer.append(img);
 
                                     this.redactor.insert.node($(imgContainer)[0]);
