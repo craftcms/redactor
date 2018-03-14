@@ -304,14 +304,14 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function isEmpty($value): bool
+    public function isValueEmpty($value, ElementInterface $element): bool
     {
         if ($value === null) {
             return true;
         }
 
         /** @var FieldData $value */
-        return parent::isEmpty($value->getRawContent());
+        return parent::isValueEmpty($value->getRawContent());
     }
 
     /**
