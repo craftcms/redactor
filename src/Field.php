@@ -85,20 +85,22 @@ class Field extends \craft\base\Field
 
         $paths = self::redactorPluginPaths();
 
-        foreach ($paths as $path) {
-            if (file_exists("{$path}/{$plugin}.js")) {
-                $view = Craft::$app->getView();
-                $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
-                $view->registerJsFile("{$baseUrl}/{$plugin}.js", [
-                    'depends' => RedactorAsset::class
-                ]);
-                // CSS file too?
-                if (file_exists("{$path}/{$plugin}.css")) {
-                    $view->registerCssFile("{$baseUrl}/{$plugin}.css");
+        foreach ($paths as $registeredPath) {
+            foreach (["{$registeredPath}/{$plugin}", $registeredPath] as $path) {
+                if (file_exists("{$path}/{$plugin}.js")) {
+                    $view = Craft::$app->getView();
+                    $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
+                    $view->registerJsFile("{$baseUrl}/{$plugin}.js", [
+                        'depends' => RedactorAsset::class
+                    ]);
+                    // CSS file too?
+                    if (file_exists("{$path}/{$plugin}.css")) {
+                        $view->registerCssFile("{$baseUrl}/{$plugin}.css");
+                    }
+                    // Don't do this twice
+                    self::$_registeredPlugins[$plugin] = true;
+                    return;
                 }
-                // Don't do this twice
-                self::$_registeredPlugins[$plugin] = true;
-                return;
             }
         }
 

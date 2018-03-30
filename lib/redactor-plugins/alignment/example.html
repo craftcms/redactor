@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redactor</title>
+        <meta charset="utf-8">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
+        <link rel="stylesheet" href="../../redactor/redactor.css" />
+        <script src="../../redactor/redactor.js"></script>
+
+        <!-- Plugin -->
+        <link rel="stylesheet" href="alignment.css" />
+        <script src="alignment.js"></script>
+
+        <script type="text/javascript">
+        $(function()
+        {
+            $('#redactor').redactor({
+                plugins: ['alignment']
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <textarea id="redactor">...</textarea>
+    </body>
+</html>

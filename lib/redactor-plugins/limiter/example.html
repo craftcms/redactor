@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Redactor</title>
+        <meta charset="utf-8">
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.js"></script>
+
+        <link rel="stylesheet" href="../../redactor/redactor.css" />
+        <script src="../../redactor/redactor.js"></script>
+
+        <!-- Plugin -->
+        <script src="limiter.js"></script>
+
+        <script type="text/javascript">
+        $(function()
+        {
+            $('#redactor').redactor({
+                limiter: 20, // number of characters
+                plugins: ['limiter']
+            });
+        });
+        </script>
+    </head>
+    <body>
+        <textarea id="redactor">
+            <p>Lorem</p>
+        </textarea>
+    </body>
+</html>

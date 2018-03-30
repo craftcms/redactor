@@ -5,6 +5,7 @@ Changelog
 
 ### Changed
 - Updated Redactor to 2.12.
+- Redactor now comes bundled with all of Imperavi’s Redactor 2 plugins. ([#14](https://github.com/craftcms/redactor/issues/14))
 
 ### Fixed
 - Fixed a bug where empty field values would still normalize to a `craft\redactor\FieldData` object, rather than `null`.
