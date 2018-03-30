@@ -3,6 +3,9 @@ Changelog
 
 ## Unreleased
 
+### Changed
+- Updated Redactor to 2.12.
+
 ### Fixed
 - Fixed a bug where empty field values would still normalize to a `craft\redactor\FieldData` object, rather than `null`.
 - Fixed a deprecation error when running Redactor on Craft 3.0.0-RC15 or later.
