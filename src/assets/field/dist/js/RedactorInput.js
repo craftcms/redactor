@@ -236,7 +236,7 @@
                                         url += ':transform:' + transform;
                                     }
 
-                                    this.redactor.insert.node($('<figure><img src="' + url + '" /></figure>')[0]);
+                                    this.redactor.insert.node($('<' + this.redactor.opts.imageTag + '><img src="' + url + '" /></figure>')[0]);
                                     this.redactor.code.sync();
                                 }
                                 this.redactor.observe.images();
