@@ -238,10 +238,24 @@ class Field extends \craft\base\Field
     {
         /** @var FieldData|null $value */
         /** @var Element $element */
-        $redactorConfig = $this->_getRedactorConfig();
-        $this->_registerFieldResources($redactorConfig);
 
+        // register the asset/redactor bundles
+        Craft::$app->getView()->registerAssetBundle(FieldAsset::class);
+
+        // figure out which language we ended up with
         $view = Craft::$app->getView();
+        /** @var RedactorAsset $bundle */
+        $bundle = $view->getAssetManager()->getBundle(RedactorAsset::class);
+        $redactorLang = $bundle->redactorLang ?? 'en';
+
+        // register plugins
+        $redactorConfig = $this->_getRedactorConfig();
+        if (isset($redactorConfig['plugins'])) {
+            foreach ($redactorConfig['plugins'] as $plugin) {
+                static::registerRedactorPlugin($plugin);
+            }
+        }
+
         $id = $view->formatInputId($this->handle);
         $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
 
@@ -252,7 +266,7 @@ class Field extends \craft\base\Field
             'transforms' => $this->_getTransforms(),
             'elementSiteId' => $site->id,
             'redactorConfig' => $redactorConfig,
-            'redactorLang' => self::$_redactorLang,
+            'redactorLang' => $redactorLang,
         ];
 
         if ($this->translationMethod != self::TRANSLATION_METHOD_NONE) {
@@ -664,83 +678,5 @@ class Field extends \craft\base\Field
             'Attr.AllowedFrameTargets' => ['_blank'],
             'HTML.AllowedComments' => ['pagebreak'],
         ];
-    }
-
-    /**
-     * Registers the front end resources for the field.
-     *
-     * @param array $redactorConfig
-     * @return void
-     */
-    private function _registerFieldResources(array $redactorConfig)
-    {
-        $view = Craft::$app->getView();
-
-        $view->registerAssetBundle(FieldAsset::class);
-
-        if (isset($redactorConfig['plugins'])) {
-            foreach ($redactorConfig['plugins'] as $plugin) {
-                static::registerRedactorPlugin($plugin);
-            }
-        }
-
-        // Check to see if the Redactor has been translated into the current site
-        if (Craft::$app->language != Craft::$app->sourceLanguage) {
-            // First try to include the actual target language
-            if (!$this->_includeRedactorLangFile(Craft::$app->language)) {
-                // Otherwise try to load the language (without the territory half)
-                $languageId = Craft::$app->getLocale()->getLanguageID();
-                $this->_includeRedactorLangFile($languageId);
-            }
-        }
-
-        $customTranslations = [
-            'fullscreen' => Craft::t('redactor', 'Fullscreen'),
-            'insert-page-break' => Craft::t('redactor', 'Insert Page Break'),
-            'table' => Craft::t('redactor', 'Table'),
-            'insert-table' => Craft::t('redactor', 'Insert table'),
-            'insert-row-above' => Craft::t('redactor', 'Insert row above'),
-            'insert-row-below' => Craft::t('redactor', 'Insert row below'),
-            'insert-column-left' => Craft::t('redactor', 'Insert column left'),
-            'insert-column-right' => Craft::t('redactor', 'Insert column right'),
-            'add-head' => Craft::t('redactor', 'Add head'),
-            'delete-head' => Craft::t('redactor', 'Delete head'),
-            'delete-column' => Craft::t('redactor', 'Delete column'),
-            'delete-row' => Craft::t('redactor', 'Delete row'),
-            'delete-table' => Craft::t('redactor', 'Delete table'),
-            'video' => Craft::t('redactor', 'Video'),
-            'video-html-code' => Craft::t('redactor', 'Video Embed Code or Youtube/Vimeo Link'),
-        ];
-
-        $view->registerJs(
-            '$.extend($.Redactor.opts.langs["'.self::$_redactorLang.'"], '.
-            Json::encode($customTranslations).
-            ');');
-    }
-
-    /**
-     * Attempts to include a Redactor language file.
-     *
-     * @param string $lang
-     * @return bool
-     */
-    private function _includeRedactorLangFile(string $lang): bool
-    {
-        $redactorPath = Craft::getAlias('@lib/redactor');
-        $subPath = "lang/{$lang}.js";
-        $fullPath = $redactorPath.'/'.$subPath;
-
-        if (!is_file($fullPath)) {
-            return false;
-        }
-
-        $am = Craft::$app->getAssetManager();
-        $view = Craft::$app->getView();
-        $view->registerJsFile($am->getPublishedUrl($redactorPath, true, $subPath), [
-            'depends' => RedactorAsset::class
-        ]);
-        self::$_redactorLang = $lang;
-
-        return true;
     }
 }
