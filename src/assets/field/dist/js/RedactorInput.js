@@ -38,7 +38,6 @@
                 this.redactorConfig.fileUpload = true;
                 this.redactorConfig.dragImageUpload = false;
                 this.redactorConfig.dragFileUpload = false;
-                this.redactorConfig.toolbarFixedTopOffset = 72;
 
                 // Prevent a JS error when calling core.destroy() when opts.plugins == false
                 if (typeof this.redactorConfig.plugins !== typeof []) {
@@ -108,6 +107,14 @@
             },
 
             initRedactor: function() {
+                if (this.redactorConfig.toolbarFixed) {
+                    // Set the toolbarFixedTarget depending on the context
+                    var target = this.$textarea.closest('#content-container, .lp-editor');
+                    if (target.length) {
+                        this.redactorConfig.toolbarFixedTarget = target;
+                    }
+                }
+
                 Craft.RedactorInput.currentInstance = this;
                 this.$textarea.redactor(this.redactorConfig);
                 delete Craft.RedactorInput.currentInstance;
