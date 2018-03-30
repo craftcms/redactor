@@ -327,7 +327,7 @@ class Field extends \craft\base\Field
         }
 
         /** @var FieldData $value */
-        return parent::isValueEmpty($value->getRawContent());
+        return parent::isValueEmpty($value->getRawContent(), $element);
     }
 
     /**
