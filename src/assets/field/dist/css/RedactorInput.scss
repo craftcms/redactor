@@ -80,10 +80,6 @@ body {
     z-index: 102 !important;
   }
 
-  .redactor-toolbar.toolbar-fixed-box + span + .redactor-layer {
-    padding-top: 48px;
-  }
-
   .redactor-toolbar li a {
     color: $textColor;
   }
