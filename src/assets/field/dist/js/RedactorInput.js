@@ -44,6 +44,10 @@
                     this.redactorConfig.plugins = [];
                 }
 
+                this.redactorConfig.plugins.push('craftAssetImages');
+                this.redactorConfig.plugins.push('craftAssetFiles');
+                this.redactorConfig.plugins.push('craftEntryLinks');
+
                 // Redactor I config setting normalization
                 if (this.redactorConfig.buttons) {
                     var index;
@@ -79,12 +83,10 @@
                 }
 
                 this.redactorConfig.callbacks = {
-                    init: Craft.RedactorInput.handleRedactorInit
+                    started: Craft.RedactorInput.handleRedactorInit
                 };
 
                 // Initialize Redactor
-                this.$textarea = $('#' + this.id);
-
                 this.initRedactor();
 
                 if (typeof Craft.livePreview !== 'undefined') {
@@ -107,6 +109,9 @@
             },
 
             initRedactor: function() {
+                var selector = '#' + this.id;
+                this.$textarea = $(selector);
+
                 if (this.redactorConfig.toolbarFixed) {
                     // Set the toolbarFixedTarget depending on the context
                     var target = this.$textarea.closest('#content-container, .lp-editor');
@@ -117,6 +122,22 @@
 
                 Craft.RedactorInput.currentInstance = this;
                 this.$textarea.redactor(this.redactorConfig);
+
+                this.redactor = $R(selector);
+                this.redactor.plugin.craftAssetImages.overrideButton('image');
+                this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
+                this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
+                this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
+
+                this.redactor.plugin.craftAssetFiles.overrideButton('file');
+                this.redactor.plugin.craftAssetFiles.setVolumes(this.volumes);
+                this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
+
+                this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
+                if (this.linkOptions.length) {
+                    this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
+                }
+
                 delete Craft.RedactorInput.currentInstance;
             },
 
@@ -124,7 +145,7 @@
                 this.redactor = redactor;
 
                 // Add the .focusable-input class for Craft.CP
-                this.redactor.$box.addClass('focusable-input');
+                this.redactor.container.getElement().addClass('focusable-input');
 
                 // Only customize the toolbar if there is one,
                 // otherwise we get a JS error due to redactor.$toolbar being undefined
@@ -133,7 +154,7 @@
                 }
 
                 this.leaveFullscreetOnSaveShortcut();
-
+return;
                 this.redactor.core.editor()
                     .on('focus', $.proxy(this, 'onEditorFocus'))
                     .on('blur', $.proxy(this, 'onEditorBlur'));
@@ -150,14 +171,14 @@
             customizeToolbar: function() {
                 // Override the Image and File buttons?
                 if (this.volumes.length) {
-                    var $imageBtn = this.replaceRedactorButton('image', this.redactor.lang.get('image')),
-                        $fileBtn = this.replaceRedactorButton('file', this.redactor.lang.get('file'));
+                    var imageBtn = this.replaceRedactorButton('image', this.redactor.lang.get('image')),
+                        fileBtn = this.replaceRedactorButton('file', this.redactor.lang.get('file'));
 
-                    if ($imageBtn) {
-                        this.redactor.button.addCallback($imageBtn, $.proxy(this, 'onImageButtonClick'));
+                    if (imageBtn) {
+                        imageBtn.$icon.on('cick', $.proxy(this, 'onImageButtonClick'));
                     }
-
-                    if ($fileBtn) {
+return;
+                    if (fileBtn) {
                         this.redactor.button.addCallback($fileBtn, $.proxy(this, 'onFileButtonClick'));
                     }
                 }
@@ -330,36 +351,34 @@
 
             replaceRedactorButton: function(key, title) {
                 // Ignore if the button isn't in use
-                if (!this.redactor.button.get(key).length) {
+                var allButtons = this.redactor.toolbar.getButtonsKeys();
+                var currentButtonIndex = allButtons.indexOf(key);
+
+                if (currentButtonIndex == -1) {
                     return;
                 }
 
-                // Create a placeholder button
-                var $placeholder = this.redactor.button.addAfter(key, key+'_placeholder');
+                var previousButton = this.redactor.toolbar.getButtonByIndex(allButtons.indexOf(key));
+                var icon = previousButton.$icon.get(0);
 
-                // Remove the original
-                this.redactor.button.remove(key);
+                var placeholderKey = key+'_placeholder';
+                var placeholder = this.redactor.toolbar.addButtonAfter(key, placeholderKey, {title: title});
+                previousButton.remove();
 
-                // Add the new one
-                // (Can't just use button.addAfter() here because it doesn't let us specify
-                // full button properties (e.g. icon); just title)
-                var $btn = this.redactor.button.build(key, {
-                    title: title,
-                    icon: true
-                });
-                $placeholder.parent().after($('<li>').append($btn));
+                // Create the new button
+                var button = this.redactor.toolbar.addButtonAfter(placeholderKey, key, {title: title});
+                placeholder.remove();
 
-                // Remove the placeholder
-                $placeholder.remove();
+                button.setIcon(icon);
 
-                return $btn;
+                return button;
             }
         },
         {
             handleRedactorInit: function() {
                 // `this` is the current Redactor instance.
                 // `Craft.RedactorInput.currentInstance` is the current RedactorInput instance
-                Craft.RedactorInput.currentInstance.onInitRedactor(this);
+                //Craft.RedactorInput.currentInstance.onInitRedactor(this);
             }
         });
 })(jQuery);

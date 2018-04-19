@@ -5,9 +5,11 @@ var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var cleanCSS = require('gulp-clean-css');
 var autoprefixer = require('gulp-autoprefixer');
+var merge = require('merge-stream');
 
 var redactorPath = 'lib/redactor';
 var fieldPath = 'src/assets/field/dist';
+
 
 gulp.task('redactor-js', function() {
     return gulp.src(redactorPath+'/redactor.js')
@@ -26,12 +28,42 @@ gulp.task('redactor-css', function() {
 });
 
 gulp.task('field-js', function() {
-    return gulp.src(fieldPath+'/js/RedactorInput.js')
+    var redactor = gulp.src(fieldPath+'/js/RedactorInput.js')
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
+
+    var pluginBase = gulp.src(fieldPath+'/js/pluginBase.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
+    var CraftAssetImages = gulp.src(fieldPath+'/js/CraftAssetImages.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
+    var CraftAssetFiles = gulp.src(fieldPath+'/js/CraftAssetFiles.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
+    var CraftEntryLinks = gulp.src(fieldPath+'/js/CraftEntryLinks.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
+    return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks);
 });
 
 gulp.task('field-css', function() {

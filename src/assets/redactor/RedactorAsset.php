@@ -34,7 +34,7 @@ class RedactorAsset extends AssetBundle
         ];
 
         $this->css = [
-            'redactor.min.css',
+            'redactor.css',
         ];
 
         $this->js = [
@@ -83,7 +83,7 @@ class RedactorAsset extends AssetBundle
         ];
 
         $view->registerJs(
-            "$.extend($.Redactor.opts.langs['{$this->redactorLang}'], ".
+            "$.extend(\$R.lang['{$this->redactorLang}'], ".
             Json::encode($customTranslations).
             ');');
     }
