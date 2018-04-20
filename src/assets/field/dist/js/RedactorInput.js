@@ -82,23 +82,26 @@
                     }
                 }
 
+                // Define our callbacks
                 this.redactorConfig.callbacks = {
-                    started: Craft.RedactorInput.handleRedactorInit
+                    started: Craft.RedactorInput.handleRedactorInit,
+                    focus: this.onEditorFocus.bind(this),
+                    blur: this.onEditorBlur.bind(this)
                 };
 
                 // Initialize Redactor
                 this.initRedactor();
 
-                if (typeof Craft.livePreview !== 'undefined') {
-                    // There's a UI glitch if Redactor is in Code view when Live Preview is shown/hidden
-                    Craft.livePreview.on('beforeEnter beforeExit', $.proxy(function() {
-                        this.redactor.core.destroy();
-                    }, this));
-
-                    Craft.livePreview.on('enter slideOut', $.proxy(function() {
-                        this.initRedactor();
-                    }, this));
-                }
+                // if (typeof Craft.livePreview !== 'undefined') {
+                //     // There's a UI glitch if Redactor is in Code view when Live Preview is shown/hidden
+                //     Craft.livePreview.on('beforeEnter beforeExit', $.proxy(function() {
+                //         this.redactor.core.destroy();
+                //     }, this));
+                //
+                //     Craft.livePreview.on('enter slideOut', $.proxy(function() {
+                //         this.initRedactor();
+                //     }, this));
+                // }
             },
 
             mergeCallbacks: function(callback1, callback2) {
@@ -134,6 +137,7 @@
                 this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
 
                 this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
+
                 if (this.linkOptions.length) {
                     this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
                 }
@@ -142,22 +146,13 @@
             },
 
             onInitRedactor: function(redactor) {
+
                 this.redactor = redactor;
 
                 // Add the .focusable-input class for Craft.CP
                 this.redactor.container.getElement().addClass('focusable-input');
 
-                // Only customize the toolbar if there is one,
-                // otherwise we get a JS error due to redactor.$toolbar being undefined
-                if (this.redactor.opts.toolbar) {
-                    this.customizeToolbar();
-                }
-
                 this.leaveFullscreetOnSaveShortcut();
-return;
-                this.redactor.core.editor()
-                    .on('focus', $.proxy(this, 'onEditorFocus'))
-                    .on('blur', $.proxy(this, 'onEditorBlur'));
 
                 if (this.redactor.opts.toolbarFixed && !Craft.RedactorInput.scrollPageOnReady) {
                     Garnish.$doc.ready(function() {
@@ -168,182 +163,21 @@ return;
                 }
             },
 
-            customizeToolbar: function() {
-                // Override the Image and File buttons?
-                if (this.volumes.length) {
-                    var imageBtn = this.replaceRedactorButton('image', this.redactor.lang.get('image')),
-                        fileBtn = this.replaceRedactorButton('file', this.redactor.lang.get('file'));
-
-                    if (imageBtn) {
-                        imageBtn.$icon.on('cick', $.proxy(this, 'onImageButtonClick'));
-                    }
-return;
-                    if (fileBtn) {
-                        this.redactor.button.addCallback($fileBtn, $.proxy(this, 'onFileButtonClick'));
-                    }
-                }
-                else {
-                    // Image and File buttons aren't supported
-                    this.redactor.button.remove('image');
-                    this.redactor.button.remove('file');
-                }
-
-                // Override the Link button?
-                if (this.linkOptions.length) {
-                    var $linkBtn = this.replaceRedactorButton('link', this.redactor.lang.get('link'));
-
-                    if ($linkBtn) {
-                        var dropdownOptions = {};
-
-                        for (var i = 0; i < this.linkOptions.length; i++) {
-                            dropdownOptions['link_option' + i] = {
-                                title: this.linkOptions[i].optionTitle,
-                                func: $.proxy(this, 'onLinkOptionClick', i)
-                            };
-                        }
-
-                        // Add the default Link options
-                        $.extend(dropdownOptions, {
-                            link: {
-                                title: this.redactor.lang.get('link-insert'),
-                                func: 'link.show',
-                                observe: {
-                                    element: 'a',
-                                    in: {
-                                        title: this.redactor.lang.get('link-edit')
-                                    },
-                                    out: {
-                                        title: this.redactor.lang.get('link-insert')
-                                    }
-                                }
-                            },
-                            unlink: {
-                                title: this.redactor.lang.get('unlink'),
-                                func: 'link.unlink',
-                                observe: {
-                                    element: 'a',
-                                    out: {
-                                        attr: {
-                                            'class': 'redactor-dropdown-link-inactive',
-                                            'aria-disabled': true
-                                        }
-                                    }
-                                }
-                            }
-                        });
-
-                        this.redactor.button.addDropdown($linkBtn, dropdownOptions);
-                    }
-                }
-            },
-
-            onImageButtonClick: function() {
-                this.redactor.selection.save();
-
-                if (typeof this.assetSelectionModal === 'undefined') {
-                    this.assetSelectionModal = Craft.createElementSelectorModal('craft\\elements\\Asset', {
-                        storageKey: 'RedactorInput.ChooseImage',
-                        multiSelect: true,
-                        sources: this.volumes,
-                        criteria: {siteId: this.elementSiteId, kind: 'image'},
-                        onSelect: $.proxy(function(assets, transform) {
-                            if (assets.length) {
-                                this.redactor.selection.restore();
-                                for (var i = 0; i < assets.length; i++) {
-                                    var asset = assets[i],
-                                        url = asset.url + '#asset:' + asset.id;
-
-                                    if (transform) {
-                                        url += ':transform:' + transform;
-                                    }
-
-                                    this.redactor.insert.node($('<' + this.redactor.opts.imageTag + '><img src="' + url + '" /></figure>')[0]);
-                                    this.redactor.code.sync();
-                                }
-                                this.redactor.observe.images();
-                            }
-                        }, this),
-                        closeOtherModals: false,
-                        transforms: this.transforms
-                    });
-                }
-                else {
-                    this.assetSelectionModal.show();
-                }
-            },
-
-            onFileButtonClick: function() {
-                this.redactor.selection.save();
-
-                if (typeof this.assetLinkSelectionModal === 'undefined') {
-                    this.assetLinkSelectionModal = Craft.createElementSelectorModal('craft\\elements\\Asset', {
-                        storageKey: 'RedactorInput.LinkToAsset',
-                        sources: this.volumes,
-                        criteria: {siteId: this.elementSiteId},
-                        onSelect: $.proxy(function(assets) {
-                            if (assets.length) {
-                                this.redactor.selection.restore();
-                                var asset = assets[0],
-                                    url = asset.url + '#asset:' + asset.id,
-                                    selection = this.redactor.selection.text(),
-                                    title = selection.length > 0 ? selection : asset.label;
-                                this.redactor.insert.node($('<a href="' + url + '">' + title + '</a>')[0]);
-                                this.redactor.code.sync();
-                            }
-                        }, this),
-                        closeOtherModals: false,
-                        transforms: this.transforms
-                    });
-                }
-                else {
-                    this.assetLinkSelectionModal.show();
-                }
-            },
-
-            onLinkOptionClick: function(key) {
-                this.redactor.selection.save();
-
-                if (typeof this.linkOptionModals[key] === 'undefined') {
-                    var settings = this.linkOptions[key];
-
-                    this.linkOptionModals[key] = Craft.createElementSelectorModal(settings.elementType, {
-                        storageKey: (settings.storageKey || 'RedactorInput.LinkTo.' + settings.elementType),
-                        sources: settings.sources,
-                        criteria: $.extend({siteId: this.elementSiteId}, settings.criteria),
-                        onSelect: $.proxy(function(elements) {
-                            if (elements.length) {
-                                this.redactor.selection.restore();
-                                var element = elements[0],
-                                    url = element.url + '#' + settings.refHandle + ':' + element.id,
-                                    selection = this.redactor.selection.text(),
-                                    title = selection.length > 0 ? selection : element.label;
-                                this.redactor.insert.node($('<a href="' + url + '">' + title + '</a>')[0]);
-                                this.redactor.code.sync();
-                            }
-                        }, this),
-                        closeOtherModals: false
-                    });
-                }
-                else {
-                    this.linkOptionModals[key].show();
-                }
-            },
-
             onEditorFocus: function() {
-                this.redactor.core.box().addClass('focus');
-                this.redactor.core.box().trigger('focus');
+                this.redactor.container.getElement().addClass('focus');
+                this.redactor.container.getElement().trigger('focus');
             },
 
             onEditorBlur: function() {
-                this.redactor.core.box().removeClass('focus');
-                this.redactor.core.box().trigger('blur');
+                this.redactor.container.getElement().removeClass('focus');
+                this.redactor.container.getElement().trigger('blur');
             },
 
             leaveFullscreetOnSaveShortcut: function() {
-                if (typeof this.redactor.fullscreen !== 'undefined' && typeof this.redactor.fullscreen.disable === 'function') {
+                if (typeof this.redactor.plugin.fullscreen !== 'undefined' && typeof this.redactor.plugin.fullscreen.close === 'function') {
                     Craft.cp.on('beforeSaveShortcut', $.proxy(function() {
-                        if (this.redactor.fullscreen.isOpen) {
-                            this.redactor.fullscreen.disable();
+                        if (this.redactor.plugin.fullscreen.isOpen) {
+                            this.redactor.plugin.fullscreen.close();
                         }
                     }, this));
                 }
@@ -378,7 +212,7 @@ return;
             handleRedactorInit: function() {
                 // `this` is the current Redactor instance.
                 // `Craft.RedactorInput.currentInstance` is the current RedactorInput instance
-                //Craft.RedactorInput.currentInstance.onInitRedactor(this);
+                Craft.RedactorInput.currentInstance.onInitRedactor(this);
             }
         });
 })(jQuery);

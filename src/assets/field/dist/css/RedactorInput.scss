@@ -61,6 +61,11 @@ body {
     z-index: auto !important;
   }
 
+  .redactor-toolbar-fixed {
+    z-index: 1 !important;
+    background-color: #ffffff !important;
+  }
+
   .redactor-box {
     margin-bottom: 0;
   }
