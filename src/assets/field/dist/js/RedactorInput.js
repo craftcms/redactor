@@ -48,15 +48,9 @@
                 this.redactorConfig.plugins.push('craftAssetFiles');
                 this.redactorConfig.plugins.push('craftEntryLinks');
 
-                // Redactor I config setting normalization
+                // Redactor I/II config setting normalization
                 if (this.redactorConfig.buttons) {
                     var index;
-
-                    // buttons.html => plugins.source
-                    if ((index = $.inArray('html', this.redactorConfig.buttons)) !== -1) {
-                        this.redactorConfig.buttons.splice(index, 1);
-                        this.redactorConfig.plugins.unshift('source');
-                    }
 
                     // buttons.formatting => buttons.format
                     if ((index = $.inArray('formatting', this.redactorConfig.buttons)) !== -1) {
@@ -91,26 +85,8 @@
 
                 // Initialize Redactor
                 this.initRedactor();
-
-                // if (typeof Craft.livePreview !== 'undefined') {
-                //     // There's a UI glitch if Redactor is in Code view when Live Preview is shown/hidden
-                //     Craft.livePreview.on('beforeEnter beforeExit', $.proxy(function() {
-                //         this.redactor.core.destroy();
-                //     }, this));
-                //
-                //     Craft.livePreview.on('enter slideOut', $.proxy(function() {
-                //         this.initRedactor();
-                //     }, this));
-                // }
             },
-
-            mergeCallbacks: function(callback1, callback2) {
-                return function() {
-                    callback1.apply(this, arguments);
-                    callback2.apply(this, arguments);
-                };
-            },
-
+            
             initRedactor: function() {
                 var selector = '#' + this.id;
                 this.$textarea = $(selector);
