@@ -2,7 +2,11 @@ Changelog
 =========
 
 ## Unreleased
-3?
+
+### Changed
+- Updated Redactor to 3.0.6
+- Added image editor support for inserted Asset images.
+
 ### Changed
 - Updated Redactor to 2.12.
 - Redactor now comes bundled with all of Imperavi’s Redactor 2 plugins. ([#14](https://github.com/craftcms/redactor/issues/14))
