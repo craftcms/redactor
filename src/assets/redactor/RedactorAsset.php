@@ -43,14 +43,15 @@ class RedactorAsset extends AssetBundle
 
         // set the Redactor language
         $this->redactorLang = 'en';
-        if (Craft::$app->language != $this->redactorLang) {
-            foreach ([Craft::$app->language, Craft::$app->getLocale()->getLanguageID()] as $lang) {
-                $subPath = 'lang'.DIRECTORY_SEPARATOR."{$lang}.js";
-                if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
-                    $this->js[] = $subPath;
-                    $this->redactorLang = $lang;
-                    break;
-                }
+
+        $languages = array_unique([Craft::$app->language, Craft::$app->getLocale()->getLanguageID()]);
+
+        foreach ($languages as $lang) {
+            $subPath = 'lang'.DIRECTORY_SEPARATOR."{$lang}.js";
+            if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
+                $this->js[] = $subPath;
+                $this->redactorLang = $lang;
+                break;
             }
         }
 

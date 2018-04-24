@@ -14,7 +14,7 @@ Craft.Redactor.PluginBase = {
     start: function() {
         this.title = this.app.lang.get(this.title);
     },
-    
+
     overrideButton: function (replaceButton) {
         var allButtons = this.app.toolbar.getButtonsKeys();
         var targetButtonIndex = allButtons.indexOf(replaceButton);

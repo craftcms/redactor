@@ -26,6 +26,11 @@
 
                 this.linkOptionModals = [];
 
+                // Make the fixed toolbar positioning bearable.
+                if (!this.redactorConfig.toolbarFixedTarget) {
+                    this.redactorConfig.toolbarFixedTarget = '#content-container';
+                }
+
                 if (!this.redactorConfig.lang) {
                     this.redactorConfig.lang = settings.redactorLang;
                 }
@@ -47,6 +52,7 @@
                 this.redactorConfig.plugins.push('craftAssetImages');
                 this.redactorConfig.plugins.push('craftAssetFiles');
                 this.redactorConfig.plugins.push('craftEntryLinks');
+                this.redactorConfig.plugins.push('craftAssetImageEditor');
 
                 // Redactor I/II config setting normalization
                 if (this.redactorConfig.buttons) {
@@ -80,13 +86,14 @@
                 this.redactorConfig.callbacks = {
                     started: Craft.RedactorInput.handleRedactorInit,
                     focus: this.onEditorFocus.bind(this),
-                    blur: this.onEditorBlur.bind(this)
+                    blur: this.onEditorBlur.bind(this),
+                    contextbar: this.showContextBar.bind(this)
                 };
 
                 // Initialize Redactor
                 this.initRedactor();
             },
-            
+
             initRedactor: function() {
                 var selector = '#' + this.id;
                 this.$textarea = $(selector);
@@ -182,6 +189,47 @@
                 button.setIcon(icon);
 
                 return button;
+            },
+
+            showContextBar: function(e, contextbar) {
+                if (this.justResized)
+                {
+                    this.justResized = false;
+                    return;
+                }
+
+                var current = this.redactor.selection.getCurrent();
+                var data = this.redactor.inspector.parse(current);
+
+                if (!data.isFigcaption() && data.isComponentType('image'))
+                {
+                    var node = data.getComponent();
+                    var $img  = $(node).find('img');
+                    if ($img.length === 1) {
+                        var matches = matches = $img.attr('src').match(/#asset:(\d+)/i);
+                        if (matches) {
+                            var assetId = matches[1];
+                            var buttons = {
+                                "image-editor": {
+                                    title: this.redactor.lang.get('image-editor'),
+                                    api: 'plugin.craftAssetImageEditor.open',
+                                    args: assetId
+                                },
+                                "edit": {
+                                    title: this.redactor.lang.get('edit'),
+                                    api: 'module.image.open'
+                                },
+                                "remove": {
+                                    title: this.redactor.lang.get('delete'),
+                                    api: 'module.image.remove',
+                                    args: node
+                                }
+                            };
+                        }
+                        contextbar.set(e, node, buttons);
+                    }
+
+                }
             }
         },
         {

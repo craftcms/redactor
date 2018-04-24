@@ -49,6 +49,13 @@ gulp.task('field-js', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
 
+    var CraftAssetImageEditor = gulp.src(fieldPath+'/js/CraftAssetImageEditor.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
     var CraftAssetFiles = gulp.src(fieldPath+'/js/CraftAssetFiles.js')
         .pipe(sourcemaps.init())
         .pipe(uglify())
@@ -63,7 +70,7 @@ gulp.task('field-js', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
 
-    return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks);
+    return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks, CraftAssetImageEditor);
 });
 
 gulp.task('field-css', function() {
