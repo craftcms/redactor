@@ -204,24 +204,29 @@
                         var matches = matches = $img.attr('src').match(/#asset:(\d+)/i);
                         if (matches) {
                             var assetId = matches[1];
-                            var buttons = {
-                                "image-editor": {
-                                    title: this.redactor.lang.get('image-editor'),
-                                    api: 'plugin.craftAssetImageEditor.open',
-                                    args: assetId
-                                },
-                                "edit": {
-                                    title: this.redactor.lang.get('edit'),
-                                    api: 'module.image.open'
-                                },
-                                "remove": {
-                                    title: this.redactor.lang.get('delete'),
-                                    api: 'module.image.remove',
-                                    args: node
+                            Craft.postActionRequest('redactor', {assetId: assetId}, function (data) {
+                                if (data.success) {
+                                    var buttons = {
+                                        "image-editor": {
+                                            title: this.redactor.lang.get('image-editor'),
+                                            api: 'plugin.craftAssetImageEditor.open',
+                                            args: assetId
+                                        },
+                                        "edit": {
+                                            title: this.redactor.lang.get('edit'),
+                                            api: 'module.image.open'
+                                        },
+                                        "remove": {
+                                            title: this.redactor.lang.get('delete'),
+                                            api: 'module.image.remove',
+                                            args: node
+                                        }
+                                    };
+
+                                    contextbar.set(e, node, buttons);
                                 }
-                            };
+                            }.bind(this));
                         }
-                        contextbar.set(e, node, buttons);
                     }
 
                 }
