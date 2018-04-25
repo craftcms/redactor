@@ -26,11 +26,6 @@
 
                 this.linkOptionModals = [];
 
-                // Make the fixed toolbar positioning bearable.
-                if (!this.redactorConfig.toolbarFixedTarget) {
-                    this.redactorConfig.toolbarFixedTarget = '#content-container';
-                }
-
                 if (!this.redactorConfig.lang) {
                     this.redactorConfig.lang = settings.redactorLang;
                 }
