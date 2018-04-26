@@ -31,7 +31,7 @@ For example, if you created a `config/redactor/Standard.json` file with the foll
 ```json
 {
     "buttons": ["format", "bold", "italic", "lists", "link", "file", "horizontalrule"],
-    "plugins": [fullscreen"]
+    "plugins": ["fullscreen"]
 }
 ```
 
@@ -47,9 +47,9 @@ See the [HTML Purifier documentation] for a list of available config options.
 
 ### Redactor JS Plugins
 
-All official Redactor JS plugins are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
+All [1st party Redactor JS plugins] are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
 
 [Redactor]: https://imperavi.com/redactor/
 [Redactor documentation]: https://imperavi.com/redactor/docs/settings/
 [HTML Purifier documentation]: http://htmlpurifier.org/live/configdoc/plain.html
-[Plugins]: https://imperavi.com/redactor/plugins/
+[1st party Redactor JS plugins]: https://imperavi.com/redactor/plugins/
