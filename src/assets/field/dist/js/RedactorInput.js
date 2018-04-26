@@ -196,6 +196,18 @@
                 var current = this.redactor.selection.getCurrent();
                 var data = this.redactor.inspector.parse(current);
 
+                var repositionContextBar = function (e, contextbar) {
+                    var top = e.clientY - contextbar.$contextbar.height() - 10;
+                    var left = e.clientX - contextbar.$contextbar.width() / 2;
+
+                    var position = {
+                        left: left + 'px',
+                        top: top + 'px'
+                    };
+
+                    contextbar.$contextbar.css(position);
+                };
+
                 if (!data.isFigcaption() && data.isComponentType('image'))
                 {
                     var node = data.getComponent();
@@ -225,11 +237,15 @@
 
                                     contextbar.set(e, node, buttons);
                                 }
+
+                                repositionContextBar(e, contextbar);
                             }.bind(this));
                         }
                     }
 
                 }
+
+                repositionContextBar(e, contextbar);
             }
         },
         {
