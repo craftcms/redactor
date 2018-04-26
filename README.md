@@ -31,7 +31,7 @@ For example, if you created a `config/redactor/Standard.json` file with the foll
 ```json
 {
     "buttons": ["format", "bold", "italic", "lists", "link", "file", "horizontalrule"],
-    "plugins": ["source", "fullscreen"]
+    "plugins": [fullscreen"]
 }
 ```
 
@@ -47,13 +47,9 @@ See the [HTML Purifier documentation] for a list of available config options.
 
 ### Redactor JS Plugins
 
-The [Fullscreen], [Source Code], [Table], and [Video] Redactor JS plugins are bundled by default. If you wish to install any additional Redactor JS [plugins], just place their JS file (and CSS file if there is one) in `craft/config/redactor/plugins/`. Both files should have the exact same name as the plugin ID that you will be typing into the `plugins` array in your Redactor config JSON.  
+All official Redactor JS plugins are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
 
 [Redactor]: https://imperavi.com/redactor/
 [Redactor documentation]: https://imperavi.com/redactor/docs/settings/
 [HTML Purifier documentation]: http://htmlpurifier.org/live/configdoc/plain.html
-[Fullscreen]: https://imperavi.com/redactor/plugins/fullscreen/
-[Source Code]: https://imperavi.com/redactor/plugins/source/
-[Table]: https://imperavi.com/redactor/plugins/table/
-[Video]: https://imperavi.com/redactor/plugins/video/
-[plugins]: https://imperavi.com/redactor/plugins/
+[Plugins]: https://imperavi.com/redactor/plugins/
