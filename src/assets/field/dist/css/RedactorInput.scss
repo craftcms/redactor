@@ -141,3 +141,7 @@ body {
     @include readable;
   }
 }
+
+.redactor-box-fullscreen {
+  z-index: 100 !important;
+}
