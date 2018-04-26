@@ -73,6 +73,22 @@ gulp.task('field-js', function() {
     return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks, CraftAssetImageEditor);
 });
 
+gulp.task('redactor-plugins', function () {
+    var modifiedPlugins = ['fullscreen'];
+    var streams = [];
+
+    for (var i = 0; i < modifiedPlugins.length; i++) {
+        var plugin = modifiedPlugins[i];
+        streams.push(gulp.src('lib/redactor-plugins/'+plugin+'/'+plugin+'.js')
+            .pipe(sourcemaps.init())
+            .pipe(uglify())
+            .pipe(rename({ suffix: '.min' }))
+            .pipe(gulp.dest('lib/redactor-plugins/'+plugin)));
+    }
+
+    return merge.apply(this, streams);
+});
+
 gulp.task('field-css', function() {
     return gulp.src(fieldPath+'/css/RedactorInput.scss')
         .pipe(sass().on('error', sass.logError))
