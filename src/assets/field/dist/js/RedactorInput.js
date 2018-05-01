@@ -105,19 +105,28 @@
                 this.$textarea.redactor(this.redactorConfig);
 
                 this.redactor = $R(selector);
-                this.redactor.plugin.craftAssetImages.overrideButton('image');
-                this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
-                this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
-                this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
 
-                this.redactor.plugin.craftAssetFiles.overrideButton('file');
-                this.redactor.plugin.craftAssetFiles.setVolumes(this.volumes);
-                this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
+                var toolbarButtons = this.redactor.toolbar.getButtonsKeys();
 
-                this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
+                if (toolbarButtons.includes('image')) {
+                    this.redactor.plugin.craftAssetImages.overrideButton('image');
+                    this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
+                    this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
+                    this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
+                }
 
-                if (this.linkOptions.length) {
-                    this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
+                if (toolbarButtons.includes('file')) {
+                    this.redactor.plugin.craftAssetFiles.overrideButton('file');
+                    this.redactor.plugin.craftAssetFiles.setVolumes(this.volumes);
+                    this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
+                }
+
+                if (toolbarButtons.includes('link')) {
+                    this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
+                    
+                    if (this.linkOptions.length) {
+                        this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
+                    }
                 }
 
                 delete Craft.RedactorInput.currentInstance;
