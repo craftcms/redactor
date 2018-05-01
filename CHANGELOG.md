@@ -1,11 +1,16 @@
-Changelog
-=========
+# Release Notes for Redactor
+
+## 2.0.0 - 2018-05-01
+
+### Added
+- Updated Redactor to 3.0.6.
+- Added an Image Editor shortcut for asset-based images.
+- Bundled the [BeyondGrammar](https://imperavi.com/redactor/plugins/beyondgrammar/), [Handle](https://imperavi.com/redactor/plugins/handle/), [Specialchars](https://imperavi.com/redactor/plugins/specialchars/), [Variable](https://imperavi.com/redactor/plugins/variable/), and [Widget](https://imperavi.com/redactor/plugins/widget/) Redactor plugins.
+
+### Removed
+- Removed the Codemirror and Source plugins (no longer needed in Redactor 3). Redactor configs that included these plugins will be automatically updated.
 
 ## 1.1.0 - 2018-04-03
-
-### Changed
-- Updated Redactor to 3.0.6
-- Added image editor support for inserted Asset images.
 
 ### Changed
 - Updated Redactor to 2.12.
