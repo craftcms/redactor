@@ -1,5 +1,10 @@
 # Release Notes for Redactor
 
+## 2.0.0.1 - 2018-05-01
+
+### Fixed
+- Fixed a case-sensitivity issue. ([#31](https://github.com/craftcms/redactor/issues/31))
+
 ## 2.0.0 - 2018-05-01
 
 ### Added

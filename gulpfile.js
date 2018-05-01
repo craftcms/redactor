@@ -35,7 +35,7 @@ gulp.task('field-js', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
 
-    var pluginBase = gulp.src(fieldPath+'/js/pluginBase.js')
+    var pluginBase = gulp.src(fieldPath+'/js/PluginBase.js')
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))
