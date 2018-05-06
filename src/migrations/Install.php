@@ -4,6 +4,7 @@ namespace craft\redactor\migrations;
 
 use craft\db\Migration;
 use craft\redactor\Field;
+use craft\redactor\Plugin;
 
 /**
  * Install migration.
@@ -21,6 +22,9 @@ class Install extends Migration
         ], [
             'type' => 'craft\\fields\\RichText'
         ], [], false);
+
+        // Update any Redactor configs
+        Plugin::getInstance()->getMigrator()->migrateUp('m180430_204710_remove_old_plugins');
     }
 
     /**
