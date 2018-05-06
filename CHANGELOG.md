@@ -5,6 +5,9 @@
 ### Changed
 - The plugin now attempts to remove `codemirror` and `source` values from Redactor configs on install.
 
+### Fixed
+- Fixed a bug where inline styles created by the Alignment, Fontcolor, Fontfamily, and Fontsize plugins weren’t getting saved if the “Clean up HTML?” setting was enabled. ([#41](https://github.com/craftcms/redactor/issues/41)) 
+
 ## 2.0.0.1 - 2018-05-01
 
 ### Fixed
