@@ -70,7 +70,14 @@ gulp.task('field-js', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
 
-    return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks, CraftAssetImageEditor);
+    var RedactorOverrides = gulp.src(fieldPath+'/js/RedactorOverrides.js')
+        .pipe(sourcemaps.init())
+        .pipe(uglify())
+        .pipe(rename({ suffix: '.min' }))
+        .pipe(sourcemaps.write('./'))
+        .pipe(gulp.dest(fieldPath+'/js'));
+
+    return merge(redactor, pluginBase, CraftAssetImages, CraftAssetFiles, CraftEntryLinks, CraftAssetImageEditor, RedactorOverrides);
 });
 
 gulp.task('redactor-plugins', function () {

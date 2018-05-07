@@ -36,6 +36,7 @@ class FieldAsset extends AssetBundle
             'js/CraftAssetFiles'.$this->dotJs(),
             'js/CraftEntryLinks'.$this->dotJs(),
             'js/RedactorInput'.$this->dotJs(),
+            'js/RedactorOverrides'.$this->dotJs(),
         ];
 
         $this->css = [
