@@ -1,6 +1,6 @@
 # Release Notes for Redactor
 
-## Unreleased
+## 2.0.1 - 2018-05-07
 
 ### Changed
 - The plugin now attempts to remove `codemirror` and `source` values from Redactor configs on install.
