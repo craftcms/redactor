@@ -167,11 +167,6 @@ class Field extends \craft\base\Field
      */
     public $availableTransforms = '*';
 
-    /**
-     * @var string
-     */
-    private static $_redactorLang = 'en';
-
     // Public Methods
     // =========================================================================
 
