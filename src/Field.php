@@ -361,6 +361,9 @@ class Field extends \craft\base\Field
             }
 
             if ($this->cleanupHtml) {
+                // Swap no-break whitespaces for regular space
+                $value = preg_replace('/(&nbsp;|&#160;|\x{00A0})/u', ' ', $value);
+
                 // Remove <font> tags
                 $value = preg_replace('/<(?:\/)?font\b[^>]*>/', '', $value);
 

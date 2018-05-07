@@ -40,7 +40,7 @@
 <div id="advanced" class="hidden">
     {{ forms.checkboxField({
         label: "Clean up HTML?"|t('redactor'),
-        instructions: "Removes <code>&lt;span&gt;</code>’s, empty tags, and most <code>style</code> attributes on save."|t('redactor'),
+        instructions: "Removes <code>&lt;span&gt;</code>’s, empty tags, non-breaking whitespace and most <code>style</code> attributes on save."|t('redactor'),
         id: 'cleanupHtml',
         name: 'cleanupHtml',
         checked: field.cleanupHtml
