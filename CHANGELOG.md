@@ -4,7 +4,7 @@
 
 ### Changed
 - The plugin now attempts to remove `codemirror` and `source` values from Redactor configs on install.
-- Redactor fields with the “Clean up HTML?” setting enabled now convert non-breaking spaces to normal spaces.
+- Redactor fields with the “Clean up HTML?” setting enabled now convert non-breaking spaces to normal spaces. ([#24](https://github.com/craftcms/redactor/issues/24))
 - Updated Redactor to 3.0.8.
 
 ### Fixed
