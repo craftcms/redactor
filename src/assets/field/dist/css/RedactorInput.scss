@@ -10,10 +10,56 @@ body {
   }
 
   .redactor-modal {
+    @include sans-serif-font;
     border-radius: $paneBorderRadius;
     background: #fff;
     z-index: 1052;
     box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
+  }
+
+  .redactor-dropdown {
+    @include sans-serif-font;
+    font-size: 14px;
+  }
+
+  .redactor-dropdown-format {
+    .redactor-dropdown-item-h1,
+    .redactor-dropdown-item-h2,
+    .redactor-dropdown-item-h3,
+    .redactor-dropdown-item-h4,
+    .redactor-dropdown-item-h5,
+    .redactor-dropdown-item-h6 {
+      font-weight: 600;
+    }
+
+    .redactor-dropdown-item-h1 {
+      font-size: 32px;
+    }
+
+    .redactor-dropdown-item-h2 {
+      font-size: 24px;
+    }
+
+    .redactor-dropdown-item-h3 {
+      font-size: 20px;
+    }
+
+    .redactor-dropdown-item-h4 {
+      font-size: 16px;
+    }
+
+    .redactor-dropdown-item-h5 {
+      font-size: 14px;
+    }
+
+    .redactor-dropdown-item-h6 {
+      font-size: 13.6px;
+      color: $mediumTextColor;
+    }
+
+    .redactor-dropdown-item-pre {
+      @include fixed-width-font;
+    }
   }
 }
 
@@ -64,6 +110,11 @@ body {
 
   .redactor-box.redactor-box-fullscreen {
     z-index: 100 !important;
+  }
+
+  .redactor-toolbar,
+  .redactor-air {
+    @include sans-serif-font;
   }
 
   .redactor-toolbar {
