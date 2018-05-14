@@ -84,6 +84,7 @@ body {
   .redactor-toolbar li a:hover {
     background-color: $lightSelColor;
     color: $textColor;
+    text-decoration: none;
   }
 
   .redactor-toolbar li a:active,
