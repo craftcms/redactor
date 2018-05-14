@@ -89,7 +89,7 @@ body {
   }
 
   .redactor-box.focus:not(.redactor-box-fullscreen) {
-    @include text-input-focused-styles;
+    border-color: $darkHairlineColorAlpha !important;
   }
 
   /* redactor */
