@@ -123,6 +123,10 @@ body {
     box-shadow: none;
   }
 
+  .redactor-box:not(.redactor-box-fullscreen) .redactor-toolbar {
+    padding: 7px 7px 0 7px;
+  }
+
   .redactor-toolbar.toolbar-fixed-box {
     @include pane;
     z-index: 102 !important;
@@ -183,6 +187,7 @@ body {
 
   .redactor-styles {
     @include readable;
+    padding: 5px 7px;
   }
 }
 
