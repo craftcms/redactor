@@ -193,6 +193,11 @@ body {
   .redactor-styles {
     @include readable;
     padding: 5px 7px;
+
+    pre, time, small, var, code, kbd, mark {
+      @include fixed-width-font;
+      color: $textColor;
+    }
   }
 }
 

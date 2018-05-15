@@ -424,11 +424,6 @@ $elementBorderRadius: 2px;
   line-height: 20px;
   color: $textColor;
 
-  pre, time, small, var, code, kbd, mark {
-    @include fixed-width-font;
-    color: $textColor;
-  }
-
   h1, h2, h3, h4, h5, h6 {
     margin: 24px 0 16px;
     font-weight: 600;
