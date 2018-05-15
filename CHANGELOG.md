@@ -1,5 +1,10 @@
 # Release Notes for Redactor
 
+## Unreleased
+
+### Added
+- Updated Redactor to 3.0.9
+
 ## 2.0.1 - 2018-05-07
 
 ### Changed
