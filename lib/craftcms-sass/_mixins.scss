@@ -15,8 +15,8 @@ $black: #32475E;
 
 // BG colors
 $subnavBgColor: hsl($hue, 20%, 30%);
-$bgColor: hsl($hue, 10%, 93%);
-$lightBgColor: #fafafa;
+$bgColor: #f1f5f8;
+$lightBgColor: lighten($bgColor, 3%);
 
 // text colors
 $textColor: hsl($hue, 20%, 20%);
@@ -46,10 +46,10 @@ $secondarySubmitHoverColor: hsl($hue, 10%, 50%);
 $secondarySubmitActiveColor: hsl($hue, 10%, 40%);
 
 // alert/notice colors
-$errorColor: #da5a47;
-$warningColor: #e78640;
-$successColor: #00b007;
-$noticeColor: #5286d9;
+$errorColor: $orange;
+$warningColor: $orange;
+$successColor: $green;
+$noticeColor: $blue;
 
 // UI element styles
 $btnBorderRadius: 2px;
