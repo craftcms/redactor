@@ -200,6 +200,10 @@ body {
       @include fixed-width-font;
       color: $textColor;
     }
+
+    small {
+      font-size: 0.7em !important;
+    }
   }
 }
 
