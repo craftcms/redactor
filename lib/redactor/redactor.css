@@ -231,7 +231,7 @@ h6:empty,
 .redactor-in blockquote:empty {
   min-height: 1.5em; }
 
-.redactor-in strong:empty, .redactor-in b:empty, .redactor-in em:empty, .redactor-in i:empty, .redactor-in sup:empty, .redactor-in sub:empty, .redactor-in u:empty, .redactor-in ins:empty {
+.redactor-in strong:empty, .redactor-in b:empty, .redactor-in em:empty, .redactor-in i:empty, .redactor-in span:empty, .redactor-in sup:empty, .redactor-in sub:empty, .redactor-in u:empty, .redactor-in ins:empty {
   display: inline-block;
   min-width: 1px;
   min-height: 1rem; }
@@ -1214,9 +1214,6 @@ h6:empty,
   .redactor-styles embed,
   .redactor-styles object {
     height: auto !important; }
-  .redactor-styles embed,
-  .redactor-styles object {
-    height: 100%; }
   .redactor-styles img {
     vertical-align: middle;
     -ms-interpolation-mode: bicubic; }
