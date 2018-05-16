@@ -189,8 +189,8 @@ body {
   .redactor-styles {
     @include readable;
     @include sans-serif-font;
-    font-size: 16px;
-    line-height: 22px;
+    font-size: 14px;
+    line-height: 20px;
     color: $textColor;
 
     pre, time, small, var, code, kbd, mark {
