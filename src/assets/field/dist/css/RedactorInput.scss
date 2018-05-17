@@ -123,6 +123,10 @@ body {
     box-shadow: none;
   }
 
+  .redactor-toolbar-fixed {
+    border-top: 1px solid rgba(0,0,20,.1);
+  }
+
   .redactor-toolbar a,
   .redactor-air a {
     box-shadow: inset 0 0 0 1px transparent, 0 0 0 1px rgba(0, 0, 0, 0.025), 0 1px 1px rgba(0, 0, 0, 0.1);
