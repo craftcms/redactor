@@ -8,26 +8,21 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         this.app.selection.save();
 
         if (typeof this.assetSelectionModal === 'undefined') {
+            var refHandle = arguments.refHandle;
             this.assetSelectionModal = Craft.createElementSelectorModal('craft\\elements\\Asset', {
                 storageKey: 'RedactorInput.LinkToAsset',
                 sources: this.volumes,
                 criteria: {siteId: this.elementSiteId},
-                onSelect: $.proxy(function(assets, transform) {
-                    if (assets.length) {
+                onSelect: $.proxy(function(elements) {
+                    if (elements.length) {
                         this.app.selection.restore();
-                        for (var i = 0; i < assets.length; i++) {
-                            var asset = assets[i],
-                                url = asset.url + '#asset:' + asset.id,
-                                data = {};
-
-                            data['asset'+asset.id] = {
-                                url: url,
-                                id: asset.id,
-                                name: asset.label
+                        var element = elements[0],
+                            selection = this.app.selection.getText(),
+                            data = {
+                                url: element.url + '#' + refHandle + ':' + element.id,
+                                text: selection.length > 0 ? selection : element.label
                             };
-
-                            this.app.api('module.file.insert', data);
-                        }
+                        this.app.api('module.link.insert', data);
                     }
                 }, this),
                 closeOtherModals: false,
@@ -39,8 +34,8 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     },
 
     setVolumes: function (volumes) {
-    this.volumes = volumes;
-}
+        this.volumes = volumes;
+    }
 });
 
 (function($R) {
