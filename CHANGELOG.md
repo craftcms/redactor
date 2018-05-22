@@ -3,8 +3,8 @@
 ## Unreleased
 
 ### Fixed
-- Fixed a bug where it wasn't possible to edit links created using the `File` modal. ([#24](https://github.com/craftcms/redactor/issues/54))
-- Fixed a bug where links created using the `File` modal would overwrite the selected text with the file title. ([#24](https://github.com/craftcms/redactor/issues/54))
+- Fixed a bug where it wasn't possible to edit links created using the `File` modal. ([#54](https://github.com/craftcms/redactor/issues/54))
+- Fixed a bug where links created using the `File` modal would overwrite the selected text with the file title. ([#54](https://github.com/craftcms/redactor/issues/54))
 
 ## 2.1.0 - 2018-05-15
 
