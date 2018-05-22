@@ -108,20 +108,20 @@
 
                 var toolbarButtons = this.redactor.toolbar.getButtonsKeys();
 
-                if (toolbarButtons.includes('image')) {
+                if (toolbarButtons.indexOf('image') !== -1) {
                     this.redactor.plugin.craftAssetImages.overrideButton('image');
                     this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
-                    this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
+                    this.redactor.plugin.craftAssetImages.RedactorInputumes(this.volumes);
                     this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
                 }
 
-                if (toolbarButtons.includes('file')) {
+                if (toolbarButtons.indexOf('file') !== -1) {
                     this.redactor.plugin.craftAssetFiles.overrideButton('file');
                     this.redactor.plugin.craftAssetFiles.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
                 }
 
-                if (toolbarButtons.includes('link')) {
+                if (toolbarButtons.indexOf('link') !== -1) {
                     this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
                     
                     if (this.linkOptions.length) {
