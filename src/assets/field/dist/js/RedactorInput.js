@@ -34,10 +34,8 @@
                     this.redactorConfig.direction = (settings.direction || Craft.orientation);
                 }
 
-                this.redactorConfig.imageUpload = true;
-                this.redactorConfig.fileUpload = true;
-                this.redactorConfig.dragImageUpload = false;
-                this.redactorConfig.dragFileUpload = false;
+                this.redactorConfig.imageUpload = false;
+                this.redactorConfig.fileUpload = false;
 
                 // Prevent a JS error when calling core.destroy() when opts.plugins == false
                 if (typeof this.redactorConfig.plugins !== typeof []) {
