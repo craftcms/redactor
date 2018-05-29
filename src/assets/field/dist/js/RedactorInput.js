@@ -111,7 +111,7 @@
                 if (toolbarButtons.indexOf('image') !== -1) {
                     this.redactor.plugin.craftAssetImages.overrideButton('image');
                     this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
-                    this.redactor.plugin.craftAssetImages.RedactorInputumes(this.volumes);
+                    this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
                 }
 
