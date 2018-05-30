@@ -1,6 +1,8 @@
 # Release Notes for Redactor
 
 ## Unreleased
+### Changed
+- Added Dutch translations.
 
 ### Changed
 - Updated Redactor to 3.0.11.
