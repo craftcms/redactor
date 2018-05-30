@@ -1,6 +1,8 @@
 # Release Notes for Redactor
 
 ## Unreleased
+### Changed
+- Added Dutch translations.
 
 ### Fixed
 - Fixed a bug where the fixed toolbar _still_ was not working. ([#9]((https://github.com/craftcms/redactor/issues/9))
