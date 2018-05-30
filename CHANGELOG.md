@@ -1,6 +1,8 @@
 # Release Notes for Redactor
 
 ## Unreleased
+### Changed
+- Added Dutch translations.
 
 ### Fixed
 - Fixed a bug where it wasn't possible to edit links created using the `File` modal. ([#54](https://github.com/craftcms/redactor/issues/54))
