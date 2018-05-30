@@ -123,9 +123,17 @@ body {
     box-shadow: none;
   }
 
+  .redactor-toolbar-fixed {
+    border-top: 1px solid rgba(0,0,20,.1);
+  }
+
   .redactor-toolbar a,
   .redactor-air a {
     box-shadow: inset 0 0 0 1px transparent, 0 0 0 1px rgba(0, 0, 0, 0.025), 0 1px 1px rgba(0, 0, 0, 0.1);
+  }
+
+  .redactor-box:not(.redactor-box-fullscreen) .redactor-toolbar {
+    padding: 7px 7px 0 7px;
   }
 
   .redactor-toolbar.toolbar-fixed-box {
@@ -189,8 +197,9 @@ body {
   .redactor-styles {
     @include readable;
     @include sans-serif-font;
-    font-size: 16px;
-    line-height: 22px;
+    padding: 5px 7px;
+    font-size: 14px;
+    line-height: 20px;
     color: $textColor;
 
     pre, time, small, var, code, kbd, mark {
