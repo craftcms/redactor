@@ -6,10 +6,10 @@
 - 6th level headings are no longer displayed in all-uppercase in the editor. ([craftcms/cms#2927](https://github.com/craftcms/cms/issues/2927))
 
 ### Fixed
-- Fixed a bug where it wasn't possible to edit links created using the `File` modal. ([#54](https://github.com/craftcms/redactor/issues/54))
-- Fixed a bug where links created using the `File` modal would overwrite the selected text with the file title. ([#54](https://github.com/craftcms/redactor/issues/54))
-- Fixed a bug where plugin was not compatible with IE11. ([#46](https://github.com/craftcms/redactor/issues/46))
-- Fixed a bug where it was possible to use drag-and-drop uploading, which is not supported. ([#2920@craftcms/cms](https://github.com/craftcms/cms/issues/2920))
+- Fixed IE11 compatibility. ([#46](https://github.com/craftcms/redactor/issues/46))
+- Fixed a bug where it wasn’t possible to edit links created using the File modal. ([#54](https://github.com/craftcms/redactor/issues/54))
+- Fixed a bug where links created using the File modal would overwrite the selected text with the file title. ([#54](https://github.com/craftcms/redactor/issues/54))
+- Fixed a bug where it was possible to initiate drag-and-drop uploading, which isn’t supported. ([craftcms/cms#2920](https://github.com/craftcms/cms/issues/2920))
 
 ## 2.1.0 - 2018-05-15
 
