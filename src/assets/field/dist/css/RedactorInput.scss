@@ -193,6 +193,10 @@ body {
     line-height: 22px;
     color: $textColor;
 
+    h6 {
+      text-transform: none;
+    }
+
     pre, time, small, var, code, kbd, mark {
       @include fixed-width-font;
       color: $textColor;

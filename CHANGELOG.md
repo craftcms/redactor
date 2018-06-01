@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- 6th level headings are no longer displayed in all-uppercase in the editor. ([craftcms/cms#2927](https://github.com/craftcms/cms/issues/2927))
+
 ### Fixed
 - Fixed a bug where it wasn't possible to edit links created using the `File` modal. ([#54](https://github.com/craftcms/redactor/issues/54))
 - Fixed a bug where links created using the `File` modal would overwrite the selected text with the file title. ([#54](https://github.com/craftcms/redactor/issues/54))
