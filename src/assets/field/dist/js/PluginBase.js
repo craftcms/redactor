@@ -42,6 +42,21 @@ Craft.Redactor.PluginBase = {
         button.setIcon(icon);
     },
 
+    addButton: function (buttonName, position) {
+        var allButtons = this.app.toolbar.getButtonsKeys();
+        position = Math.min(allButtons.length, position);
+
+        var buttonData = {
+            title: this.title,
+            api: this.apiTarget
+        };
+
+        var previous = this.app.toolbar.getButtonByIndex(position - 1);
+        var button = this.app.toolbar.addButton(previous.name, buttonName, buttonData);
+
+        button.setIcon($('<i class="re-icon-'+buttonName+'"></i>').get(0));
+    },
+
     setElementSiteId: function (siteId) {
         this.elementSiteId = siteId;
     }

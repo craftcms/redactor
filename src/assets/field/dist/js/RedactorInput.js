@@ -106,15 +106,23 @@
 
                 var toolbarButtons = this.redactor.toolbar.getButtonsKeys();
 
-                if (toolbarButtons.indexOf('image') !== -1) {
-                    this.redactor.plugin.craftAssetImages.overrideButton('image');
+                if (this.redactorConfig.buttons.indexOf('image') !== -1) {
+                    if (toolbarButtons.indexOf('image') !== -1) {
+                        this.redactor.plugin.craftAssetImages.overrideButton('image');
+                    } else {
+                        this.redactor.plugin.craftAssetImages.addButton('image', this.redactorConfig.buttons.indexOf('image'));
+                    }
                     this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
                     this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
                 }
 
-                if (toolbarButtons.indexOf('file') !== -1) {
-                    this.redactor.plugin.craftAssetFiles.overrideButton('file');
+                if (this.redactorConfig.buttons.indexOf('file') !== -1) {
+                    if (toolbarButtons.indexOf('file') !== -1) {
+                        this.redactor.plugin.craftAssetFiles.overrideButton('file');
+                    } else {
+                        this.redactor.plugin.craftAssetFiles.addButton('file', this.redactorConfig.buttons.indexOf('file'));
+                    }
                     this.redactor.plugin.craftAssetFiles.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetFiles.setElementSiteId(this.elementSiteId);
                 }
