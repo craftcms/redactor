@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Changed
+- Updated Redactor to 3.0.11.
 - 6th level headings are no longer displayed in all-uppercase in the editor. ([craftcms/cms#2927](https://github.com/craftcms/cms/issues/2927))
 
 ### Fixed
