@@ -52,7 +52,7 @@ Craft.Redactor.PluginBase = {
         };
 
         var previous = this.app.toolbar.getButtonByIndex(position - 1);
-        var button = this.app.toolbar.addButton(previous.name, buttonName, buttonData);
+        var button = this.app.toolbar.addButton(buttonName, buttonData);
 
         button.setIcon($('<i class="re-icon-'+buttonName+'"></i>').get(0));
     },
