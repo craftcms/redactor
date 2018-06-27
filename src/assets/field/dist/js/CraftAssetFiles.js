@@ -8,7 +8,6 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         this.app.selection.save();
 
         if (typeof this.assetSelectionModal === 'undefined') {
-            var refHandle = arguments.refHandle;
             this.assetSelectionModal = Craft.createElementSelectorModal('craft\\elements\\Asset', {
                 storageKey: 'RedactorInput.LinkToAsset',
                 sources: this.volumes,
@@ -20,7 +19,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                             selection = this.app.selection.getText(),
                             data = {
                                 target: true,
-                                url: element.url + '#' + refHandle + ':' + element.id,
+                                url: element.url + '#asset:' + element.id,
                                 text: selection.length > 0 ? selection : element.label
                             };
                         this.app.api('module.link.insert', data);
