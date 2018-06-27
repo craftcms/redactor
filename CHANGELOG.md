@@ -1,6 +1,9 @@
 # Release Notes for Redactor
 
 ## Unreleased
+### Changed
+- Asset links have target _blank.
+- Added Dutch translations.
 
 ### Changed
 - Updated Redactor to 3.0.11.
