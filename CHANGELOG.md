@@ -2,6 +2,7 @@
 
 ## Unreleased
 ### Changed
+- Asset links have target _blank.
 - Added Dutch translations.
 
 ### Changed
