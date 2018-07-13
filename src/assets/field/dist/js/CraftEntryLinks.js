@@ -41,7 +41,6 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
             newList = {},
             counter = 0;
 
-
         for (var option in linkOptions) {
             option = linkOptions[option];
             newList['custom'+(++counter)] = {
