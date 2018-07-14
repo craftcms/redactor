@@ -104,6 +104,10 @@
 
                 this.redactor = $R(selector);
 
+                if (typeof this.redactorConfig.buttons === 'undefined') {
+                    this.redactorConfig.buttons = [];
+                }
+
                 var toolbarButtons = this.redactor.toolbar.getButtonsKeys();
 
                 if (this.redactorConfig.buttons.indexOf('image') !== -1) {

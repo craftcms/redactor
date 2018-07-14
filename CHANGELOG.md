@@ -1,5 +1,10 @@
 # Release Notes for Redactor
 
+## Unreleased
+
+### Fixed
+- Fixed a Javascript error for Redactor fields with no buttons defined in the config. ([#68](https://github.com/craftcms/redactor/issues/68))
+
 ## 2.1.1 - 2018-07-13
 
 ### Changed
