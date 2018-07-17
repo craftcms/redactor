@@ -272,6 +272,7 @@ class Field extends \craft\base\Field
             $settings['direction'] = $locale->getOrientation();
         }
 
+        RedactorAsset::registerTranslations($view);
         $view->registerJs('new Craft.RedactorInput('.Json::encode($settings).');');
 
         if ($value instanceof FieldData) {

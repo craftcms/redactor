@@ -1,5 +1,10 @@
 # Release Notes for Redactor
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where it was impossible to define translation overrides. ([#63](https://github.com/craftcms/redactor/issues/63))
+
 ## 2.1.2 - 2018-07-14
 
 ### Fixed

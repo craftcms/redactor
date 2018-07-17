@@ -20,7 +20,7 @@ class RedactorAsset extends AssetBundle
     /**
      * @var string the language Redactor should use
      */
-    public $redactorLang;
+    public static $redactorLanguage;
 
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class RedactorAsset extends AssetBundle
         ];
 
         // set the Redactor language
-        $this->redactorLang = 'en';
+        self::$redactorLanguage = 'en';
 
         $languages = array_unique([Craft::$app->language, Craft::$app->getLocale()->getLanguageID()]);
 
@@ -50,7 +50,7 @@ class RedactorAsset extends AssetBundle
             $subPath = 'lang'.DIRECTORY_SEPARATOR."{$lang}.js";
             if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
                 $this->js[] = $subPath;
-                $this->redactorLang = $lang;
+                self::$redactorLanguage = $lang;
                 break;
             }
         }
@@ -59,12 +59,12 @@ class RedactorAsset extends AssetBundle
     }
 
     /**
-     * @inheritdoc
+     * Register the custom translations for the Redactor field.
+     * 
+     * @param $view
      */
-    public function registerAssetFiles($view)
+    public static function registerTranslations($view)
     {
-        parent::registerAssetFiles($view);
-
         $customTranslations = [
             'fullscreen' => Craft::t('redactor', 'Fullscreen'),
             'insert-page-break' => Craft::t('redactor', 'Insert Page Break'),
@@ -84,7 +84,7 @@ class RedactorAsset extends AssetBundle
         ];
 
         $view->registerJs(
-            "$.extend(\$R.lang['{$this->redactorLang}'], ".
+            "\$.extend(\$R.lang['".self::$redactorLanguage."'], ".
             Json::encode($customTranslations).
             ');');
     }
