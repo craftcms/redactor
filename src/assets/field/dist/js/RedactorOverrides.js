@@ -43,9 +43,9 @@ imageResizeClass.prototype._build = function (e) {
         this.$resizer.on('mousedown touchstart', this._set.bind(this));
 
         if (this.toolbar.isTarget()) {
-            this.$target.on('scroll', this.rebuild.bind(this));
+            this.$target.on('scroll.resizer', this.rebuild.bind(this));
         } else {
-            $('#content-container').on('scroll', this.rebuild.bind(this));
+            $R.dom('#content-container').on('scroll.resizer', this.rebuild.bind(this));
         }
     }
 };
@@ -53,9 +53,9 @@ imageResizeClass.prototype._build = function (e) {
 imageResizeClass.prototype.hide = function () {
     this.$target.find('#redactor-image-resizer').remove();
     if (this.toolbar.isTarget()) {
-        this.$target.off('scroll', this.rebuild.bind(this));
+        this.$target.off('scroll.resizer', this.rebuild.bind(this));
     } else {
-        $('#content-container').off('scroll', this.rebuild.bind(this));
+        $R.dom('#content-container').off('scroll.resizer', this.rebuild.bind(this));
     }
 };
 
@@ -63,12 +63,12 @@ imageResizeClass.prototype.hide = function () {
 // =============================================================================
 
 var toolbarFixedClass = $R['classes']['toolbar.fixed'];
+
 toolbarFixedClass.prototype._doFixed = function() {
     var $editor = this.editor.getElement();
     var $container = this.container.getElement();
     var $toolbar = this.toolbar.getElement();
     var $wrapper = this.toolbar.getWrapper();
-
     var $targets = $container.parents().filter(function(node)
     {
         return (getComputedStyle(node, null).display === 'none') ? node : false;
