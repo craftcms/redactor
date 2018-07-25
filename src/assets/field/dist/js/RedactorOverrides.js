@@ -84,7 +84,7 @@ toolbarFixedClass.prototype._doFixed = function() {
 
     // Fix figuring out when to pin the toolbar and when not.
     var toolbarHeight = $toolbar.height();
-    var toleranceEnd = 60;
+    var toleranceEnd = 100;
     var containerOffset = $container.offset();
     var boxOffset = containerOffset.top;
     var scrollOffset = this.$fixedTarget.scrollTop();

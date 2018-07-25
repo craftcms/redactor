@@ -93,7 +93,7 @@
 
                 if (typeof this.redactorConfig.toolbarFixed === 'undefined' || this.redactorConfig.toolbarFixed) {
                     // Set the toolbarFixedTarget depending on the context
-                    var target = this.$textarea.closest('#content-container, .lp-editor');
+                    var target = this.$textarea.closest('#content, .lp-editor');
                     if (target.length) {
                         this.redactorConfig.toolbarFixedTarget = target;
                     }

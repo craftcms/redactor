@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixed
+- Fixed a bug where the fixed toolbar _still_ was not working. ([#9]((https://github.com/craftcms/redactor/issues/9))
+
 ### 2.1.3 - 2018-07-25
 
 - Fixed a bug where the fixed toolbar was not working. ([#9]((https://github.com/craftcms/redactor/issues/9))
