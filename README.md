@@ -22,7 +22,14 @@ To install the plugin, follow these instructions.
     composer require craftcms/redactor
     ```
 
-3.  In the Control Panel, go to Settings → Plugins and click the “Install” button for Redactor.
+3.  Then tell Craft to install the plugin
+
+    - either though the Craft admin: in the Control Panel, go to Settings → Plugins and click the “Install” button for Redactor
+    - or on the command line:
+
+        ```bash
+        ./craft install/plugin redactor
+        ```
 
 ## Configuration
 
