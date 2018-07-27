@@ -6,11 +6,11 @@
 - The plugin is now translated into Dutch. ([#55](https://github.com/craftcms/redactor/pull/55))
 
 ### Fixed
-- Fixed a bug where the fixed toolbar wan’t working. ([#9]((https://github.com/craftcms/redactor/issues/9))
+- Fixed a bug where the fixed toolbar wan’t working. ([#9](https://github.com/craftcms/redactor/issues/9))
 
 ## 2.1.3 - 2018-07-25
 
-- Fixed a bug where the fixed toolbar was not working. ([#9]((https://github.com/craftcms/redactor/issues/9))
+- Fixed a bug where the fixed toolbar was not working. ([#9](https://github.com/craftcms/redactor/issues/9))
 - Fixed a bug where it was impossible to define translation overrides. ([#63](https://github.com/craftcms/redactor/issues/63))
 
 ## 2.1.2 - 2018-07-14
