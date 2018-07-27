@@ -1,6 +1,7 @@
 # Release Notes for Redactor
 
 ## Unreleased
+
 ### Changed
 - Added Dutch translations.
 
