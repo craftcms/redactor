@@ -8,21 +8,27 @@ This plugin requires Craft CMS 3.0.0-RC15 or later.
 
 ## Installation
 
-To install the plugin, follow these instructions.
+You can either install this plugin from the Plugin Store or your terminal.
 
-1.  Open your terminal and go to your Craft project:
+### From the Plugin Store
 
-    ```bash
-    cd /path/to/project
-    ```
+1. In the Control Panel, go to the Plugin Store and search for “Redactor”.
+2. Click on Redactor, and then click the “Install” button in the modal window.
 
-2.  Then tell Composer to load the plugin:
+### From Your Terminal
 
-    ```bash
-    composer require craftcms/redactor
-    ```
+Open your terminal and run the following commands:
 
-3.  In the Control Panel, go to Settings → Plugins and click the “Install” button for Redactor.
+```bash
+# go to the project directory
+cd /path/to/my-project.test
+
+# tell Composer to load the plugin
+composer require craftcms/redactor
+
+# tell Craft to install the plugin
+./craft install/plugin redactor
+```
 
 ## Configuration
 
