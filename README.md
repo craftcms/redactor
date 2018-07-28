@@ -1,4 +1,4 @@
-# Redactor plugin for Craft
+# Redactor for Craft CMS
 
 This plugin adds a “Redactor” field type to Craft CMS, which provides a rich text editor powered by [Redactor](https://imperavi.com/redactor/) by Imperavi.
 

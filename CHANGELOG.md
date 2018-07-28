@@ -1,4 +1,4 @@
-# Release Notes for Redactor
+# Release Notes for Redactor for Craft CMS
 
 ## Unreleased
 
