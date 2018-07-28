@@ -8,7 +8,7 @@ This plugin requires Craft CMS 3.0.0-RC15 or later.
 
 ## Installation
 
-You can either install this plugin from the Plugin Store or with Composer.
+You can install this plugin from the Plugin Store or with Composer.
 
 #### From the Plugin Store
 
