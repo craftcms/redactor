@@ -12,7 +12,7 @@ You can install this plugin from the Plugin Store or with Composer.
 
 #### From the Plugin Store
 
-Go to the Plugin Store in Craft’s Control Panel and search for “Redactor”. Then click on the “Install” button in its modal window.
+Go to the Plugin Store in your project’s Control Panel and search for “Redactor”. Then click on the “Install” button in its modal window.
 
 #### With Composer
 
