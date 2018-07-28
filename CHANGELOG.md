@@ -1,5 +1,10 @@
 # Release Notes for Redactor
 
+## Unreleased
+
+### Added
+- The plugin is now translated into Hungarian. ([#73](https://github.com/craftcms/redactor/pull/73))
+
 ## 2.1.4 - 2018-07-27
 
 ### Added
