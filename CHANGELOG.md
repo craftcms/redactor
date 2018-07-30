@@ -5,6 +5,9 @@
 ### Added
 - The plugin is now translated into Hungarian. ([#73](https://github.com/craftcms/redactor/pull/73))
 
+### Fixed
+- Fixed a bug where Redactor language was not being accessed properly when rendering the Redactor field. ([#74](https://github.com/craftcms/redactor/issues/74))
+
 ## 2.1.4 - 2018-07-27
 
 ### Added
