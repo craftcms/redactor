@@ -57,3 +57,22 @@ See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/pla
 ### Redactor JS Plugins
 
 All [1st party Redactor JS plugins](https://imperavi.com/redactor/plugins/) are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
+
+```json
+{
+  "plugins": ["alignment", "fullscreen"]
+}
+```
+
+You can also supply your own Redactor plugins by saving them in your `config/redactor/` folder. You can either place the plugin directly in that folder, or within a subfolder that is named after the plugin:
+
+```json
+config/
+└── redactor/
+    └── plugins/
+        ├── foo.js 
+        └── bar/
+            └── bar.js
+```
+
+Other Craft plugins can supply additional Redactor JS plugin locations using the `craft\redactor\Field::EVENT_REGISTER_PLUGIN_PATHS` event.
