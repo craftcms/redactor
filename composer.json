@@ -36,6 +36,6 @@
     "name": "Redactor",
     "handle": "redactor",
     "changelogUrl": "https://raw.githubusercontent.com/craftcms/redactor/master/CHANGELOG.md",
-    "downloadUrl": "https://github.com/craftcms/redactor/archive/master.zip"
+    "downloadUrl": "https://github.com/craftcms/redactor/archive/v2.zip"
   }
 }
