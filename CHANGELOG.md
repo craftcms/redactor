@@ -1,5 +1,14 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Updated Redactor to 3.1.1
+
+### Fixed
+- Updating Redactor fixed a bug where inserting links to entries would not work in Firefox. ([#61](https://github.com/craftcms/redactor/issues/61))
+- Updating Redactor fixed a bug where using "inlinestyle" plugin would overwrite tags. ([#58](https://github.com/craftcms/redactor/issues/58))
+
 ## 2.1.5 - 2018-07-30
 
 ### Added
