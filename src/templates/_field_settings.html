@@ -7,7 +7,7 @@
             ext: '`.json`',
             path: '`config/redactor/`'
         }) ~
-        ' <a href="http://imperavi.com/redactor/docs/settings/" target="_blank">'~"View available settings"|t('redactor')~'</a>',
+        ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
     id: 'redactorConfig',
     name: 'redactorConfig',
     options: redactorConfigOptions,
@@ -48,7 +48,7 @@
 
     {{ forms.checkboxField({
         label: "Purify HTML?"|t('redactor'),
-        instructions: 'Removes any potentially-malicious code on save, by running the submitted data through <a href="http://htmlpurifier.org/" target="_blank">HTML Purifier</a>.'|t('redactor'),
+        instructions: 'Removes any potentially-malicious code on save, by running the submitted data through <a href="http://htmlpurifier.org/" rel="noopener" target="_blank">HTML Purifier</a>.'|t('redactor'),
         warning: 'Disable this at your own risk!'|t('redactor'),
         id: 'purifyHtml',
         name: 'purifyHtml',
@@ -64,7 +64,7 @@
                 ext: '`.json`',
                 path: '`config/htmlpurifier/`'
             }) ~
-            ' <a href="http://htmlpurifier.org/live/configdoc/plain.html" target="_blank">'~"View available settings"|t('redactor')~'</a>',
+            ' <a href="http://htmlpurifier.org/live/configdoc/plain.html" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
             id: 'purifierConfig',
             name: 'purifierConfig',
             options: purifierConfigOptions,
