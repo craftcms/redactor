@@ -258,7 +258,7 @@ class Field extends \craft\base\Field
 
         $settings = [
             'id' => $view->namespaceInputId($id),
-            'linkOptions' => $this->_getLinkOptions($element, $redactorConfig),
+            'linkOptions' => $this->_getLinkOptions($element),
             'volumes' => $this->_getVolumeKeys(),
             'transforms' => $this->_getTransforms(),
             'elementSiteId' => $site->id,
