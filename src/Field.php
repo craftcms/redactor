@@ -458,12 +458,16 @@ class Field extends \craft\base\Field
      */
     private function _getLinkOptions(Element $element = null): array
     {
+        $redactorConfig = $this->_getRedactorConfig();
+
         $linkOptions = [];
 
         $sectionSources = $this->_getSectionSources($element);
         $categorySources = $this->_getCategorySources($element);
 
-        if (!empty($sectionSources)) {
+        $linkToEntry = array_key_exists('linkToEntry', $redactorConfig) ? $redactorConfig['linkToEntry'] : true;
+
+        if ($linkToEntry && !empty($sectionSources)) {
             $linkOptions[] = [
                 'optionTitle' => Craft::t('redactor', 'Link to an entry'),
                 'elementType' => Entry::class,
