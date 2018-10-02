@@ -8,6 +8,7 @@
 namespace craft\redactor;
 
 use Craft;
+use craft\base\ElementInterface;
 
 /**
  * Stores the data for Redactor fields.
@@ -38,13 +39,13 @@ class FieldData extends \Twig_Markup
      *
      * @param string $content
      */
-    public function __construct(string $content)
+    public function __construct(string $content, ElementInterface $element = null)
     {
         // Save the raw content in case we need it later
         $this->_rawContent = $content;
 
         // Parse the ref tags
-        $content = Craft::$app->getElements()->parseRefs($content);
+        $content = Craft::$app->getElements()->parseRefs($content, $element->siteId ?? null);
 
         parent::__construct($content, Craft::$app->charset);
     }
