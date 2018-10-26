@@ -1,3 +1,5 @@
+window.livePreviewHideFullscreen = false;
+
 (function($) {
     /** global: Craft */
     /** global: Garnish */
@@ -137,6 +139,16 @@
                     if (this.linkOptions.length) {
                         this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
                     }
+                }
+
+                if (this.redactorConfig.plugins.indexOf('fullscreen') !== -1 && typeof Craft.livePreview != "undefined" && window.livePreviewHideFullscreen === false) {
+                    window.livePreviewHideFullscreen = true;
+                    Craft.livePreview.on('beforeEnter', function (ev) {
+                       $('a.re-button.re-fullscreen').addClass('hidden');
+                    });
+                    Craft.livePreview.on('beforeExit', function (ev) {
+                        $('a.re-button.re-fullscreen').removeClass('hidden');
+                    });
                 }
 
                 delete Craft.RedactorInput.currentInstance;
