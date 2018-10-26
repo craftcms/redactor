@@ -69,6 +69,7 @@ class RedactorAsset extends AssetBundle
             'fullscreen' => Craft::t('redactor', 'Fullscreen'),
             'insert-page-break' => Craft::t('redactor', 'Insert Page Break'),
             'table' => Craft::t('redactor', 'Table'),
+            'image-editor' => Craft::t('redactor', 'Image editor'),
             'insert-table' => Craft::t('redactor', 'Insert table'),
             'insert-row-above' => Craft::t('redactor', 'Insert row above'),
             'insert-row-below' => Craft::t('redactor', 'Insert row below'),

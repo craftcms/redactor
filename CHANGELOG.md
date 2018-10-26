@@ -6,6 +6,9 @@
 - Updated Redactor to 3.1.4
 - Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
 
+### Fixed
+- Fixed a bug where image editor would be unavailable for inserted assets. ([#95](https://github.com/craftcms/redactor/issues/95))
+
 ## 2.1.6 - 2018-08-21
 
 ### Changed

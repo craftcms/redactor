@@ -36,6 +36,7 @@ imageResizeClass.prototype._build = function (e) {
 
         this.$resizer = $R.dom('<span>');
         this.$resizer.attr('id', 'redactor-image-resizer');
+        this.$resizer.css({'z-index': 100});
 
         this.$target.append(this.$resizer);
 
