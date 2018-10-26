@@ -8,6 +8,7 @@
 
 ### Fixed
 - Fixed a bug where image editor would be unavailable for inserted assets. ([#95](https://github.com/craftcms/redactor/issues/95))
+- Fixed a bug where Redactor was not getting translated properly for Norwegian languages. ([#99](https://github.com/craftcms/redactor/issues/99))
 
 ## 2.1.6 - 2018-08-21
 

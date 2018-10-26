@@ -46,6 +46,10 @@ class RedactorAsset extends AssetBundle
 
         $languages = array_unique([Craft::$app->language, Craft::$app->getLocale()->getLanguageID()]);
 
+        if (!empty(array_intersect($languages, ['nb', 'nn']))) {
+            $languages[] = 'no';
+        }
+
         foreach ($languages as $lang) {
             $subPath = 'lang'.DIRECTORY_SEPARATOR."{$lang}.js";
             if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
@@ -60,7 +64,7 @@ class RedactorAsset extends AssetBundle
 
     /**
      * Register the custom translations for the Redactor field.
-     * 
+     *
      * @param $view
      */
     public static function registerTranslations($view)
