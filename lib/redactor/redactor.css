@@ -328,6 +328,7 @@
 
 #redactor-image-resizer {
   position: absolute;
+  z-index: 1050;
   background-color: rgba(0, 125, 255, 0.9);
   width: 13px;
   height: 13px;
@@ -1224,7 +1225,7 @@
     font-style: italic;
     text-align: left; }
 
-.upload-box {
+.upload-redactor-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -1239,22 +1240,22 @@
   overflow: hidden;
   text-align: center; }
 
-.upload-placeholder {
+.upload-redactor-placeholder {
   font-size: 15px;
   line-height: 1.5;
   color: rgba(0, 0, 0, 0.3);
   font-style: italic; }
 
-.upload-hover {
+.upload-redactor-hover {
   background-color: rgba(0, 125, 255, 0.075); }
 
-.upload-error {
+.upload-redactor-error {
   background-color: rgba(255, 50, 101, 0.075); }
 
-.upload-box-hover {
+.upload-redactor-box-hover {
   outline: 5px dashed rgba(0, 125, 255, 0.3); }
 
-.upload-box-error {
+.upload-redactor-box-error {
   outline: 5px dashed rgba(255, 50, 101, 0.3); }
 
 .redactor-structure h1, .redactor-structure h2, .redactor-structure h3, .redactor-structure h4, .redactor-structure h5, .redactor-structure h6, .redactor-structure div {
