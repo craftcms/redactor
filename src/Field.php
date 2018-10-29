@@ -693,6 +693,7 @@ class Field extends \craft\base\Field
         // Default config
         return [
             'Attr.AllowedFrameTargets' => ['_blank'],
+            'Attr.EnableID' => true,
             'HTML.AllowedComments' => ['pagebreak'],
         ];
     }

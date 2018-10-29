@@ -5,6 +5,7 @@
 ### Changed
 - Updated Redactor to 3.1.4
 - Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
+- Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82)) 
 
 ### Fixed
 - Fixed a bug where image editor would be unavailable for inserted assets. ([#95](https://github.com/craftcms/redactor/issues/95))
