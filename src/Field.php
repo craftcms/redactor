@@ -181,7 +181,7 @@ class Field extends \craft\base\Field
             if ($volume->hasUrls) {
                 $volumeOptions[] = [
                     'label' => Html::encode($volume->name),
-                    'value' => $volume->id
+                    'value' => $volume->uid
                 ];
             }
         }
@@ -190,7 +190,7 @@ class Field extends \craft\base\Field
         foreach (Craft::$app->getAssetTransforms()->getAllTransforms() as $transform) {
             $transformOptions[] = [
                 'label' => Html::encode($transform->name),
-                'value' => $transform->id
+                'value' => $transform->uid
             ];
         }
 
@@ -519,7 +519,7 @@ class Field extends \craft\base\Field
                 // Does the section have URLs in the same site as the element we're editing?
                 $sectionSiteSettings = $section->getSiteSettings();
                 if (isset($sectionSiteSettings[$element->siteId]) && $sectionSiteSettings[$element->siteId]->hasUrls) {
-                    $sources[] = 'section:'.$section->id;
+                    $sources[] = 'section:'.$section->uid;
                 }
             }
         }
@@ -548,7 +548,7 @@ class Field extends \craft\base\Field
                 // Does the category group have URLs in the same site as the element we're editing?
                 $categoryGroupSiteSettings = $categoryGroup->getSiteSettings();
                 if (isset($categoryGroupSiteSettings[$element->siteId]) && $categoryGroupSiteSettings[$element->siteId]->hasUrls) {
-                    $sources[] = 'group:'.$categoryGroup->id;
+                    $sources[] = 'group:'.$categoryGroup->uid;
                 }
             }
         }
@@ -590,7 +590,7 @@ class Field extends \craft\base\Field
         });
 
         foreach ($folders as $folder) {
-            $volumeKeys[] = 'folder:'.$folder->id;
+            $volumeKeys[] = 'folder:'.$folder->uid;
         }
 
         return $volumeKeys;
@@ -611,7 +611,7 @@ class Field extends \craft\base\Field
         $transformList = [];
 
         foreach ($allTransforms as $transform) {
-            if (!is_array($this->availableTransforms) || in_array($transform->id, $this->availableTransforms, false)) {
+            if (!is_array($this->availableTransforms) || in_array($transform->uid, $this->availableTransforms, false)) {
                 $transformList[] = [
                     'handle' => Html::encode($transform->handle),
                     'name' => Html::encode($transform->name)
