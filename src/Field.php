@@ -13,6 +13,7 @@ use craft\base\ElementInterface;
 use craft\base\Volume;
 use craft\elements\Category;
 use craft\elements\Entry;
+use craft\helpers\Db;
 use craft\helpers\FileHelper;
 use craft\helpers\Html;
 use craft\helpers\HtmlPurifier;
@@ -570,7 +571,7 @@ class Field extends \craft\base\Field
         $criteria = ['parentId' => ':empty:'];
 
         if ($this->availableVolumes !== '*') {
-            $criteria['volumeId'] = $this->availableVolumes;
+            $criteria['volumeId'] = Db::idsByUids('{{%volumes}}', $this->availableVolumes);
         }
 
         $folders = Craft::$app->getAssets()->findFolders($criteria);
