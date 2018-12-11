@@ -50,7 +50,21 @@ See the [Redactor documentation](https://imperavi.com/redactor/docs/settings/) f
 
 ### HTML Purifier Configs
 
+Redactor fields use [HTML Purifier](http://htmlpurifier.org) to ensure that no malicious code makes it into its field values, to prevent XSS attacks and other vulnerabilities.
+
 You can create custom HTML Purifier configs that will be available to your Redactor fields. They should be created as JSON files in your `config/htmlpurifier/` folder.
+
+Use this as a starting point, which is the default config that Redactor fields use if no custom HTML Purifier config is selected:
+
+```json
+{
+    "Attr.AllowedFrameTargets": ["_blank"],
+    "Attr.EnableID": true,
+    "HTML.AllowedComments": ["pagebreak"]
+}
+```
+
+(The [HTML.AllowedComments](http://htmlpurifier.org/live/configdoc/plain.html#HTML.AllowedComments) option is required for the `pagebreak` plugin.)
 
 See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/plain.html) for a list of available config options.
 
