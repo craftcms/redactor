@@ -1,9 +1,13 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Redactor plugin now requires Craft 3.1.0-alpha.1 or later.
+
 ## 2.1.7 - 2018-12-17
 
 ### Changed
-- Redactor plugin now requires Craft 3.1.0-alpha.1 or later.
 - Updated Redactor to 3.1.4
 - Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
 - Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82)) 
