@@ -51,7 +51,7 @@ class RedactorAsset extends AssetBundle
         }
 
         foreach ($languages as $lang) {
-            $subPath = 'lang'.DIRECTORY_SEPARATOR."{$lang}.js";
+            $subPath = '_langs'.DIRECTORY_SEPARATOR."{$lang}.js";
             if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
                 $this->js[] = $subPath;
                 self::$redactorLanguage = $lang;

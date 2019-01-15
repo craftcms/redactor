@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.1.7 - 2018-12-17
 
 ### Changed
 - Redactor plugin now requires Craft 3.1.0-alpha.1 or later.

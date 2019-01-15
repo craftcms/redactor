@@ -1,7 +1,7 @@
 {
   "name": "craftcms/redactor",
   "description": "Edit rich text content in Craft CMS using Redactor by Imperavi.",
-  "version": "2.1.6",
+  "version": "2.1.7",
   "type": "craft-plugin",
   "keywords": [
     "html",
