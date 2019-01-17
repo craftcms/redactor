@@ -24,7 +24,7 @@
     "docs": "https://github.com/craftcms/redactor"
   },
   "require": {
-    "craftcms/cms": "^3.0.0-RC15"
+    "craftcms/cms": "^3.1.0-alpha.1"
   },
   "autoload": {
     "psr-4": {
