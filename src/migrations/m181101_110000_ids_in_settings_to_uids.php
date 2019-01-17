@@ -31,7 +31,7 @@ class m181101_110000_ids_in_settings_to_uids extends Migration
             $settings = Json::decodeIfJson($fieldRow['settings']);
 
             if (is_array($settings)) {
-                if (is_array($settings['availableVolumes'])) {
+                if (isset($settings['availableVolumes']) && is_array($settings['availableVolumes'])) {
                     foreach ($settings['availableVolumes'] as &$id) {
                         if (is_numeric($id)) {
                             $id = Db::uidById('{{%volumes}}', $id);
@@ -39,7 +39,7 @@ class m181101_110000_ids_in_settings_to_uids extends Migration
                     }
                 }
 
-                if (is_array($settings['availableTransforms'])) {
+                if (isset($settings['availableTransforms']) && is_array($settings['availableTransforms'])) {
                     foreach ($settings['availableTransforms'] as &$id) {
                         if (is_numeric($id)) {
                             $id = Db::uidById('{{%assettransforms}}', $id);

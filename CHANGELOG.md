@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed an error that occurred when updating to 2.2.0 if there were Redactor fields without the `availableTransforms` or `availableVolumes` set. ([#112](https://github.com/craftcms/redactor/issues/112))
+
 ## 2.2.0 - 2019-01-16
 
 ### Changed
