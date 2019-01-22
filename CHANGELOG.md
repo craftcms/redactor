@@ -1,5 +1,15 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Updated Redactor to 3.1.6
+
+### Fixed
+- Fixed a bug where adding links inside lists would not work as expected. ([#104](https://github.com/craftcms/redactor/issues/104))
+- Fixed a bug where adding links inside tables would not work as expected. ([#98](https://github.com/craftcms/redactor/issues/98))
+- Fixed a bug where Redactor would leave its selection markers in HTML source. ([#106](https://github.com/craftcms/redactor/issues/106))
+
 ## 2.2.1 - 2019-01-17
 
 ### Fixed
