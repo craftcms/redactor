@@ -3,9 +3,9 @@
 namespace craft\redactor\controllers;
 
 use Craft;
+use craft\base\Volume;
 use craft\elements\Asset;
 use craft\web\Controller as BaseController;
-use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 /**
@@ -14,46 +14,43 @@ use yii\web\Response;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since  2.0
  */
-
 class DefaultController extends BaseController
 {
     /**
      * @inheritdoc
      */
-    public function init()
-    {
-        parent::init();
-        $this->defaultAction = 'can-edit';
-    }
+    public $defaultAction = 'can-edit';
 
     /**
      * Check if user allowed to edit an Asset
      *
      * @return Response
+     * @throws \yii\base\InvalidConfigException
+     * @throws \yii\web\BadRequestHttpException
      */
-    public function actionCanEdit()
+    public function actionCanEdit(): Response
     {
         $this->requireAcceptsJson();
         $this->requirePostRequest();
 
         $assetId = Craft::$app->getRequest()->getRequiredBodyParam('assetId');
-
         $asset = Asset::find()->id($assetId)->one();
 
         if (!$asset) {
-            return $this->asJson(['success' => false]);
-        }
-        try {
-            $volumeId = $asset->volumeId;
-
-            if ($volumeId) {
-                $this->requirePermission('saveAssetInVolume:'.$volumeId);
-                $this->requirePermission('deleteFilesAndFoldersInVolume:'.$volumeId);
-            }
-        } catch (ForbiddenHttpException $e) {
-            return $this->asJson(['success' => false]);
+            return $this->asJson([
+                'success' => false
+            ]);
         }
 
-        return $this->asJson(['success' => true]);
+        /** @var Volume $volume */
+        $volume = $asset->getVolume();
+        $user = Craft::$app->getUser()->getIdentity();
+
+        return $this->asJson([
+            'success' => (
+                $user->can('saveAssetInVolume:' . $volume->uid) &&
+                $user->can('deleteFilesAndFoldersInVolume:' . $volume->uid)
+            ),
+        ]);
     }
 }
