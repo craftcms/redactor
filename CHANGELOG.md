@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.3.1 - 2019-01-30
 
 ### Fixed
 - Fixed a bug where the “Image editor” button wasn’t showing up when selecting assets for non-admin users.
