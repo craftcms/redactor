@@ -7,7 +7,7 @@ use craft\services\Fields;
 use yii\base\Event;
 
 /**
- * CKEditor plugin.
+ * Redactor plugin.
  * @method static Plugin getInstance()
  *
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
@@ -21,7 +21,7 @@ class Plugin extends \craft\base\Plugin
     /**
      * @inheritdoc
      */
-    public $schemaVersion = '2.2.1';
+    public $schemaVersion = '2.2.2';
 
     // Public Methods
     // =========================================================================

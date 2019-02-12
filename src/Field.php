@@ -66,6 +66,54 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
+    public function __construct(array $config = [])
+    {
+        // normalize a mix/match of ids and uids to a list of uids.
+        if (isset($config['availableVolumes']) && is_array($config['availableVolumes'])) {
+            $ids = [];
+            $uids = [];
+
+            foreach ($config['availableVolumes'] as $availableVolume) {
+                if (is_int($availableVolume)) {
+                    $ids[] = $availableVolume;
+                } else {
+                    $uids[] = $availableVolume;
+                }
+            }
+
+            if (!empty($ids)) {
+                $uids = array_merge($uids, Db::uidsByIds('{{%volumes}}', $ids));
+            }
+
+            $config['availableVolumes'] = $uids;
+        }
+
+        // normalize a mix/match of ids and uids to a list of uids.
+        if (isset($config['availableTransforms']) && is_array($config['availableTransforms'])) {
+            $ids = [];
+            $uids = [];
+
+            foreach ($config['availableTransforms'] as $availableTransform) {
+                if (is_int($availableTransform)) {
+                    $ids[] = $availableTransform;
+                } else {
+                    $uids[] = $availableTransform;
+                }
+            }
+
+            if (!empty($ids)) {
+                $uids = array_merge($uids, Db::uidsByIds('{{%assettransforms}}', $ids));
+            }
+
+            $config['availableTransforms'] = $uids;
+        }
+
+        parent::__construct($config);
+    }
+
+    /**
+     * @inheritdoc
+     */
     public static function displayName(): string
     {
         return Craft::t('redactor', 'Redactor');
