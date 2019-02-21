@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- Updated Redactor to 3.1.7.
+
 ### Fixed
 - Fixed a bug where full-screen editor would be obscured by the sidebar if the `toolbarFixed` config setting was set to `false.` ([#120](https://github.com/craftcms/redactor/issues/120))
 
