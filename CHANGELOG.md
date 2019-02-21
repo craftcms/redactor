@@ -7,6 +7,7 @@
 
 ### Fixed
 - Fixed a bug where full-screen editor would be obscured by the sidebar if the `toolbarFixed` config setting was set to `false.` ([#120](https://github.com/craftcms/redactor/issues/120))
+- Fixed a bug where adding a second link in a list would not work as expected. ([#104](https://github.com/craftcms/redactor/issues/104))
 
 ## 2.3.1 - 2019-01-30
 
