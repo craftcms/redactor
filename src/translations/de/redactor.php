@@ -1,0 +1,20 @@
+<?php
+return [
+    'Add head' => 'Tabellenkopf einfügen',
+    'Delete column' => 'Spalte löschen',
+    'Delete head' => 'Tabellenkopf löschen',
+    'Delete row' => 'Zeile löschen',
+    'Delete table' => 'Tabelle löschen',
+    'Fullscreen' => 'Als Vollbild anzeigen',
+    'Insert column left' => 'Spalte links einfügen',
+    'Insert column right' => 'Spalte rechts einfügen',
+    'Insert Page Break' => 'Seitenumbruch einfügen',
+    'Insert row above' => 'Zeile oberhalb einfügen',
+    'Insert row below' => 'Zeile unterhalb einfügen',
+    'Insert table' => 'Tabelle einfügen',
+    'Link to a category' => 'Link zu einer Kategorie',
+    'Link to an entry' => 'Link zu einem Eintrag',
+    'Table' => 'Tabelle',
+    'Video' => 'Video',
+    'Video Embed Code or Youtube/Vimeo Link' => 'Video Embed Code oder Youtube/Vimeo Link',
+];
