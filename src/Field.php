@@ -193,11 +193,6 @@ class Field extends \craft\base\Field
     public $purifierConfig;
 
     /**
-     * @deprecated
-     */
-    public $cleanupHtml = true;
-
-    /**
      * @var bool Whether disallowed inline styles should be removed on save
      */
     public $removeInlineStyles = true;
@@ -234,16 +229,6 @@ class Field extends \craft\base\Field
 
     // Public Methods
     // =========================================================================
-
-    /**
-     * @inheritdoc
-     */
-    public function settingsAttributes(): array
-    {
-        $attributes = parent::settingsAttributes();
-        ArrayHelper::removeValue($attributes, 'cleanupHtml');
-        return $attributes;
-    }
 
     /**
      * @inheritdoc
