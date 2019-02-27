@@ -13,7 +13,6 @@ use craft\base\ElementInterface;
 use craft\base\Volume;
 use craft\elements\Category;
 use craft\elements\Entry;
-use craft\helpers\ArrayHelper;
 use craft\helpers\Db;
 use craft\helpers\FileHelper;
 use craft\helpers\Html;
