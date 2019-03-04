@@ -21,7 +21,8 @@
     "email": "support@craftcms.com",
     "issues": "https://github.com/craftcms/redactor/issues?state=open",
     "source": "https://github.com/craftcms/redactor",
-    "docs": "https://github.com/craftcms/redactor"
+    "docs": "https://github.com/craftcms/redactor/blob/v2/README.md",
+    "rss": "https://github.com/craftcms/rackspace/commits/v2.atom"
   },
   "require": {
     "craftcms/cms": "^3.1.0"
@@ -33,6 +34,7 @@
   },
   "extra": {
     "name": "Redactor",
-    "handle": "redactor"
+    "handle": "redactor",
+    "documentationUrl": "https://github.com/craftcms/redactor/blob/v2/README.md"
   }
 }
