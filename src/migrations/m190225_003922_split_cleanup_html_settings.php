@@ -4,6 +4,7 @@ namespace craft\redactor\migrations;
 
 use Craft;
 use craft\db\Migration;
+use craft\db\Query;
 use craft\helpers\Json;
 use craft\services\Fields;
 use craft\services\Matrix;
@@ -28,36 +29,87 @@ class m190225_003922_split_cleanup_html_settings extends Migration
         }
 
         $projectConfig->muteEvents = true;
+        $fieldsToMigrate = [];
 
+        // Migrate regular fields
         $fields = $projectConfig->get(Fields::CONFIG_FIELDS_KEY) ?? [];
-        foreach ($fields as $uid => &$field) {
-            if ($field['type'] === Field::class && isset($field['settings']) && is_array($field['settings'])) {
-                $cleanupHtml = $field['settings']['cleanupHtml'];
-                unset($field['settings']['cleanupHtml']);
-                $field['settings']['removeInlineStyles'] = $cleanupHtml;
-                $field['settings']['removeEmptyTags'] = $cleanupHtml;
-                $field['settings']['removeNbsp'] = $cleanupHtml;
-                $this->update('{{%fields}}', [
-                    'settings' => Json::encode($field['settings']),
-                ], ['uid' => $uid]);
-                $projectConfig->set(Fields::CONFIG_FIELDS_KEY . '.' . $uid, $field);
+        foreach ($fields as $fieldUid => $field) {
+            if (isset($field['type']) && $field['type'] === Field::class) {
+                $fieldsToMigrate[$fieldUid] = [
+                    'configPath' => Fields::CONFIG_FIELDS_KEY . '.' . $fieldUid,
+                    'config' => $field,
+                ];
             }
         }
 
+        // Migrate fields found in Matrix blocks
         $matrixBlockTypes = $projectConfig->get(Matrix::CONFIG_BLOCKTYPE_KEY) ?? [];
-        foreach ($matrixBlockTypes as $matrixBlockTypeUid => &$matrixBlockType) {
-            $fields = $projectConfig->get(Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid . '.fields') ?? [];
-            foreach ($fields as $uid => &$field) {
-                if ($field['type'] === Field::class && isset($field['settings']) && is_array($field['settings'])) {
-                    $cleanupHtml = $field['settings']['cleanupHtml'];
-                    unset($field['settings']['cleanupHtml']);
-                    $field['settings']['removeInlineStyles'] = $cleanupHtml;
-                    $field['settings']['removeEmptyTags'] = $cleanupHtml;
-                    $field['settings']['removeNbsp'] = $cleanupHtml;
-                    $this->update('{{%fields}}', [
-                        'settings' => Json::encode($field['settings']),
-                    ], ['uid' => $uid]);
-                    $projectConfig->set(Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid . '.fields.' . $uid, $field);
+        foreach ($matrixBlockTypes as $matrixBlockTypeUid => $matrixBlockType) {
+            $fields = $matrixBlockType['fields'] ?? [];
+            foreach ($fields as $fieldUid => $field) {
+                if (isset($field['type']) && $field['type'] === Field::class) {
+                    $fieldsToMigrate[$fieldUid] = [
+                        'configPath' => Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid . '.fields.' . $fieldUid,
+                        'config' => $field,
+                    ];
+                }
+            }
+        }
+
+        // Migrate fields found in Super Table
+        $superTableBlockTypes = $projectConfig->get('superTableBlockTypes') ?? [];
+        if ($superTableBlockTypes) {
+            foreach ($superTableBlockTypes as $superTableBlockTypeUid => $superTableBlockType) {
+                $fields = $superTableBlockType['fields'] ?? [];
+                foreach ($fields as $fieldUid => $field) {
+                    if (isset($field['type']) && $field['type'] === Field::class) {
+                        $fieldsToMigrate[$fieldUid] = [
+                            'configPath' => 'superTableBlockTypes.' . $superTableBlockTypeUid . '.fields.' . $fieldUid,
+                            'config' => $field,
+                        ];
+                    }
+                }
+            }
+        }
+        else {
+            // If Super Table is not yet installed but we can find fields that need updating in the DB
+            $superTableRedactorFields = (new Query())
+                ->select(['uid', 'settings'])
+                ->from(['{{%fields}}'])
+                ->where([
+                    'and',
+                    ['like', 'context', 'superTableBlockType'],
+                    ['in', 'type', ['Redactor']],
+                ])
+                ->all();
+            foreach ($superTableRedactorFields as $superTableRedactorField) {
+                $fieldsToMigrate[$superTableRedactorField['uid']] = [
+                    'configPath' => false,
+                    'config' => [
+                        'settings' => Json::decode($superTableRedactorField['settings']),
+                    ],
+                ];
+            }
+        }
+    
+        // Go ahead and migrate them
+        foreach ($fieldsToMigrate as $fieldUid => $field)
+        {
+            $fieldConfigPath = $field['configPath'];
+            $fieldConfig = $field['config'];
+            if (isset($fieldConfig['settings']) && is_array($fieldConfig['settings'])) {
+                $fieldSettings = $fieldConfig['settings'];
+                $cleanupHtml = $fieldSettings['cleanupHtml'];
+                unset($fieldSettings['cleanupHtml']);
+                $fieldSettings['removeInlineStyles'] = $cleanupHtml;
+                $fieldSettings['removeEmptyTags'] = $cleanupHtml;
+                $fieldSettings['removeNbsp'] = $cleanupHtml;
+                $this->update('{{%fields}}', [
+                    'settings' => Json::encode($fieldSettings),
+                ], ['uid' => $fieldUid]);
+                if ($fieldConfigPath) {
+                    $fieldConfig['settings'] = $fieldSettings;
+                    $projectConfig->set($fieldConfigPath, $fieldConfig);
                 }
             }
         }
