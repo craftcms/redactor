@@ -70,6 +70,7 @@ class RedactorAsset extends AssetBundle
     public static function registerTranslations($view)
     {
         $customTranslations = [
+            'image-editor' => Craft::t('redactor', 'Image editor'),
             'align' => Craft::t('redactor', 'Align'),
             'align-left' => Craft::t('redactor', 'Align left'),
             'align-center' => Craft::t('redactor', 'Align center'),
