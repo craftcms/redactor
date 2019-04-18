@@ -6,7 +6,13 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     volumes: null,
 
     showModal: function () {
-        this.app.selection.save();
+        if (this.app.selection.isCollapsed()) {
+            this.app.selection.save();
+            this.app.selectionMarkers = false;
+        } else {
+            this.app.selection.saveMarkers();
+            this.app.selectionMarkers = true;
+        }
 
         if (typeof this.assetSelectionModal === 'undefined') {
             this.assetSelectionModal = Craft.createElementSelectorModal('craft\\elements\\Asset', {
@@ -16,7 +22,14 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 criteria: {siteId: this.elementSiteId, kind: 'image'},
                 onSelect: $.proxy(function(assets, transform) {
                     if (assets.length) {
-                        this.app.selection.restore();
+                        if (this.app.selectionMarkers) {
+                            this.app.selection.restoreMarkers();
+                        } else {
+                            this.app.selection.restore();
+                        }
+
+                        this.app.selectionMarkers = false;
+
                         for (var i = 0; i < assets.length; i++) {
                             var asset = assets[i],
                                 url = asset.url + '#asset:' + asset.id;
