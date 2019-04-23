@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- Updated Redactor 3.1.8
+
 ### Fixed
 - Fixed a bug where linking files or assets would not work as expected. ([#136](https://github.com/craftcms/redactor/issues/136))
 

@@ -23,11 +23,11 @@
 
 .redactor-fadeIn {
   opacity: 0;
-  animation: fadeIn .5s ease-in-out; }
+  animation: fadeIn .2s ease-in-out; }
 
 .redactor-fadeOut {
   opacity: 1;
-  animation: fadeOut .5s ease-in-out; }
+  animation: fadeOut .2s ease-in-out; }
 
 @font-face {
   font-family: 'Redactor';
@@ -262,6 +262,9 @@
     border: none;
     background: rgba(0, 0, 0, 0.1); }
 
+.redactor-script-tag {
+  display: none !important; }
+
 .redactor-component {
   position: relative; }
 
@@ -361,7 +364,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(16, 16, 18, 0.18); }
+  background-color: rgba(16, 16, 18, 0.3); }
   #redactor-overlay > .redactor-close {
     position: fixed;
     top: 1rem;
