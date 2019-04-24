@@ -3,8 +3,7 @@
 ## Unreleased
 
 ### Changed
-- Updated Redactor to 3.1.8
-- Redactor field now correctly typecasts the `cleanupHtml` and `purifyHtml` boolean values saved to the project config. ([craftcms/cms#3695](https://github.com/craftcms/cms/issues/3695))
+- Updated Redactor 3.1.8
 
 ### Fixed
 - Fixed a bug where linking files or assets would not work as expected. ([#136](https://github.com/craftcms/redactor/issues/136))
