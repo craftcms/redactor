@@ -1,4 +1,6 @@
-# Redactor for Craft CMS
+<p align="center"><img src="./src/icon.svg" width="100" height="100" alt="Redactor icon"></p>
+
+<h1 align="center">Redactor</h1>
 
 This plugin adds a “Redactor” field type to Craft CMS, which provides a rich text editor powered by [Redactor](https://imperavi.com/redactor/) by Imperavi.
 
