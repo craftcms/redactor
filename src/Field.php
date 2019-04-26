@@ -63,6 +63,60 @@ class Field extends \craft\base\Field
      */
     private static $_pluginPaths;
 
+    // Properties
+    // =========================================================================
+
+    /**
+     * @var string|null The Redactor config file to use
+     */
+    public $redactorConfig;
+
+    /**
+     * @var string|null The HTML Purifier config file to use
+     */
+    public $purifierConfig;
+
+    /**
+     * @var bool Whether the HTML should be cleaned up on save
+     * @deprecated in 2.4
+     */
+    public $cleanupHtml = true;
+
+    /**
+     * @var bool Whether disallowed inline styles should be removed on save
+     */
+    public $removeInlineStyles = true;
+
+    /**
+     * @var bool Whether empty tags should be removed on save
+     */
+    public $removeEmptyTags = true;
+
+    /**
+     * @var bool Whether non-breaking spaces should be replaced by regular spaces on save
+     */
+    public $removeNbsp = true;
+
+    /**
+     * @var bool Whether the HTML should be purified on save
+     */
+    public $purifyHtml = true;
+
+    /**
+     * @var string The type of database column the field should have in the content table
+     */
+    public $columnType = Schema::TYPE_TEXT;
+
+    /**
+     * @var string|array|null The volumes that should be available for Image selection.
+     */
+    public $availableVolumes = '*';
+
+    /**
+     * @var string|array|null The transforms available when selecting an image
+     */
+    public $availableTransforms = '*';
+
     /**
      * @inheritdoc
      */
@@ -177,54 +231,6 @@ class Field extends \craft\base\Field
 
         return self::$_pluginPaths = $event->paths;
     }
-
-    // Properties
-    // =========================================================================
-
-    /**
-     * @var string|null The Redactor config file to use
-     */
-    public $redactorConfig;
-
-    /**
-     * @var string|null The HTML Purifier config file to use
-     */
-    public $purifierConfig;
-
-    /**
-     * @var bool Whether disallowed inline styles should be removed on save
-     */
-    public $removeInlineStyles = true;
-
-    /**
-     * @var bool Whether empty tags should be removed on save
-     */
-    public $removeEmptyTags = true;
-
-    /**
-     * @var bool Whether non-breaking spaces should be replaced by regular spaces on save
-     */
-    public $removeNbsp = true;
-
-    /**
-     * @var bool Whether the HTML should be purified on save
-     */
-    public $purifyHtml = true;
-
-    /**
-     * @var string The type of database column the field should have in the content table
-     */
-    public $columnType = Schema::TYPE_TEXT;
-
-    /**
-     * @var string|array|null The volumes that should be available for Image selection.
-     */
-    public $availableVolumes = '*';
-
-    /**
-     * @var string|array|null The transforms available when selecting an image
-     */
-    public $availableTransforms = '*';
 
     // Public Methods
     // =========================================================================
