@@ -192,9 +192,19 @@ class Field extends \craft\base\Field
     public $purifierConfig;
 
     /**
-     * @var bool Whether the HTML should be cleaned up on save
+     * @var bool Whether disallowed inline styles should be removed on save
      */
-    public $cleanupHtml = true;
+    public $removeInlineStyles = true;
+
+    /**
+     * @var bool Whether empty tags should be removed on save
+     */
+    public $removeEmptyTags = true;
+
+    /**
+     * @var bool Whether non-breaking spaces should be replaced by regular spaces on save
+     */
+    public $removeNbsp = true;
 
     /**
      * @var bool Whether the HTML should be purified on save
@@ -405,11 +415,7 @@ class Field extends \craft\base\Field
                 $value = HtmlPurifier::process($value, $this->_getPurifierConfig());
             }
 
-            if ($this->cleanupHtml) {
-                // Swap no-break whitespaces for regular space
-                $value = preg_replace('/(&nbsp;|&#160;|\x{00A0})/u', ' ', $value);
-                $value = preg_replace('/  +/', ' ', $value);
-
+            if ($this->removeInlineStyles) {
                 // Remove <font> tags
                 $value = preg_replace('/<(?:\/)?font\b[^>]*>/', '', $value);
 
@@ -431,9 +437,17 @@ class Field extends \craft\base\Field
                     },
                     $value
                 );
+            }
 
+            if ($this->removeEmptyTags) {
                 // Remove empty tags
                 $value = preg_replace('/<(h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|a|b|i|u|span)\s*><\/\1>/', '', $value);
+            }
+
+            if ($this->removeNbsp) {
+                // Replace non-breaking spaces with regular spaces
+                $value = preg_replace('/(&nbsp;|&#160;|\x{00A0})/u', ' ', $value);
+                $value = preg_replace('/  +/', ' ', $value);
             }
         }
 

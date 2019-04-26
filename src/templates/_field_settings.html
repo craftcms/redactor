@@ -38,16 +38,44 @@
 <hr>
 <a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('redactor') }}</a>
 <div id="advanced" class="hidden">
-    {{ forms.checkboxField({
-        label: "Clean up HTML?"|t('redactor'),
-        instructions: "Removes <code>&lt;span&gt;</code>’s, empty tags, non-breaking whitespace and most <code>style</code> attributes on save."|t('redactor'),
-        id: 'cleanupHtml',
-        name: 'cleanupHtml',
-        checked: field.cleanupHtml
-    }) }}
+    <div class="field">
+        <div class="heading">
+            <label>{{ "Clean up HTML"|t('redactor') }}</label>
+            <div class="instructions">
+                {{ "The cleanup actions that should be executed on save."|t('redactor') }}
+            </div>
+        </div>
+
+        <div>
+            {{ forms.checkbox({
+                label: "Remove inline styles"|t('redactor'),
+                id: 'removeInlineStyles',
+                name: 'removeInlineStyles',
+                checked: field.removeInlineStyles
+            }) }}
+        </div>
+
+        <div>
+            {{ forms.checkbox({
+                label: "Remove empty tags"|t('redactor'),
+                id: 'removeEmptyTags',
+                name: 'removeEmptyTags',
+                checked: field.removeEmptyTags
+            }) }}
+        </div>
+
+        <div>
+            {{ forms.checkbox({
+                label: "Replace non-breaking spaces with regular spaces"|t('redactor'),
+                id: 'removeNbsp',
+                name: 'removeNbsp',
+                checked: field.removeNbsp
+            }) }}
+        </div>
+    </div>
 
     {{ forms.checkboxField({
-        label: "Purify HTML?"|t('redactor'),
+        label: "Purify HTML"|t('redactor'),
         instructions: 'Removes any potentially-malicious code on save, by running the submitted data through <a href="http://htmlpurifier.org/" rel="noopener" target="_blank">HTML Purifier</a>.'|t('redactor'),
         warning: 'Disable this at your own risk!'|t('redactor'),
         id: 'purifyHtml',
