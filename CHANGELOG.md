@@ -1,5 +1,9 @@
 # Release Notes for Redactor for Craft CMS
 
+## 2.3.3.1 - 2019-04-26
+
+### Fixed an error that occurred when updating to Redactor 2.3.3 if any Redactor fields didn’t have a `cleanupHtml` setting saved. 
+
 ## 2.3.3 - 2019-04-26
 
 ### Changed

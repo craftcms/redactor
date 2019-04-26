@@ -5,6 +5,7 @@ namespace craft\redactor\migrations;
 use Craft;
 use craft\db\Migration;
 use craft\db\Query;
+use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
 use craft\services\Fields;
 use craft\services\Matrix;
@@ -91,7 +92,7 @@ class m190225_003922_split_cleanup_html_settings extends Migration
                 ];
             }
         }
-    
+
         // Go ahead and migrate them
         foreach ($fieldsToMigrate as $fieldUid => $field)
         {
@@ -99,8 +100,7 @@ class m190225_003922_split_cleanup_html_settings extends Migration
             $fieldConfig = $field['config'];
             if (isset($fieldConfig['settings']) && is_array($fieldConfig['settings'])) {
                 $fieldSettings = $fieldConfig['settings'];
-                $cleanupHtml = $fieldSettings['cleanupHtml'];
-                unset($fieldSettings['cleanupHtml']);
+                $cleanupHtml = ArrayHelper::remove($fieldSettings, 'cleanupHtml', false);
                 $fieldSettings['removeInlineStyles'] = $cleanupHtml;
                 $fieldSettings['removeEmptyTags'] = $cleanupHtml;
                 $fieldSettings['removeNbsp'] = $cleanupHtml;
