@@ -4,7 +4,7 @@
 
 ### Changed
 - Split the `cleanupHtml` setting into three separate settings: `removeInlineStyles`, `removeEmptyTags`, and `removeNbsp`. ([#125](https://github.com/craftcms/redactor/pull/125))
-- Updated Redactor 3.1.8
+- Updated Redactor to 3.1.8
 
 ### Fixed
 - Fixed a bug where linking files or assets would not work as expected. ([#136](https://github.com/craftcms/redactor/issues/136))
