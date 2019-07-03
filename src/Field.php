@@ -603,6 +603,7 @@ class Field extends \craft\base\Field
             array_unshift($sources, 'singles');
         }
 
+        array_unshift($sources, '*');
         return $sources;
     }
 
