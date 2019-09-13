@@ -6,6 +6,9 @@
 - Redactor is now translated into German. ([#131](https://github.com/craftcms/redactor/pull/131))
 - Redactor is now translated into French. ([#145](https://github.com/craftcms/redactor/pull/145))
 
+### Changed
+- Redactor now requires Craft 3.1.24 or later.
+
 ### Fixed
 - Fixed a style inconsistency between `<h6>` tags in the Format menu and how they actually look in the editor. ([#142](https://github.com/craftcms/redactor/pull/142))
 

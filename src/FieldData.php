@@ -8,6 +8,7 @@
 namespace craft\redactor;
 
 use Craft;
+use Twig\Markup;
 
 /**
  * Stores the data for Redactor fields.
@@ -15,7 +16,7 @@ use Craft;
  * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
  * @since 3.0
  */
-class FieldData extends \Twig_Markup
+class FieldData extends Markup
 {
     // Properties
     // =========================================================================
