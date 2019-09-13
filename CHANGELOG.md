@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Redactor is now translated into German. ([#131](https://github.com/craftcms/redactor/pull/131))
+
 ### Fixed
 - Fixed a style inconsistency between `<h6>` tags in the Format menu and how they actually look in the editor. ([#142](https://github.com/craftcms/redactor/pull/142))
 
