@@ -135,7 +135,7 @@ window.livePreviewHideFullscreen = false;
 
                 if (toolbarButtons.indexOf('link') !== -1) {
                     this.redactor.plugin.craftEntryLinks.setElementSiteId(this.elementSiteId);
-                    
+
                     if (this.linkOptions.length) {
                         this.redactor.plugin.craftEntryLinks.setLinkOptions(this.linkOptions);
                     }
@@ -193,15 +193,13 @@ window.livePreviewHideFullscreen = false;
             },
 
             replaceRedactorButton: function(key, title) {
-                // Ignore if the button isn't in use
-                var allButtons = this.redactor.toolbar.getButtonsKeys();
-                var currentButtonIndex = allButtons.indexOf(key);
+                var previousButton = this.redactor.toolbar.getButton(key);
 
-                if (currentButtonIndex == -1) {
+                // Ignore if the button isn't in use
+                if (!previousButton) {
                     return;
                 }
 
-                var previousButton = this.redactor.toolbar.getButtonByIndex(allButtons.indexOf(key));
                 var icon = previousButton.$icon.get(0);
 
                 var placeholderKey = key+'_placeholder';

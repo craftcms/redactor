@@ -16,14 +16,13 @@ Craft.Redactor.PluginBase = {
     },
 
     overrideButton: function (replaceButton) {
-        var allButtons = this.app.toolbar.getButtonsKeys();
-        var targetButtonIndex = allButtons.indexOf(replaceButton);
+        var previousButton = this.app.toolbar.getButton(replaceButton);
 
-        if (targetButtonIndex === -1) {
+        if (!previousButton) {
+            this.addButton(replaceButton);
             return;
         }
 
-        var previousButton = this.app.toolbar.getButtonByIndex(allButtons.indexOf(replaceButton));
         var icon = previousButton.$icon.get(0);
 
         var placeholderKey = replaceButton+'_placeholder';
@@ -42,18 +41,27 @@ Craft.Redactor.PluginBase = {
         button.setIcon(icon);
     },
 
-    addButton: function (buttonName, position) {
+    addButton: function (buttonName, index) {
         var allButtons = this.app.toolbar.getButtonsKeys();
-        position = Math.min(allButtons.length, position);
 
         var buttonData = {
             title: this.title,
             api: this.apiTarget
         };
 
-        var previous = this.app.toolbar.getButtonByIndex(position - 1);
-        var button = this.app.toolbar.addButton(buttonName, buttonData);
+        // Figure out where to put it
+        var position, $el;
 
+        if (typeof index !== 'undefined') {
+            var allButtons = this.app.toolbar.getButtons();
+
+            if (allButtons.length > index) {
+                position = 'before';
+                $el = allButtons[index];
+            }
+        }
+
+        var button = this.app.toolbar.addButton(buttonName, buttonData, position, $el);
         button.setIcon($('<i class="re-icon-'+buttonName+'"></i>').get(0));
     },
 

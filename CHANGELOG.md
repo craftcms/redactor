@@ -9,6 +9,7 @@
 ### Changed
 - Redactor now requires Craft 3.2 or later.
 - Entry and category links within Redactor field values now point to the same site that the field’s element was loaded in. ([#163](https://github.com/craftcms/redactor/issues/163))
+- Updated Redactor to 3.3.0.
 
 ### Fixed
 - Fixed a style inconsistency between `<h6>` tags in the Format menu and how they actually look in the editor. ([#142](https://github.com/craftcms/redactor/pull/142))
