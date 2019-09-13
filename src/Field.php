@@ -296,7 +296,8 @@ class Field extends \craft\base\Field
         }
 
         // Prevent everyone from having to use the |raw filter when outputting RTE content
-        return new FieldData($value);
+        /** @var Element|null $element */
+        return new FieldData($value, $element->siteId ?? null);
     }
 
     /**
