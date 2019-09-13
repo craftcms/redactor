@@ -13,6 +13,7 @@
 
 ### Fixed
 - Fixed a style inconsistency between `<h6>` tags in the Format menu and how they actually look in the editor. ([#142](https://github.com/craftcms/redactor/pull/142))
+- Fixed a bug where Redactor were causing page unload warnings. ([#161](https://github.com/craftcms/redactor/issues/161))
 
 ## 2.3.3.2 - 2019-04-29
 

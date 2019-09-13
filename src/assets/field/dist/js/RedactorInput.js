@@ -44,6 +44,11 @@ window.livePreviewHideFullscreen = false;
                     this.redactorConfig.plugins = [];
                 }
 
+                // Prevent Redactor from saving block elements inconsistently
+                if (typeof this.redactorConfig.removeNewLines === 'undefined') {
+                    this.redactorConfig.removeNewLines = true;
+                }
+
                 this.redactorConfig.plugins.push('craftAssetImages');
                 this.redactorConfig.plugins.push('craftAssetFiles');
                 this.redactorConfig.plugins.push('craftEntryLinks');
