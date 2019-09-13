@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.4.0 - 2019-09-13
 
 ### Added
 - Redactor is now translated into German. ([#131](https://github.com/craftcms/redactor/pull/131))
