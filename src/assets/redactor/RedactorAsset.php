@@ -10,6 +10,7 @@ namespace craft\redactor\assets\redactor;
 use Craft;
 use craft\helpers\Json;
 use craft\web\AssetBundle;
+use craft\web\View;
 use yii\web\JqueryAsset;
 
 /**
@@ -65,9 +66,9 @@ class RedactorAsset extends AssetBundle
     /**
      * Register the custom translations for the Redactor field.
      *
-     * @param $view
+     * @param View $view
      */
-    public static function registerTranslations($view)
+    public static function registerTranslations(View $view)
     {
         $customTranslations = [
             'image-editor' => Craft::t('redactor', 'Image editor'),

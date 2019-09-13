@@ -27,7 +27,7 @@ class FieldData extends Markup
     private $_pages;
 
     /**
-     * @var string|null
+     * @var string
      */
     private $_rawContent;
 

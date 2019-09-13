@@ -193,11 +193,11 @@ class Field extends \craft\base\Field
         }
 
         $paths = self::redactorPluginPaths();
+        $view = Craft::$app->getView();
 
         foreach ($paths as $registeredPath) {
             foreach (["{$registeredPath}/{$plugin}", $registeredPath] as $path) {
                 if (file_exists("{$path}/{$plugin}.js")) {
-                    $view = Craft::$app->getView();
                     $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
                     $view->registerJsFile("{$baseUrl}/{$plugin}.js", [
                         'depends' => RedactorAsset::class
@@ -308,10 +308,10 @@ class Field extends \craft\base\Field
         /** @var Element $element */
 
         // register the asset/redactor bundles
-        Craft::$app->getView()->registerAssetBundle(FieldAsset::class);
+        $view = Craft::$app->getView();
+        $view->registerAssetBundle(FieldAsset::class);
 
         // figure out which language we ended up with
-        $view = Craft::$app->getView();
         /** @var RedactorAsset $bundle */
         $bundle = $view->getAssetManager()->getBundle(RedactorAsset::class);
         $redactorLang = $bundle::$redactorLanguage ?? 'en';
