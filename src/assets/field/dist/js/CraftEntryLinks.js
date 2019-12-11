@@ -33,7 +33,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                         var element = elements[0],
                             selection = this.app.selection.getText(),
                             data = {
-                                url: element.url + '#' + refHandle + ':' + element.id,
+                                url: element.url + '#' + refHandle + ':' + element.id + '@' + element.siteId,
                                 text: selection.length > 0 ? selection : element.label
                             };
                         this.app.api('module.link.insert', data);
