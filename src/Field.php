@@ -469,10 +469,10 @@ class Field extends \craft\base\Field
 
         // Find any element URLs and swap them with ref tags
         $value = preg_replace_callback(
-            '/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(\:(?:transform\:)?'.HandleValidator::$handlePattern.')?\2/',
+            '/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?'.HandleValidator::$handlePattern.')?\2/',
             function($matches) {
                 // Create the ref tag, and make sure :url is in there
-                $refTag = '{'.$matches[4].':'.$matches[5].(!empty($matches[6]) ? $matches[6] : ':url').'}';
+                $refTag = '{'.$matches[4].':'.$matches[5].(!empty($matches[6]) ? '@'.$matches[6] : '').(!empty($matches[7]) ? $matches[7] : ':url').'}';
                 $hash = (!empty($matches[3]) ? $matches[3] : '');
 
                 if ($hash) {
@@ -514,7 +514,7 @@ class Field extends \craft\base\Field
             return $value;
         }
 
-        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+\:(?:transform\:)?'.HandleValidator::$handlePattern.')\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
+        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?'.HandleValidator::$handlePattern.')\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
             /** @var Element|null $element */
             list (, $attr, $q, $refTag, $ref) = $matches;
             $fragment = $matches[5] ?? '';
@@ -591,14 +591,18 @@ class Field extends \craft\base\Field
         $sections = Craft::$app->getSections()->getAllSections();
         $showSingles = false;
 
+        // Get all sites
+        $sites = Craft::$app->getSites()->getAllSites();
+
         foreach ($sections as $section) {
             if ($section->type === Section::TYPE_SINGLE) {
                 $showSingles = true;
             } else if ($element) {
-                // Does the section have URLs in the same site as the element we're editing?
                 $sectionSiteSettings = $section->getSiteSettings();
-                if (isset($sectionSiteSettings[$element->siteId]) && $sectionSiteSettings[$element->siteId]->hasUrls) {
-                    $sources[] = 'section:'.$section->uid;
+                foreach ($sites as $site) {
+                    if (isset($sectionSiteSettings[$site->id]) && $sectionSiteSettings[$site->id]->hasUrls) {
+                        $sources[] = 'section:'.$section->uid;
+                    }
                 }
             }
         }
