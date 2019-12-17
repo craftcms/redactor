@@ -1,20 +1,18 @@
 @charset "UTF-8";
-@import "../../../../../lib/craftcms-sass/mixins";
+@import "../../../../../node_modules/craftcms-sass/src/mixins";
 
 body {
   #redactor-overlay {
     filter: alpha(opacity=100);
     -moz-opacity: 1;
     opacity: 1;
-    background: rgba(255, 255, 255, 0.75) !important;
+    background: transparentize($white, 0.25) !important;
   }
 
   .redactor-modal {
     @include sans-serif-font;
-    border-radius: $paneBorderRadius;
-    background: #fff;
+    @include modal;
     z-index: 1052;
-    box-shadow: 0 25px 100px rgba(0, 0, 0, 0.5);
   }
 
   .redactor-dropdown {
@@ -85,12 +83,15 @@ body {
     color: $textColor !important;
   }
 
-  .redactor-box:not(.redactor-box-fullscreen) {
-    @include text-input-styles;
-  }
+  .redactor-box {
+    &:not(.redactor-box-fullscreen):not(.redactor-source-view) {
+      @include input-styles;
 
-  .redactor-box.focus:not(.redactor-box-fullscreen) {
-    border-color: $blue !important;
+      &.redactor-focus {
+        // have to manually copy this because we are competing with Redactor's !important
+        border-color: transparentize($inputColor, 0.2) !important;
+      }
+    }
   }
 
   /* redactor */
@@ -102,7 +103,7 @@ body {
 
   .redactor-toolbar-fixed {
     z-index: 2 !important;
-    background-color: #ffffff !important;
+    background-color: $white !important;
   }
 
   .redactor-box {
@@ -126,7 +127,19 @@ body {
 
   .redactor-toolbar a,
   .redactor-air a {
-    box-shadow: inset 0 0 0 1px transparent, 0 0 0 1px rgba(0, 0, 0, 0.025), 0 1px 1px rgba(0, 0, 0, 0.1);
+    box-shadow: none;
+    background: transparentize($inputColor, 0.85);
+    color: $textColor;
+
+    &:focus,
+    &:hover {
+      background-color: transparentize($inputColor, 0.7);
+    }
+
+    &:active,
+    a.redactor-button-active {
+      background-color: transparentize($inputColor, 0.5);
+    }
   }
 
   .redactor-toolbar.toolbar-fixed-box {
@@ -147,7 +160,7 @@ body {
   .redactor-toolbar li a:active,
   .redactor-toolbar li a.redactor-act {
     background-color: $darkSelColor;
-    color: #fff;
+    color: $white;
   }
 
   .redactor-toolbar li:first-child a {

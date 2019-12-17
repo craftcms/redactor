@@ -178,12 +178,10 @@ window.livePreviewHideFullscreen = false;
             },
 
             onEditorFocus: function() {
-                this.redactor.container.getElement().addClass('focus');
                 this.redactor.container.getElement().trigger('focus');
             },
 
             onEditorBlur: function() {
-                this.redactor.container.getElement().removeClass('focus');
                 this.redactor.container.getElement().trigger('blur');
             },
 

@@ -44,9 +44,9 @@ imageResizeClass.prototype._build = function (e) {
         this.$resizer.on('mousedown touchstart', this._set.bind(this));
 
         if (this.toolbar.isTarget()) {
-            this.$target.on('scroll.resizer', this.rebuild.bind(this));
+            // this.$target.on('scroll.resizer', this.rebuild.bind(this));
         } else {
-            $R.dom('#content-container').on('scroll.resizer', this.rebuild.bind(this));
+            // $R.dom('#content-container').on('scroll.resizer', this.rebuild.bind(this));
         }
     }
 };
