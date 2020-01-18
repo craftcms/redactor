@@ -108,11 +108,6 @@ gulp.task('field-css', function() {
         .pipe(gulp.dest(fieldPath+'/css'));
 });
 
-gulp.task('craft-sass', function() {
-    return gulp.src('node_modules/craftcms-sass/src/_mixins.scss')
-        .pipe(gulp.dest('lib/craftcms-sass'));
-});
-
 gulp.task('redactor', ['redactor-js', 'redactor-css']);
 gulp.task('field', ['field-js', 'field-css']);
 gulp.task('default', ['redactor', 'field']);
