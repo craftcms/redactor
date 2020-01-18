@@ -1,7 +1,7 @@
 {
   "name": "craftcms/redactor",
   "description": "Edit rich text content in Craft CMS using Redactor by Imperavi.",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "type": "craft-plugin",
   "keywords": [
     "html",
@@ -25,7 +25,7 @@
     "rss": "https://github.com/craftcms/redactor/commits/v2.atom"
   },
   "require": {
-    "craftcms/cms": "^3.2.0"
+    "craftcms/cms": "^3.4.0-RC1"
   },
   "autoload": {
     "psr-4": {

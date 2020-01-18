@@ -1,5 +1,13 @@
 # Release Notes for Redactor for Craft CMS
 
+## 2.5.0 - 2020-01-17
+
+### Added
+- Added the ability to create cross-site entry links. ([#187](https://github.com/craftcms/redactor/pull/187))
+
+### Changed
+- Updated the field styles for Craft 3.4.
+
 ## 2.4.0 - 2019-09-13
 
 ### Added

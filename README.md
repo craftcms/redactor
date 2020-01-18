@@ -6,7 +6,7 @@ This plugin adds a “Redactor” field type to Craft CMS, which provides a rich
 
 ## Requirements
 
-This plugin requires Craft CMS 3.2 or later.
+This plugin requires Craft CMS 3.4 or later.
 
 ## Installation
 
