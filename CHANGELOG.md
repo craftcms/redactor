@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where it was sometimes impossible to scroll after viewing HTML source. ([#117](https://github.com/craftcms/redactor/issues/117))
+
 ## 2.5.0 - 2020-01-17
 
 ### Added
