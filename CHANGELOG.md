@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Added the `craft\redactor\events\ModifyPurifierConfigEvent` which allows fine-tuning the HTML Purifier configuration on runtime. ([#147](https://github.com/craftcms/redactor/issues/147))
+
 ### Fixed
 - Fixed a bug where it was sometimes impossible to scroll after viewing HTML source. ([#117](https://github.com/craftcms/redactor/issues/117))
 

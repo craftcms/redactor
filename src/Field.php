@@ -23,9 +23,12 @@ use craft\helpers\StringHelper;
 use craft\models\Section;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
+use craft\redactor\events\ModifyPurifierConfigEvent;
 use craft\redactor\events\RegisterLinkOptionsEvent;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
+use HTMLPurifier_AttrDef_Text;
+use HTMLPurifier_Config;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
 use yii\db\Schema;
@@ -50,6 +53,24 @@ class Field extends \craft\base\Field
      * @event RegisterLinkOptionsEvent The event that is triggered when registering the link options for the field.
      */
     const EVENT_REGISTER_LINK_OPTIONS = 'registerLinkOptions';
+
+    /**
+     * @event ModifyPurifierConfigEvent The event that is triggered when creating HTML Purifier config
+     *
+     * Plugins can get notified when HTML Purifier config is being constructed.
+     *
+     * ```php
+     * use craft\redactor\events\ModifyPurifierConfigEvent;
+     * use craft\redactor\Field;
+     * use HTMLPurifier_AttrDef_Text;
+     * use yii\base\Event;
+     *
+     * Event::on(Field::class, Field::EVENT_MODIFY_PURIFIER_CONFIG, function(ModifyPurifierConfigEvent $e) {
+     *      // Allow the use of the Redactor Variables plugin
+     *      $e->config->getHTMLDefinition(true)->addAttribute('span', 'data-redactor-type', new HTMLPurifier_AttrDef_Text());
+     * });
+     * ```
+     */    const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
 
     // Static
     // =========================================================================
@@ -765,20 +786,31 @@ class Field extends \craft\base\Field
     /**
      * Returns the HTML Purifier config used by this field.
      *
-     * @return array
+     * @return HTMLPurifier_Config
      */
-    private function _getPurifierConfig(): array
+    private function _getPurifierConfig(): HTMLPurifier_Config
     {
+        $purifierConfig = HTMLPurifier_Config::createDefault();
+        $purifierConfig->autoFinalize = false;
+
         if ($config = $this->_getConfig('htmlpurifier', $this->purifierConfig)) {
-            return $config;
+            foreach ($config as $option => $value) {
+                $purifierConfig->set($option, $value);
+            }
+        } else {
+            $purifierConfig->set('Attr.AllowedFrameTargets', ['_blank']);
+            $purifierConfig->set('Attr.EnableID', true);
+            $purifierConfig->set('HTML.AllowedComments', ['pagebreak']); // remove this later!
         }
 
-        // Default config
-        return [
-            'Attr.AllowedFrameTargets' => ['_blank'],
-            'Attr.EnableID' => true,
-            'HTML.AllowedComments' => ['pagebreak'],
-        ];
+        // Give plugins a chance to modify the HTML Purifier config, or add new ones
+        $event = new ModifyPurifierConfigEvent([
+            'config' => $purifierConfig,
+        ]);
+
+        $this->trigger(self::EVENT_MODIFY_PURIFIER_CONFIG, $event);
+
+        return $event->config;
     }
 
     /**
