@@ -80,7 +80,47 @@ window.livePreviewHideFullscreen = false;
                     if (typeof lowestListButtonIndex !== 'undefined') {
                         this.redactorConfig.buttons.splice(lowestListButtonIndex, 0, 'lists');
                     }
+                } else {
+                    this.redactorConfig.buttons = [];
                 }
+
+                // Now mix in the buttons provided by other options, before we start our own shenanigans
+                // `buttonsAddFirst`
+                if (this.redactorConfig.buttonsAddFirst) {
+                    this.redactorConfig.buttons.splice(0, 0, ...this.redactorConfig.buttonsAddFirst.buttons);
+                }
+
+                // `buttonsAddBefore`
+                if (this.redactorConfig.buttonsAddBefore) {
+                    var index;
+                    for (i = 0; i < this.redactorConfig.buttons.length; i++) {
+                        if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddBefore.before) {
+                            this.redactorConfig.buttons.splice(i, 0, ...this.redactorConfig.buttonsAddBefore.buttons);
+                            break;
+                        }
+                    }
+                }
+
+                // `buttonsAddAfter`
+                if (this.redactorConfig.buttonsAddAfter) {
+                    var index;
+                    for (i = 0; i < this.redactorConfig.buttons.length; i++) {
+                        if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddAfter.after) {
+                            this.redactorConfig.buttons.splice(i + 1, 0, ...this.redactorConfig.buttonsAddAfter.buttons);
+                            break;
+                        }
+                    }
+                }
+
+                // `buttonsAdd`
+                if (this.redactorConfig.buttonsAdd) {
+                    this.redactorConfig.buttons.splice(this.redactorConfig.buttons.length, 0, ...this.redactorConfig.buttonsAdd.buttons);
+                }
+
+                delete this.redactorConfig.buttonsAddFirst;
+                delete this.redactorConfig.buttonsAddBefore;
+                delete this.redactorConfig.buttonsAddAfter;
+                delete this.redactorConfig.buttonsAdd;
 
                 // Define our callbacks
                 this.redactorConfig.callbacks = {
@@ -106,9 +146,12 @@ window.livePreviewHideFullscreen = false;
                     }
                 }
 
+
                 Craft.RedactorInput.currentInstance = this;
+                console.log(this.redactorConfig.buttons);
                 this.$textarea.redactor(this.redactorConfig);
 
+                return;
                 this.redactor = $R(selector);
 
                 if (typeof this.redactorConfig.buttons === 'undefined') {
