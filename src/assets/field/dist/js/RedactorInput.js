@@ -87,7 +87,12 @@ window.livePreviewHideFullscreen = false;
                 // Now mix in the buttons provided by other options, before we start our own shenanigans
                 // `buttonsAddFirst`
                 if (this.redactorConfig.buttonsAddFirst) {
-                    this.redactorConfig.buttons.splice(0, 0, ...this.redactorConfig.buttonsAddFirst.buttons);
+                    this.redactorConfig.buttons = this.redactorConfig.buttonsAddFirst.buttons.concat(this.redactorConfig.buttons);
+                }
+
+                // `buttonsAdd`
+                if (this.redactorConfig.buttonsAdd) {
+                    this.redactorConfig.buttons = this.redactorConfig.buttons.concat(this.redactorConfig.buttonsAdd.buttons);
                 }
 
                 // `buttonsAddBefore`
@@ -95,7 +100,7 @@ window.livePreviewHideFullscreen = false;
                     var index;
                     for (i = 0; i < this.redactorConfig.buttons.length; i++) {
                         if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddBefore.before) {
-                            this.redactorConfig.buttons.splice(i, 0, ...this.redactorConfig.buttonsAddBefore.buttons);
+                            this.redactorConfig.buttons = this.redactorConfig.buttons.slice(0, i).concat(this.redactorConfig.buttonsAddBefore.buttons).concat(this.redactorConfig.buttons.slice(i));
                             break;
                         }
                     }
@@ -106,15 +111,11 @@ window.livePreviewHideFullscreen = false;
                     var index;
                     for (i = 0; i < this.redactorConfig.buttons.length; i++) {
                         if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddAfter.after) {
-                            this.redactorConfig.buttons.splice(i + 1, 0, ...this.redactorConfig.buttonsAddAfter.buttons);
+                            debugger;
+                            this.redactorConfig.buttons = this.redactorConfig.buttons.slice(0, i + 1).concat(this.redactorConfig.buttonsAddAfter.buttons).concat(this.redactorConfig.buttons.slice(i + 1));
                             break;
                         }
                     }
-                }
-
-                // `buttonsAdd`
-                if (this.redactorConfig.buttonsAdd) {
-                    this.redactorConfig.buttons.splice(this.redactorConfig.buttons.length, 0, ...this.redactorConfig.buttonsAdd.buttons);
                 }
 
                 delete this.redactorConfig.buttonsAddFirst;
@@ -148,7 +149,6 @@ window.livePreviewHideFullscreen = false;
 
 
                 Craft.RedactorInput.currentInstance = this;
-                console.log(this.redactorConfig.buttons);
                 this.$textarea.redactor(this.redactorConfig);
 
                 return;
