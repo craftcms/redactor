@@ -147,11 +147,9 @@ window.livePreviewHideFullscreen = false;
                     }
                 }
 
-
                 Craft.RedactorInput.currentInstance = this;
                 this.$textarea.redactor(this.redactorConfig);
 
-                return;
                 this.redactor = $R(selector);
 
                 if (typeof this.redactorConfig.buttons === 'undefined') {
