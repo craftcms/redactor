@@ -130,3 +130,60 @@ toolbarFixedClass.prototype._doFixed = function() {
         this.app.broadcast('toolbar.unfixed');
     }
 };
+
+var inputCleanerService = $R['services']['cleaner'];
+
+inputCleanerService.prototype.input = function(html, paragraphize, started)
+{
+    // pre/code
+    html = this.encodePreCode(html);
+
+    // converting entity
+    html = html.replace(/\$/g, '&#36;');
+    html = html.replace(/&amp;/g, '&');
+
+    // convert to figure
+    var converter = $R.create('cleaner.figure', this.app);
+    html = converter.convert(html, this.convertRules);
+
+    // store components
+    html = this.storeComponents(html);
+
+    // clean
+    html = this.replaceTags(html, this.opts.replaceTags);
+    html = this._setSpanAttr(html);
+    html = this._setStyleCache(html);
+    html = this.removeTags(html, this.deniedTags);
+    html = (this.opts.removeScript) ? this._removeScriptTag(html) : this._replaceScriptTag(html);
+    //html = (this.opts.removeScript) ? this._removeScriptTag(html) : html;
+    html = (this.opts.removeComments) ? this.removeComments(html) : html;
+    html = (this._isSpacedEmpty(html)) ? this.opts.emptyHtml : html;
+
+    // restore components
+    html = this.restoreComponents(html);
+
+    // clear wrapped components
+    html = this._cleanWrapped(html);
+
+    // remove image attributes
+    var $wrapper = this.utils.buildWrapper(html);
+    var imageattrs = ['alt', 'title', 'src', 'class', 'width', 'height', 'srcset', 'style'];
+    $wrapper.find('img').each(function(node) {
+        if (node.attributes.length > 0) {
+            var attrs = node.attributes;
+            for (var i = attrs.length - 1; i >= 0; i--) {
+                if (attrs[i].name.search(/^data\-/) === -1 && imageattrs.indexOf(attrs[i].name) === -1) {
+                    node.removeAttribute(attrs[i].name);
+                }
+            }
+        }
+    });
+
+    // get wrapper html
+    html = this.utils.getWrapperHtml($wrapper);
+
+    // paragraphize
+    html = (paragraphize) ? this.paragraphize(html) : html;
+
+    return html;
+}

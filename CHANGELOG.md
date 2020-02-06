@@ -8,6 +8,7 @@
 
 ### Changed
 - Updated Redactor to 3.3.2.
+- Redactor no longer removes the `style` attribute on `<img>` tags on load. ([#192](https://github.com/craftcms/redactor/issues/192))
 
 ### Fixed
 - Fixed a bug where it was sometimes impossible to scroll after viewing HTML source. ([#117](https://github.com/craftcms/redactor/issues/117))
