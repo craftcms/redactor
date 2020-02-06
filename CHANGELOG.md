@@ -6,6 +6,9 @@
 - Added the `craft\redactor\events\ModifyPurifierConfigEvent` which allows fine-tuning the HTML Purifier configuration on runtime. ([#147](https://github.com/craftcms/redactor/issues/147))
 - Added the support for `buttonsAddFirst`, `buttonsAddBefore`, `buttonsAddAfter`, and `buttonsAdd` Redactor config settings. ([#158](https://github.com/craftcms/redactor/issues/158))
 
+### Changed
+- Updated Redactor to 3.3.2.
+
 ### Fixed
 - Fixed a bug where it was sometimes impossible to scroll after viewing HTML source. ([#117](https://github.com/craftcms/redactor/issues/117))
 - Fixed a bug where Redactor was aggresively removing newlines. ([#171](https://github.com/craftcms/redactor/issues/171))
