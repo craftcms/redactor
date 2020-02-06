@@ -456,7 +456,7 @@ class Field extends \craft\base\Field
                 // Remove disallowed inline styles
                 $allowedStyles = $this->_allowedStyles();
                 $value = preg_replace_callback(
-                    '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span)\b[^>]*)\s+style="([^"]*)"/',
+                    '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span|img)\b[^>]*)\s+style="([^"]*)"/',
                     function(array $matches) use ($allowedStyles) {
                         // Only allow certain styles through
                         $allowed = [];
