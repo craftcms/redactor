@@ -378,9 +378,6 @@ class Field extends \craft\base\Field
 
             // Swap any <!--pagebreak-->'s with <hr>'s
             $value = str_replace('<!--pagebreak-->', '<hr class="redactor_pagebreak" style="display:none" unselectable="on" contenteditable="false" />', $value);
-
-            // Remove newlines to avoid pointless page unload confirmations
-            $value = preg_replace('/[\r\n]/', '', $value);
         }
 
         return '<textarea id="'.$id.'" name="'.$this->handle.'" style="display: none">'.htmlentities($value, ENT_NOQUOTES, 'UTF-8').'</textarea>';
