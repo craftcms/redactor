@@ -140,7 +140,7 @@ toolbarFixedClass.prototype._doFixed = function() {
 
     if (this.livePreview) {
         var headerBuffer = $('.lp-editor-container header.flex').length ? $('.lp-editor-container header.flex').height() : 0;
-        var distanceFromScreenTop = $editor.offset().top - headerBuffer;//$('.lp-editor').scrollTop() + headerBuffer + ($editor.parent().offset().top - $editor.offset().top);
+        var distanceFromScreenTop = $editor.offset().top - headerBuffer;
         var bottomFromScreenTop = distanceFromScreenTop + $editor.height() - toolbarHeight;
     } else {
         var headerBuffer = $('body.fixed-header #header').length ? $('body.fixed-header #header').height() : 0;
@@ -248,3 +248,55 @@ inputCleanerService.prototype.input = function(html, paragraphize, started)
 
     return html;
 }
+
+var toolbarDropdownClass = $R['classes']['toolbar.dropdown'];
+
+toolbarDropdownClass.prototype.updatePosition = function ()
+{
+    var isFixed = this.toolbar.isFixed();
+    var isTarget = this.toolbar.isTarget();
+
+    var btnHeight = this.$btn.height();
+    var btnWidth = this.$btn.width();
+
+    var pos = this.$btn.offset();
+    var position = 'absolute';
+    var topOffset = 2;
+
+    if (isFixed) {
+        pos.top = (isTarget) ? this.$btn.offset().top : this.$btn.position().top;
+        position = 'fixed';
+        topOffset = topOffset + this.opts.toolbarFixedTopOffset;
+    }
+
+
+    var leftOffset = 0;
+    var left = (pos.left + leftOffset);
+    var width = parseFloat(this.css('width'));
+    var winWidth = this.$win.width();
+    var leftFix = (winWidth < (left + width)) ? (width - btnWidth) : 0;
+    var leftPos = (left - leftFix);
+    var top = (pos.top + btnHeight + topOffset);
+
+    if (isFixed) {
+        var toolbarElement = this.toolbar.getElement();
+        top = toolbarElement.position().top + toolbarElement.height();
+    }
+
+    leftPos = (leftPos < 0) ? 4 : leftPos;
+
+    this.css({
+        maxHeight: '',
+        position: position,
+        top: top + 'px',
+        left: leftPos + 'px'
+    });
+
+    // height adaptive
+    var heightTolerance = 10;
+    var winHeight = this.$win.height();
+    var scrollTop = this.$doc.scrollTop();
+    var cropHeight = winHeight - (top - scrollTop) - heightTolerance;
+
+    this.css('max-height', cropHeight + 'px');
+};
