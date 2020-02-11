@@ -95,7 +95,7 @@ window.livePreviewHideFullscreen = false;
                     var index;
                     for (i = 0; i < this.redactorConfig.buttons.length; i++) {
                         if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddBefore.before) {
-                            this.redactorConfig.buttons = this.redactorConfig.buttons.slice(0, i).concat(this.redactorConfig.buttonsAddBefore.buttons).concat(this.redactorConfig.buttons.slice(i));
+                            this.redactorConfig.buttons.splice(i, 0, ...this.redactorConfig.buttonsAddBefore.buttons);
                             break;
                         }
                     }
@@ -106,8 +106,7 @@ window.livePreviewHideFullscreen = false;
                     var index;
                     for (i = 0; i < this.redactorConfig.buttons.length; i++) {
                         if (this.redactorConfig.buttons[i] == this.redactorConfig.buttonsAddAfter.after) {
-                            debugger;
-                            this.redactorConfig.buttons = this.redactorConfig.buttons.slice(0, i + 1).concat(this.redactorConfig.buttonsAddAfter.buttons).concat(this.redactorConfig.buttons.slice(i + 1));
+                            this.redactorConfig.buttons.splice(i + 1, 0, ...this.redactorConfig.buttonsAddAfter.buttons);
                             break;
                         }
                     }
