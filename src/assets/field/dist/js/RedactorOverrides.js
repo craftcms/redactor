@@ -152,7 +152,7 @@ toolbarFixedClass.prototype._doFixed = function() {
     pinDistance = $editor.scrollTop() + headerBuffer + tolerance;
 
     // Figure out when to pin the toolbar
-    
+
     if (pinIt)
     {
         var position = (this.detector.isDesktop()) ? 'fixed' : 'absolute';
