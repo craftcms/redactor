@@ -17,6 +17,7 @@
 - Fixed a bug where it wasn’t possible to link to cross-site elements. ([#188](https://github.com/craftcms/redactor/issues/188))
 - Fixed the toolbar not being sticky. ([#202](https://github.com/craftcms/redactor/issues/202)
 - Fixed the toolbar not being sticky when in live preview. ([#157](https://github.com/craftcms/redactor/issues/157)
+- Fixed the context bar positioning when clicking links or images. ([#201](https://github.com/craftcms/redactor/issues/201))
 
 ## 2.5.0 - 2020-01-17
 

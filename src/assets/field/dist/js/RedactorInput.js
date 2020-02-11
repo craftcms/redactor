@@ -264,8 +264,10 @@ window.livePreviewHideFullscreen = false;
                 var data = this.redactor.inspector.parse(current);
 
                 var repositionContextBar = function (e, contextbar) {
-                    var top = e.clientY - contextbar.$contextbar.height() - 10;
-                    var left = e.clientX - contextbar.$contextbar.width() / 2;
+                    var parent = contextbar.$contextbar.parent();
+
+                    var top = e.clientY + contextbar.$contextbar.height() - 10 - parent.offset().top + contextbar.$win.scrollTop();
+                    var left = e.clientX - contextbar.$contextbar.width() / 2 - parent.offset().left;
 
                     var position = {
                         left: left + 'px',
