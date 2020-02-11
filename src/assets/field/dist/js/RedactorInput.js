@@ -135,7 +135,7 @@ window.livePreviewHideFullscreen = false;
 
                 if (typeof this.redactorConfig.toolbarFixed === 'undefined' || this.redactorConfig.toolbarFixed) {
                     // Set the toolbarFixedTarget depending on the context
-                    var target = this.$textarea.closest('#content, .lp-editor');
+                    var target = this.$textarea.closest('#content');
                     if (target.length) {
                         this.redactorConfig.toolbarFixedTarget = target;
                     }

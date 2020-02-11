@@ -15,6 +15,8 @@
 - Fixed a bug where it was sometimes impossible to scroll after viewing HTML source. ([#117](https://github.com/craftcms/redactor/issues/117))
 - Fixed a bug where Redactor was aggressively removing newlines. ([#171](https://github.com/craftcms/redactor/issues/171))
 - Fixed a bug where it wasn’t possible to link to cross-site elements. ([#188](https://github.com/craftcms/redactor/issues/188))
+- Fixed the toolbar not being sticky. ([#202](https://github.com/craftcms/redactor/issues/202)
+- Fixed the toolbar not being sticky when in live preview. ([#157](https://github.com/craftcms/redactor/issues/157)
 
 ## 2.5.0 - 2020-01-17
 

@@ -65,11 +65,57 @@ imageResizeClass.prototype.hide = function () {
 
 var toolbarFixedClass = $R['classes']['toolbar.fixed'];
 
+toolbarFixedClass.prototype.livePreview = false;
+toolbarFixedClass.prototype.$previousFixedTarget = false;
+
+toolbarFixedClass.prototype._init = function() {
+    this.$fixedTarget = (this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$win;
+    this._doFixed();
+
+    if (this.toolbar.isTarget())
+    {
+        this.$win.on('scroll.redactor-toolbar-' + this.uuid, this._doFixed.bind(this));
+        this.$win.on('resize.redactor-toolbar-' + this.uuid, this._doFixed.bind(this));
+    }
+
+    this.$fixedTarget.on('scroll.redactor-toolbar-' + this.uuid, this._doFixed.bind(this));
+    this.$fixedTarget.on('resize.redactor-toolbar-' + this.uuid, this._doFixed.bind(this));
+
+    var attachLivePreview = () => {
+        var $editor = $('.lp-editor');
+        if ($editor.length) {
+            this.livePreview = true;
+            this.$previousFixedTarget = this.$fixedTarget;
+            $editor = $R.dom($editor[0]);
+            $editor.on('scroll.redactor-toolbar-' + this.uuid, this._doFixed.bind(this));
+            this.$fixedTarget = $editor;
+        }
+    };
+
+    var detachLivePreview = () => {
+        this.livePreview = false;
+        this.$fixedTarget = this.$previousFixedTarget;
+        this.$previousFixedTarget = null;
+    }
+
+    Garnish.on(Craft.Preview, 'open', attachLivePreview);
+    Garnish.on(Craft.LivePreview, 'enter', attachLivePreview);
+
+    Garnish.on(Craft.Preview, 'close', detachLivePreview);
+    Garnish.on(Craft.LivePreview, 'exit', detachLivePreview);
+};
+
 toolbarFixedClass.prototype._doFixed = function() {
     var $editor = this.editor.getElement();
     var $container = this.container.getElement();
     var $toolbar = this.toolbar.getElement();
     var $wrapper = this.toolbar.getWrapper();
+
+    if (this.editor.isSourceMode())
+    {
+        return;
+    }
+
     var $targets = $container.parents().filter(function(node)
     {
         return (getComputedStyle(node, null).display === 'none') ? node : false;
@@ -81,21 +127,36 @@ toolbarFixedClass.prototype._doFixed = function() {
     var isHeight = ($editor.height() < 100);
     var isEmpty = this.editor.isEmpty();
 
-    if (isHeight || isEmpty || this.editor.isSourceMode()) return;
+    if (isHeight || isEmpty) {
+        this.reset();
+        return;
+    }
 
-    // Fix figuring out when to pin the toolbar and when not.
     var toolbarHeight = $toolbar.height();
-    var toleranceEnd = 100;
-    var containerOffset = $container.offset();
-    var boxOffset = containerOffset.top;
-    var scrollOffset = this.$fixedTarget.scrollTop();
-    var top = (!this.toolbar.isTarget()) ? 0 : this.$fixedTarget.offset().top - this.$win.scrollTop();
-    var relativeTopPoint = boxOffset - toleranceEnd;
 
-    if (relativeTopPoint < 0 && Math.abs(relativeTopPoint) < $container.height() - toleranceEnd)
+    var pinIt = false;
+    var pinDistance = 0;
+    var tolerance = 20;
+
+    if (this.livePreview) {
+        var headerBuffer = $('.lp-editor-container header.flex').length ? $('.lp-editor-container header.flex').height() : 0;
+        var distanceFromScreenTop = $editor.offset().top - headerBuffer;//$('.lp-editor').scrollTop() + headerBuffer + ($editor.parent().offset().top - $editor.offset().top);
+        var bottomFromScreenTop = distanceFromScreenTop + $editor.height() - toolbarHeight;
+    } else {
+        var headerBuffer = $('body.fixed-header #header').length ? $('body.fixed-header #header').height() : 0;
+        var distanceFromScreenTop = $editor.offset().top - this.$win.scrollTop() - headerBuffer;
+        var bottomFromScreenTop = distanceFromScreenTop + $editor.height() - toolbarHeight;
+    }
+
+    pinIt = distanceFromScreenTop  + tolerance < 0 && bottomFromScreenTop > 0;
+    pinDistance = $editor.scrollTop() + headerBuffer + tolerance;
+
+    // Figure out when to pin the toolbar
+    
+    if (pinIt)
     {
         var position = (this.detector.isDesktop()) ? 'fixed' : 'absolute';
-        top = (this.detector.isDesktop()) ? top : (scrollOffset - boxOffset + this.opts.toolbarFixedTopOffset);
+        pinDistance = (this.detector.isDesktop()) ? pinDistance : (scrollOffset - boxOffset + this.opts.toolbarFixedTopOffset);
 
         if (this.detector.isMobile())
         {
@@ -115,7 +176,7 @@ toolbarFixedClass.prototype._doFixed = function() {
         $toolbar.addClass('redactor-toolbar-fixed');
         $toolbar.css({
             position: position,
-            top: (top + this.opts.toolbarFixedTopOffset) + 'px',
+            top: (pinDistance + this.opts.toolbarFixedTopOffset) + 'px',
             width: $container.width() + 'px'
         });
 
