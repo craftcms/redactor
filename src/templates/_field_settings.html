@@ -24,6 +24,22 @@
     showAllOption: volumeOptions|length ? true : false
 }) }}
 
+{{ forms.checkboxField({
+    label: 'Show unpermitted volumes'|t('app'),
+    instructions: 'Whether to show volumes that the user doesn’t have permission to view.'|t('app'),
+    id: 'showUnpermittedVolumes',
+    name: 'showUnpermittedVolumes',
+    checked: field.showUnpermittedVolumes,
+}) }}
+
+{{ forms.checkboxField({
+    label: 'Show unpermitted files'|t('app'),
+    instructions: 'Whether to show files that the user doesn’t have permission to view, per the “View files uploaded by other users” permission.'|t('app'),
+    id: 'showUnpermittedFiles',
+    name: 'showUnpermittedFiles',
+    checked: field.showUnpermittedFiles,
+}) }}
+
 {{ forms.checkboxSelectField({
     id: 'availableTransforms',
     name: 'availableTransforms',

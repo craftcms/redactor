@@ -5,6 +5,8 @@
 ### Added
 - Added the `craft\redactor\events\ModifyPurifierConfigEvent` which allows fine-tuning the HTML Purifier configuration on runtime. ([#147](https://github.com/craftcms/redactor/issues/147))
 - Added the support for `buttonsAddFirst`, `buttonsAddBefore`, `buttonsAddAfter`, and `buttonsAdd` Redactor config settings. ([#158](https://github.com/craftcms/redactor/issues/158))
+- Redactor fields now have a “Show unpermitted volumes” setting, which determines whether the field should show volumes that the user doesn’t have permission to view (disabled by default for new fields; enabled by default for existing fields). ([#203](https://github.com/craftcms/redactor/issues/203))
+- Redactor fields now have a “Show unpermitted files” setting, which determines whether the field should show files that the user doesn’t have permission to view per the  “View files uploaded by other users” permission.
 
 ### Changed
 - Updated Redactor to 3.3.2.

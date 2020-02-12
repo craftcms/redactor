@@ -140,6 +140,19 @@ class Field extends \craft\base\Field
     public $availableTransforms = '*';
 
     /**
+     * @var bool Whether to show input sources for volumes the user doesn’t have permission to view.
+     * @since 2.6.0
+     */
+    public $showUnpermittedVolumes = false;
+
+    /**
+     * @var bool Whether to show files the user doesn’t have permission to view, per the
+     * “View files uploaded by other users” permission.
+     * @since 2.6.0
+     */
+    public $showUnpermittedFiles = false;
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -189,7 +202,22 @@ class Field extends \craft\base\Field
             $config['redactorConfig'] = ArrayHelper::remove($config, 'configFile');
         }
 
+        // Default showUnpermittedVolumes to true for existing Redactor fields
+        if (isset($config['id']) && !isset($config['showUnpermittedVolumes'])) {
+            $config['showUnpermittedVolumes'] = true;
+        }
+
         parent::__construct($config);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function init()
+    {
+        $this->showUnpermittedVolumes = (bool)$this->showUnpermittedVolumes;
+        $this->showUnpermittedFiles = (bool)$this->showUnpermittedFiles;
+        parent::init();
     }
 
     /**
@@ -357,6 +385,7 @@ class Field extends \craft\base\Field
             'elementSiteId' => $site->id,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,
+            'showAllUploaders' => $this->showUnpermittedFiles,
         ];
 
         if ($this->translationMethod != self::TRANSLATION_METHOD_NONE) {
@@ -670,9 +699,18 @@ class Field extends \craft\base\Field
 
         $criteria = ['parentId' => ':empty:'];
 
-        if ($this->availableVolumes !== '*') {
-            $criteria['volumeId'] = Db::idsByUids('{{%volumes}}', $this->availableVolumes);
+        $allVolumes = Craft::$app->getVolumes()->getAllVolumes();
+        $allowedVolumes = [];
+        $userService = Craft::$app->getUser();
+
+        foreach ($allVolumes as $volume) {
+            $allowedBySettings = $this->availableVolumes === '*' || (is_array($this->availableVolumes) && in_array($volume->uid, $this->availableVolumes));
+            if ($allowedBySettings && ($this->showUnpermittedVolumes || $userService->checkPermission("viewVolume:{$volume->uid}"))) {
+                $allowedVolumes[] = $volume->uid;
+            }
         }
+
+        $criteria['volumeId'] = Db::idsByUids('{{%volumes}}', $allowedVolumes);
 
         $folders = Craft::$app->getAssets()->findFolders($criteria);
 

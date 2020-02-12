@@ -13,6 +13,7 @@ window.livePreviewHideFullscreen = false;
             volumes: null,
             elementSiteId: null,
             redactorConfig: null,
+            showAllUploaders: false,
 
             $textarea: null,
             redactor: null,
@@ -25,6 +26,7 @@ window.livePreviewHideFullscreen = false;
                 this.transforms = settings.transforms;
                 this.elementSiteId = settings.elementSiteId;
                 this.redactorConfig = settings.redactorConfig;
+                this.showAllUploaders = settings.showAllUploaders;
 
                 this.linkOptionModals = [];
 
@@ -161,6 +163,7 @@ window.livePreviewHideFullscreen = false;
                     this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
                     this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
+                    this.redactor.plugin.craftAssetImages.allowAllUploaders = this.showAllUploaders;
                 }
 
                 if (this.redactorConfig.buttons.indexOf('file') !== -1) {
