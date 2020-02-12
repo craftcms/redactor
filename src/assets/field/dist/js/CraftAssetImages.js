@@ -29,6 +29,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                         }
 
                         this.app.selectionMarkers = false;
+                        var data = {};
 
                         for (var i = 0; i < assets.length; i++) {
                             var asset = assets[i],
@@ -38,14 +39,13 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                                 url += ':transform:' + transform;
                             }
 
-                            var data = {};
                             data['asset'+asset.id] = {
                                 url: url,
                                 id: asset.id
                             };
-
-                            this.app.api('module.image.insert', data);
                         }
+
+                        this.app.api('module.image.insert', data);
                     }
                 }, this),
                 closeOtherModals: false,
