@@ -3,6 +3,40 @@
 
 var imageResizeClass = $R['classes']['image.resize'];
 
+imageResizeClass.prototype.init = function (app) {
+    this.app = app;
+    this.$doc = app.$doc;
+    this.$win = app.$win;
+    this.$body = app.$body;
+    this.editor = app.editor;
+    this.toolbar = app.toolbar;
+    this.inspector = app.inspector;
+
+    // init
+    this.$target = (this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body;
+
+    // Change the target according to LP
+    var attachLivePreview = () => {
+        this.hide();
+        var $editor = $('.lp-editor');
+        if ($editor.length) {
+            this.$target = $R.dom($editor[0]);
+        }
+    };
+
+    var detachLivePreview = () => {
+        this.hide();
+        this.$target = (this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body;
+    }
+
+    Garnish.on(Craft.Preview, 'open', attachLivePreview);
+    Garnish.on(Craft.LivePreview, 'enter', attachLivePreview);
+
+    Garnish.on(Craft.Preview, 'close', detachLivePreview);
+    Garnish.on(Craft.LivePreview, 'exit', detachLivePreview);
+
+    this._init();
+}
 // Position the image resizer correctly
 imageResizeClass.prototype._setResizerPosition = function () {
     if (this.$resizer)
@@ -10,15 +44,15 @@ imageResizeClass.prototype._setResizerPosition = function () {
         var isTarget = this.toolbar.isTarget();
         var targetOffset = this.$target.offset();
         var offsetFix = 7;
-        var topOffset = offsetFix;
-        var leftOffset = offsetFix;
+        var topOffset = (isTarget) ? (offsetFix - targetOffset.top + this.$target.scrollTop()) : offsetFix;
+        var leftOffset = (isTarget) ? (offsetFix - targetOffset.left) : offsetFix;
         var pos = this.$resizableImage.offset();
         var width = this.$resizableImage.width();
         var height = this.$resizableImage.height();
         var resizerWidth =  this.$resizer.width();
         var resizerHeight =  this.$resizer.height();
 
-        this.$resizer.css({ top: (pos.top + height - resizerHeight + topOffset) + 'px', left: (pos.left + width - resizerWidth + leftOffset) + 'px' });
+        this.$resizer.css({ top: Math.round(pos.top + height - resizerHeight + topOffset) + 'px', left: Math.round(pos.left + width - resizerWidth + leftOffset) + 'px' });
     }
 };
 
@@ -42,12 +76,6 @@ imageResizeClass.prototype._build = function (e) {
 
         this._setResizerPosition();
         this.$resizer.on('mousedown touchstart', this._set.bind(this));
-
-        if (this.toolbar.isTarget()) {
-            // this.$target.on('scroll.resizer', this.rebuild.bind(this));
-        } else {
-            // $R.dom('#content-container').on('scroll.resizer', this.rebuild.bind(this));
-        }
     }
 };
 // Stop listening to scroll

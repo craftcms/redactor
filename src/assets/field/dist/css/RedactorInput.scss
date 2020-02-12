@@ -9,6 +9,10 @@ body {
     background: transparentize($white, 0.25) !important;
   }
 
+  .lp-editor {
+    position: relative;
+  }
+
   .redactor-modal {
     @include sans-serif-font;
     @include modal;

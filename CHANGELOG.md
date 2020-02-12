@@ -18,6 +18,7 @@
 - Fixed the toolbar not being sticky. ([#202](https://github.com/craftcms/redactor/issues/202)
 - Fixed the toolbar not being sticky when in live preview. ([#157](https://github.com/craftcms/redactor/issues/157)
 - Fixed the context bar positioning when clicking links or images. ([#201](https://github.com/craftcms/redactor/issues/201))
+- Fixed the image resize handle positioning when clicking images with `imageResizable` enabled. ([#205](https://github.com/craftcms/redactor/issues/205), [#183](https://github.com/craftcms/redactor/issues/183))
 
 ## 2.5.0 - 2020-01-17
 
