@@ -29,11 +29,7 @@ imageResizeClass.prototype.init = function (app) {
         this.$target = (this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body;
     }
 
-    Garnish.on(Craft.Preview, 'open', attachLivePreview);
-    Garnish.on(Craft.LivePreview, 'enter', attachLivePreview);
-
-    Garnish.on(Craft.Preview, 'close', detachLivePreview);
-    Garnish.on(Craft.LivePreview, 'exit', detachLivePreview);
+    attachPreviewListeners(attachLivePreview, detachLivePreview);
 
     this._init();
 }
@@ -126,11 +122,7 @@ toolbarFixedClass.prototype._init = function() {
         this.$previousFixedTarget = null;
     }
 
-    Garnish.on(Craft.Preview, 'open', attachLivePreview);
-    Garnish.on(Craft.LivePreview, 'enter', attachLivePreview);
-
-    Garnish.on(Craft.Preview, 'close', detachLivePreview);
-    Garnish.on(Craft.LivePreview, 'exit', detachLivePreview);
+    attachPreviewListeners(attachLivePreview, detachLivePreview);
 };
 
 toolbarFixedClass.prototype._doFixed = function() {
@@ -209,7 +201,10 @@ toolbarFixedClass.prototype._doFixed = function() {
         });
 
         var dropdown = this.toolbar.getDropdown();
-        if (dropdown) dropdown.updatePosition();
+
+        if (dropdown) {
+            dropdown.updatePosition();
+        }
 
         this.app.broadcast('toolbar.fixed');
     }
@@ -327,4 +322,56 @@ toolbarDropdownClass.prototype.updatePosition = function ()
     var cropHeight = winHeight - (top - scrollTop) - heightTolerance;
 
     this.css('max-height', cropHeight + 'px');
+    if (
+        (window.draftEditor && window.draftEditor.preview && window.draftEditor.isPreviewActive()) ||
+        (Craft.livePreview && Craft.livePreview.inPreviewMode)
+    ) {
+        this.addClass('lp-redactor-dropdown');
+    } else {
+        this.removeClass('lp-redactor-dropdown');
+    }
 };
+
+var contextBarClass = $R["modules"]["contextbar"];
+
+contextBarClass.prototype.init = function (app) {
+    this.app = app;
+    this.opts = app.opts;
+    this.uuid = app.uuid;
+    this.$win = app.$win;
+    this.$doc = app.$doc;
+    this.$body = app.$body;
+    this.editor = app.editor;
+    this.toolbar = app.toolbar;
+    this.detector = app.detector;
+    this.livePreview = false;
+
+    // local
+    this.$target = (this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body;
+
+    // Change the target according to LP
+    var attachLivePreview = () => {
+        var $target = $('.lp-editor');
+        if ($target.length) {
+            $(this.$contextbar.get()).appendTo($target);
+            this.livePreview = true;
+        }
+    };
+
+    var detachLivePreview = () => {
+        $target = $((this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body);
+        $(this.$contextbar.get()).appendTo($target.get(0));
+        this.livePreview = false;
+    }
+
+    attachPreviewListeners(attachLivePreview, detachLivePreview);
+};
+
+
+function attachPreviewListeners (openCallback, closeCallback) {
+    Garnish.on(Craft.Preview, 'open', openCallback);
+    Garnish.on(Craft.LivePreview, 'enter', openCallback);
+
+    Garnish.on(Craft.Preview, 'close', closeCallback);
+    Garnish.on(Craft.LivePreview, 'exit', closeCallback);
+}

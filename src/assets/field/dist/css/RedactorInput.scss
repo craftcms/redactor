@@ -22,6 +22,11 @@ body {
   .redactor-dropdown {
     @include sans-serif-font;
     font-size: 14px;
+    z-index: 2 !important;
+  }
+
+  .lp-redactor-dropdown {
+    z-index: 102 !important;
   }
 
   .redactor-dropdown-format {
@@ -106,7 +111,7 @@ body {
   }
 
   .redactor-toolbar-fixed {
-    z-index: 2 !important;
+    z-index: 5 !important;
     background-color: $white !important;
   }
 
@@ -226,6 +231,14 @@ body {
   }
 }
 
+.redactor-context-toolbar {
+  z-index: 4 !important;
+}
+
+#redactor-image-resizer {
+  z-index: 3 !important;
+}
+
 .redactor-box-fullscreen {
   z-index: 101 !important;
   border: none !important;
@@ -238,4 +251,10 @@ body {
   width:0 !important;
   padding:0 !important;
   overflow: hidden !important;
+}
+
+.lp-editor-container {
+  header {
+    z-index: 6 !important;
+  }
 }
