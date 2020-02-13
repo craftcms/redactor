@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.6.0 - 2020-02-13
 
 ### Added
 - Added the `craft\redactor\events\ModifyPurifierConfigEvent` which allows fine-tuning the HTML Purifier configuration on runtime. ([#147](https://github.com/craftcms/redactor/issues/147))
