@@ -22,7 +22,7 @@ class FieldAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = __DIR__.'/dist';
+        $this->sourcePath = __DIR__ . '/dist';
 
         $this->depends = [
             CpAsset::class,
@@ -30,13 +30,13 @@ class FieldAsset extends AssetBundle
         ];
 
         $this->js = [
-            'js/PluginBase'.$this->dotJs(),
-            'js/CraftAssetImageEditor'.$this->dotJs(),
-            'js/CraftAssetImages'.$this->dotJs(),
-            'js/CraftAssetFiles'.$this->dotJs(),
-            'js/CraftEntryLinks'.$this->dotJs(),
-            'js/RedactorInput'.$this->dotJs(),
-            'js/RedactorOverrides'.$this->dotJs(),
+            'js/PluginBase' . $this->dotJs(),
+            'js/CraftAssetImageEditor' . $this->dotJs(),
+            'js/CraftAssetImages' . $this->dotJs(),
+            'js/CraftAssetFiles' . $this->dotJs(),
+            'js/CraftEntryLinks' . $this->dotJs(),
+            'js/RedactorInput' . $this->dotJs(),
+            'js/RedactorOverrides' . $this->dotJs(),
         ];
 
         $this->css = [

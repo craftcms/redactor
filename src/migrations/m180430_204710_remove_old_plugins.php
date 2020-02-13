@@ -18,7 +18,7 @@ class m180430_204710_remove_old_plugins extends Migration
      */
     public function safeUp()
     {
-        $path = Craft::$app->getPath()->getConfigPath().DIRECTORY_SEPARATOR.'redactor';
+        $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . 'redactor';
 
         if (is_dir($path)) {
             echo "    > updating Redactor configs in {$path}\n";

@@ -7,9 +7,9 @@ use craft\db\Migration;
 use craft\db\Query;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
+use craft\redactor\Field;
 use craft\services\Fields;
 use craft\services\Matrix;
-use craft\redactor\Field;
 
 /**
  * m190225_003922_split_cleanup_html_settings migration.
@@ -71,8 +71,7 @@ class m190225_003922_split_cleanup_html_settings extends Migration
                     }
                 }
             }
-        }
-        else {
+        } else {
             // If Super Table is not yet installed but we can find fields that need updating in the DB
             $superTableRedactorFields = (new Query())
                 ->select(['uid', 'settings'])
@@ -94,8 +93,7 @@ class m190225_003922_split_cleanup_html_settings extends Migration
         }
 
         // Go ahead and migrate them
-        foreach ($fieldsToMigrate as $fieldUid => $field)
-        {
+        foreach ($fieldsToMigrate as $fieldUid => $field) {
             $fieldConfigPath = $field['configPath'];
             $fieldConfig = $field['config'];
             if (isset($fieldConfig['settings']) && is_array($fieldConfig['settings'])) {

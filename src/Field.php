@@ -27,7 +27,6 @@ use craft\redactor\events\ModifyPurifierConfigEvent;
 use craft\redactor\events\RegisterLinkOptionsEvent;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
-use HTMLPurifier_AttrDef_Text;
 use HTMLPurifier_Config;
 use yii\base\Event;
 use yii\base\InvalidConfigException;
@@ -70,7 +69,8 @@ class Field extends \craft\base\Field
      *      $e->config->getHTMLDefinition(true)->addAttribute('span', 'data-redactor-type', new HTMLPurifier_AttrDef_Text());
      * });
      * ```
-     */    const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
+     */
+    const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
 
     // Static
     // =========================================================================
@@ -262,7 +262,7 @@ class Field extends \craft\base\Field
             }
         }
 
-        throw new InvalidConfigException('Redactor plugin not found: '.$plugin);
+        throw new InvalidConfigException('Redactor plugin not found: ' . $plugin);
     }
 
     /**
@@ -279,7 +279,7 @@ class Field extends \craft\base\Field
         $event = new RegisterPluginPathsEvent([
             'paths' => [
                 Craft::getAlias('@config/redactor/plugins'),
-                dirname(__DIR__).'/lib/redactor-plugins',
+                dirname(__DIR__) . '/lib/redactor-plugins',
             ]
         ]);
         Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);
@@ -395,7 +395,7 @@ class Field extends \craft\base\Field
         }
 
         RedactorAsset::registerTranslations($view);
-        $view->registerJs('new Craft.RedactorInput('.Json::encode($settings).');');
+        $view->registerJs('new Craft.RedactorInput(' . Json::encode($settings) . ');');
 
         if ($value instanceof FieldData) {
             $value = $value->getRawContent();
@@ -409,7 +409,7 @@ class Field extends \craft\base\Field
             $value = str_replace('<!--pagebreak-->', '<hr class="redactor_pagebreak" style="display:none" unselectable="on" contenteditable="false" />', $value);
         }
 
-        return '<textarea id="'.$id.'" name="'.$this->handle.'" style="display: none">'.htmlentities($value, ENT_NOQUOTES, 'UTF-8').'</textarea>';
+        return '<textarea id="' . $id . '" name="' . $this->handle . '" style="display: none">' . htmlentities($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
     }
 
     /**
@@ -418,7 +418,7 @@ class Field extends \craft\base\Field
     public function getStaticHtml($value, ElementInterface $element): string
     {
         /** @var FieldData|null $value */
-        return '<div class="text">'.($value ?: '&nbsp;').'</div>';
+        return '<div class="text">' . ($value ?: '&nbsp;') . '</div>';
     }
 
     /**
@@ -496,7 +496,7 @@ class Field extends \craft\base\Field
                                 $allowed[] = "{$name}: {$value}";
                             }
                         }
-                        return $matches[1].(!empty($allowed) ? ' style="'.implode('; ', $allowed).'"' : '');
+                        return $matches[1] . (!empty($allowed) ? ' style="' . implode('; ', $allowed) . '"' : '');
                     },
                     $value
                 );
@@ -516,10 +516,10 @@ class Field extends \craft\base\Field
 
         // Find any element URLs and swap them with ref tags
         $value = preg_replace_callback(
-            '/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?'.HandleValidator::$handlePattern.')?\2/',
+            '/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
             function($matches) {
                 // Create the ref tag, and make sure :url is in there
-                $refTag = '{'.$matches[4].':'.$matches[5].(!empty($matches[6]) ? '@'.$matches[6] : '').(!empty($matches[7]) ? $matches[7] : ':url').'}';
+                $refTag = '{' . $matches[4] . ':' . $matches[5] . (!empty($matches[6]) ? '@' . $matches[6] : '') . (!empty($matches[7]) ? $matches[7] : ':url') . '}';
                 $hash = (!empty($matches[3]) ? $matches[3] : '');
 
                 if ($hash) {
@@ -532,7 +532,7 @@ class Field extends \craft\base\Field
                     }
                 }
 
-                return $matches[1].$matches[2].$refTag.$hash.$matches[2];
+                return $matches[1] . $matches[2] . $refTag . $hash . $matches[2];
             },
             $value);
 
@@ -561,12 +561,12 @@ class Field extends \craft\base\Field
             return $value;
         }
 
-        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?'.HandleValidator::$handlePattern.')\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
+        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
             /** @var Element|null $element */
             list (, $attr, $q, $refTag, $ref) = $matches;
             $fragment = $matches[5] ?? '';
 
-            return $attr.$q.Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null).$fragment.'#'.$ref.$q;
+            return $attr . $q . Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null) . $fragment . '#' . $ref . $q;
         }, $value);
     }
 
@@ -648,7 +648,7 @@ class Field extends \craft\base\Field
                 $sectionSiteSettings = $section->getSiteSettings();
                 foreach ($sites as $site) {
                     if (isset($sectionSiteSettings[$site->id]) && $sectionSiteSettings[$site->id]->hasUrls) {
-                        $sources[] = 'section:'.$section->uid;
+                        $sources[] = 'section:' . $section->uid;
                     }
                 }
             }
@@ -678,7 +678,7 @@ class Field extends \craft\base\Field
                 // Does the category group have URLs in the same site as the element we're editing?
                 $categoryGroupSiteSettings = $categoryGroup->getSiteSettings();
                 if (isset($categoryGroupSiteSettings[$element->siteId]) && $categoryGroupSiteSettings[$element->siteId]->hasUrls) {
-                    $sources[] = 'group:'.$categoryGroup->uid;
+                    $sources[] = 'group:' . $categoryGroup->uid;
                 }
             }
         }
@@ -729,7 +729,7 @@ class Field extends \craft\base\Field
         });
 
         foreach ($folders as $folder) {
-            $volumeKeys[] = 'folder:'.$folder->uid;
+            $volumeKeys[] = 'folder:' . $folder->uid;
         }
 
         return $volumeKeys;
@@ -770,7 +770,7 @@ class Field extends \craft\base\Field
     private function _getCustomConfigOptions(string $dir): array
     {
         $options = ['' => Craft::t('redactor', 'Default')];
-        $path = Craft::$app->getPath()->getConfigPath().DIRECTORY_SEPARATOR.$dir;
+        $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . $dir;
 
         if (is_dir($path)) {
             $files = FileHelper::findFiles($path, [
@@ -799,7 +799,7 @@ class Field extends \craft\base\Field
             return false;
         }
 
-        $path = Craft::$app->getPath()->getConfigPath().DIRECTORY_SEPARATOR.$dir.DIRECTORY_SEPARATOR.$file;
+        $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file;
 
         if (!is_file($path)) {
             return false;

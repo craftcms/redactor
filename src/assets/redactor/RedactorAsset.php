@@ -28,7 +28,7 @@ class RedactorAsset extends AssetBundle
      */
     public function init()
     {
-        $this->sourcePath = dirname(__DIR__, 3).'/lib/redactor';
+        $this->sourcePath = dirname(__DIR__, 3) . '/lib/redactor';
 
         $this->depends = [
             JqueryAsset::class,
@@ -39,7 +39,7 @@ class RedactorAsset extends AssetBundle
         ];
 
         $this->js = [
-            'redactor'.$this->dotJs(),
+            'redactor' . $this->dotJs(),
         ];
 
         // set the Redactor language
@@ -52,8 +52,8 @@ class RedactorAsset extends AssetBundle
         }
 
         foreach ($languages as $lang) {
-            $subPath = '_langs'.DIRECTORY_SEPARATOR."{$lang}.js";
-            if (is_file($this->sourcePath.DIRECTORY_SEPARATOR.$subPath)) {
+            $subPath = '_langs' . DIRECTORY_SEPARATOR . "{$lang}.js";
+            if (is_file($this->sourcePath . DIRECTORY_SEPARATOR . $subPath)) {
                 $this->js[] = $subPath;
                 self::$redactorLanguage = $lang;
                 break;
@@ -118,8 +118,8 @@ class RedactorAsset extends AssetBundle
         ];
 
         $view->registerJs(
-            "\$.extend(\$R.lang['".self::$redactorLanguage."'], ".
-            Json::encode($customTranslations).
+            "\$.extend(\$R.lang['" . self::$redactorLanguage . "'], " .
+            Json::encode($customTranslations) .
             ');');
     }
 }
