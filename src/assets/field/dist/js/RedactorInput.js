@@ -127,6 +127,10 @@ window.livePreviewHideFullscreen = false;
                     contextbar: this.showContextBar.bind(this)
                 };
 
+                if (this.redactorConfig.buttons.length === 0) {
+                    delete this.redactorConfig.buttons;
+                }
+
                 // Initialize Redactor
                 this.initRedactor();
             },
