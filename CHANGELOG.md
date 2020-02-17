@@ -3,7 +3,7 @@
 ## 2.6.0.1 - 2020-02-14
 
 ### Fixed
-- Fixed a bug where the editor would not show any buttons that were not explicitly defined. ([#208](https://github.com/craftcms/redactor/issues/208))
+- Fixed a bug where the editor would not show any buttons when the default Redactor config was used. ([#208](https://github.com/craftcms/redactor/issues/208))
 
 ## 2.6.0 - 2020-02-13
 
