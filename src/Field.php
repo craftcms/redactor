@@ -516,11 +516,12 @@ class Field extends \craft\base\Field
 
         // Find any element URLs and swap them with ref tags
         $value = preg_replace_callback(
-            '/(href=|src=)([\'"])[^\'"#]+?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
+            '/(href=|src=)([\'"])([^\'"#]+)?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
             function($matches) {
+                list(, $attr, $q, $url, $hash, $elementType, $ref, $siteId, $transform) = array_pad($matches, 9, null);
+
                 // Create the ref tag, and make sure :url is in there
-                $refTag = '{' . $matches[4] . ':' . $matches[5] . (!empty($matches[6]) ? '@' . $matches[6] : '') . (!empty($matches[7]) ? $matches[7] : ':url') . '}';
-                $hash = (!empty($matches[3]) ? $matches[3] : '');
+                $refTag = "{{$elementType}:$ref" . ($siteId ? "@$siteId" : '') . ($transform ?: ':url') . "||$url}";
 
                 if ($hash) {
                     // Make sure that the hash isn't actually part of the parsed URL
@@ -532,7 +533,7 @@ class Field extends \craft\base\Field
                     }
                 }
 
-                return $matches[1] . $matches[2] . $refTag . $hash . $matches[2];
+                return $attr . $q . $refTag . $hash . $q;
             },
             $value);
 
@@ -561,12 +562,15 @@ class Field extends \craft\base\Field
             return $value;
         }
 
-        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
+        return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')(?:\|\|[^\}]+)?\})(#[^\'"#]+)?\2/', function($matches) use ($element) {
             /** @var Element|null $element */
-            list (, $attr, $q, $refTag, $ref) = $matches;
-            $fragment = $matches[5] ?? '';
-
-            return $attr . $q . Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null) . $fragment . '#' . $ref . $q;
+            list ($fullMatch, $attr, $q, $refTag, $ref, $fragment) = array_pad($matches, 6, null);
+            $parsed = Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null);
+            // If the ref tag couldn't be parsed, leave it alone
+            if ($parsed === $refTag) {
+                return $fullMatch;
+            }
+            return $attr . $q . $parsed . ($fragment ?? '') . '#' . $ref . $q;
         }, $value);
     }
 

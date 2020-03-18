@@ -1,5 +1,11 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Redactor now requires Craft 3.5 or later.
+- Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168)) 
+
 ## 2.6.0.1 - 2020-02-14
 
 ### Fixed
