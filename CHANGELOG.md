@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.6.1 - 2020-03-18
 
 ### Changed
 - Updated Redactor to 3.3.4. 
