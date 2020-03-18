@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where toolbar menus were getting a lower z-index than element editor HUDs. ([#215](https://github.com/craftcms/redactor/issues/215))  
+
 ## 2.6.0.1 - 2020-02-14
 
 ### Fixed

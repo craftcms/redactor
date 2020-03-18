@@ -322,14 +322,6 @@ toolbarDropdownClass.prototype.updatePosition = function ()
     var cropHeight = winHeight - (top - scrollTop) - heightTolerance;
 
     this.css('max-height', cropHeight + 'px');
-    if (
-        (window.draftEditor && window.draftEditor.preview && window.draftEditor.isPreviewActive()) ||
-        (Craft.livePreview && Craft.livePreview.inPreviewMode)
-    ) {
-        this.addClass('lp-redactor-dropdown');
-    } else {
-        this.removeClass('lp-redactor-dropdown');
-    }
 };
 
 var contextBarClass = $R["modules"]["contextbar"];

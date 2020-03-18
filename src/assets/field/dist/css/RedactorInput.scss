@@ -22,10 +22,6 @@ body {
   .redactor-dropdown {
     @include sans-serif-font;
     font-size: 14px;
-    z-index: 2 !important;
-  }
-
-  .lp-redactor-dropdown {
     z-index: 102 !important;
   }
 
