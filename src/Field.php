@@ -374,7 +374,7 @@ class Field extends \craft\base\Field
             }
         }
 
-        $id = $view->formatInputId($this->handle);
+        $id = Html::id($this->handle);
         $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
 
         $settings = [
