@@ -5,6 +5,7 @@
 
 ### Changed
 - Updated Redactor to 3.3.5.
+- Redactor now requires Craft 3.5.0-beta.2 or later.
 
 ## 2.6.1 - 2020-03-18
 
