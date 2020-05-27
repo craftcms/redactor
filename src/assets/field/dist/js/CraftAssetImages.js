@@ -5,6 +5,9 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     transforms: [],
     volumes: null,
     allowAllUploaders: false,
+    modalState: {
+        selectedTransform: null
+    },
 
     showModal: function () {
         if (this.app.selection.isCollapsed()) {
@@ -16,7 +19,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         }
 
         if (typeof this.assetSelectionModal === 'undefined') {
-            var criteria = {
+            const criteria = {
                 siteId: this.elementSiteId,
                 kind: 'image'
             };
@@ -30,7 +33,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 multiSelect: true,
                 sources: this.volumes,
                 criteria: criteria,
-                onSelect: $.proxy(function(assets, transform) {
+                onSelect: function(assets, transform) {
                     if (assets.length) {
                         if (this.app.selectionMarkers) {
                             this.app.selection.restoreMarkers();
@@ -39,30 +42,25 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                         }
 
                         this.app.selectionMarkers = false;
-                        var data = {};
+
+                        const data = {};
 
                         for (var i = 0; i < assets.length; i++) {
-                            var asset = assets[i],
-                                url = asset.url + '#asset:' + asset.id;
-
-                            if (transform) {
-                                url += ':transform:' + transform;
-                            }
+                            const asset = assets[i];
 
                             data['asset'+asset.id] = {
-                                url: url,
+                                url: this._buildAssetUrl(asset.id, asset.url, transform),
                                 id: asset.id
                             };
                         }
 
                         this.app.api('module.image.insert', data);
                     }
-                }, this),
+                }.bind(this),
                 closeOtherModals: false,
                 transforms: this.transforms
             });
-        }
-        else {
+        } else {
             this.assetSelectionModal.show();
         }
     },
@@ -73,6 +71,84 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
     setVolumes: function (volumes) {
         this.volumes = volumes;
+    },
+
+    _buildAssetUrl: (assetId, assetUrl, transform) => assetUrl + '#asset:' + assetId + ':' + (transform ? 'transform:' + transform : 'url'),
+
+    _getAssetUrlComponents: (url) => {
+        const matches = url.match(/(.*)#asset:(\d+):(url|transform):?([a-zA-Z][a-zA-Z0-9_]*)?/);
+        return matches ? {url: matches[1], assetId: matches[2], transform: matches[3] !== 'url' ? matches[4] : null} : null;
+    },
+
+    onmodal: {
+        open: function(modal, form) {
+            this.modalState.selectedTransform = null;
+            const parts = this._getAssetUrlComponents(this.app.module.image.$image.$element.nodes[0].src);
+
+            if (!parts) {
+                return;
+            }
+
+            const {transform} = parts;
+            this.modalState.selectedTransform = transform;
+            let options = [{handle: '',name: "No transform"}].concat(this.transforms);
+
+            const $select = $('<select id="modal-image-transform"></select>').on('change', function (ev) {
+                this.modalState.selectedTransform = $(ev.currentTarget).val();
+            }.bind(this));
+
+            for (optionIndex in options) {
+                let option = options[optionIndex];
+                let selected = transform && option.handle == transform;
+                $select.append('<option value="' + option.handle + '"' + (selected ? ' selected="selected"' : '') + '>' + option.name + '</option>');
+            }
+
+            const $formItem = $('<div class="form-item form-item-transform"><label for="modal-image-transform">Transform</label></div>').append($select);
+
+            $(form.nodes[0]).append($formItem);
+        },
+    },
+
+    onimage :{
+        changed: function(image)
+        {
+            const $image = $(image.$element.nodes[0]);
+            const parts = this._getAssetUrlComponents($image.attr('src'));
+            const newTransform = this.modalState.selectedTransform;
+
+            if (!parts) {
+                return;
+            }
+
+            const {transform, assetId, url} = parts;
+
+            if (transform == newTransform) {
+                return;
+            }
+
+            $image.fadeTo(100, 0.2);
+
+            if (newTransform.length) {
+                var data = {
+                    assetId: assetId,
+                    handle: newTransform
+                };
+
+                Craft.postActionRequest('assets/generate-transform', data, function(response, textStatus) {
+                    if (textStatus === 'success') {
+                        if (response.url) {
+                            $image.prop('src', this._buildAssetUrl(assetId, response.url, newTransform));
+                            $image.stop().fadeTo(0, 1);
+                        }
+                    }
+
+                }.bind(this));
+            } else {
+                let pattern = new RegExp('(.*)(_' + transform + '.*\/)(.*)');
+                $image.prop('src', this._buildAssetUrl(assetId, url.replace(pattern, '$1$3'), newTransform));
+                $image.stop().fadeTo(0, 1);
+            }
+        }
     }
 });
 

@@ -1,7 +1,9 @@
 # Release Notes for Redactor for Craft CMS
 
-
 ## Unreleased
+
+### Added
+- It is now possible to change the transforms of selected Assets. ([#134](https://github.com/craftcms/redactor/issues/134))
 
 ### Changed
 - Updated Redactor to 3.3.5.
