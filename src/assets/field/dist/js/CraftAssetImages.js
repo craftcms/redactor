@@ -81,32 +81,34 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     },
 
     onmodal: {
-        open: function(modal, form) {
-            this.modalState.selectedTransform = null;
-            const parts = this._getAssetUrlComponents(this.app.module.image.$image.$element.nodes[0].src);
+        imageedit: {
+            open: function(modal, form) {
+                this.modalState.selectedTransform = null;
+                const parts = this._getAssetUrlComponents(this.app.module.image.$image.$element.nodes[0].src);
 
-            if (!parts) {
-                return;
-            }
+                if (!parts) {
+                    return;
+                }
 
-            const {transform} = parts;
-            this.modalState.selectedTransform = transform;
-            let options = [{handle: '',name: "No transform"}].concat(this.transforms);
+                const {transform} = parts;
+                this.modalState.selectedTransform = transform;
+                let options = [{handle: '', name: "No transform"}].concat(this.transforms);
 
-            const $select = $('<select id="modal-image-transform"></select>').on('change', function (ev) {
-                this.modalState.selectedTransform = $(ev.currentTarget).val();
-            }.bind(this));
+                const $select = $('<select id="modal-image-transform"></select>').on('change', function(ev) {
+                    this.modalState.selectedTransform = $(ev.currentTarget).val();
+                }.bind(this));
 
-            for (optionIndex in options) {
-                let option = options[optionIndex];
-                let selected = transform && option.handle == transform;
-                $select.append('<option value="' + option.handle + '"' + (selected ? ' selected="selected"' : '') + '>' + option.name + '</option>');
-            }
+                for (optionIndex in options) {
+                    let option = options[optionIndex];
+                    let selected = transform && option.handle == transform;
+                    $select.append('<option value="' + option.handle + '"' + (selected ? ' selected="selected"' : '') + '>' + option.name + '</option>');
+                }
 
-            const $formItem = $('<div class="form-item form-item-transform"><label for="modal-image-transform">Transform</label></div>').append($select);
+                const $formItem = $('<div class="form-item form-item-transform"><label for="modal-image-transform">Transform</label></div>').append($select);
 
-            $(form.nodes[0]).append($formItem);
-        },
+                $(form.nodes[0]).append($formItem);
+            },
+        }
     },
 
     onimage :{
