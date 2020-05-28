@@ -159,6 +159,18 @@ class Field extends \craft\base\Field
     public $limitSourceButtonToAdmins = false;
 
     /**
+     * @var string Config selection mode ('choose' or 'manual')
+     * @since 2.7.0
+     */
+    public $configSelectionMode = 'choose';
+
+    /**
+     * @var string Manual config to use
+     * @since 2.7.0
+     */
+    public $manualConfig = '';
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -825,7 +837,13 @@ class Field extends \craft\base\Field
      */
     private function _getRedactorConfig(): array
     {
-        return $this->_getConfig('redactor', $this->redactorConfig) ?: [];
+        if ($this->configSelectionMode === 'manual') {
+            $config = Json::decode($this->manualConfig);
+        } else {
+            $config = $this->_getConfig('redactor', $this->redactorConfig) ?: [];
+        }
+
+        return $config;
     }
 
     /**
