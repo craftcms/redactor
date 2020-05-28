@@ -14,14 +14,12 @@
     value: field.redactorConfig
 }) }}
 
-{{ forms.checkboxSelectField({
-    id: 'availableVolumes',
-    name: 'availableVolumes',
-    label: 'Available Volumes'|t('redactor'),
-    instructions: 'The volumes that should be available when selecting assets (if the selected config has an Image or File button).'|t('redactor'),
-    options: volumeOptions,
-    values: field.availableVolumes,
-    showAllOption: volumeOptions|length ? true : false
+{{ forms.checkboxField({
+    label: 'Limit source button to admins'|t('app'),
+    instructions: 'Whether the HTML source button should be visible to admins only.'|t('app'),
+    id: 'limitSourceButtonToAdmins',
+    name: 'limitSourceButtonToAdmins',
+    checked: field.limitSourceButtonToAdmins,
 }) }}
 
 {{ forms.checkboxField({

@@ -153,6 +153,12 @@ class Field extends \craft\base\Field
     public $showUnpermittedFiles = false;
 
     /**
+     * @var bool Whether "view source" button should only be displayed to admins.
+     * @since 2.7.0
+     */
+    public $limitSourceButtonToAdmins = false;
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -372,6 +378,10 @@ class Field extends \craft\base\Field
             foreach ($redactorConfig['plugins'] as $plugin) {
                 static::registerRedactorPlugin($plugin);
             }
+        }
+
+        if ($this->limitSourceButtonToAdmins) {
+            $redactorConfig['buttonsHide'] = empty($redactorConfig['buttonsHide']) ? ['html'] : array_merge($redactorConfig['buttonsHide'], ['html']);
         }
 
         $id = $view->formatInputId($this->handle);
