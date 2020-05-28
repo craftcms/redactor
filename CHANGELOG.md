@@ -2,9 +2,25 @@
 
 ## Unreleased
 
+### Added
+- It is now possible to change the transforms of selected Assets. ([#134](https://github.com/craftcms/redactor/issues/134))
+- Added the `limitSourceButtonToAdmins` field setting. ([#129](https://github.com/craftcms/redactor/issues/129))
+- It is now possible to define Redactor configuration on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
+- Added `craft\redactor\Field::EVENT_MODIFY_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
+
 ### Changed
 - Redactor now requires Craft 3.5 or later.
-- Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168)) 
+- Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
+- Updated Redactor to 3.3.5.
+
+## 2.6.1 - 2020-03-18
+
+### Changed
+- Updated Redactor to 3.3.4. 
+
+### Fixed
+- Fixed a bug where toolbar menus were getting a lower z-index than element editor HUDs. ([#215](https://github.com/craftcms/redactor/issues/215))
+- Fixed a bug where the source view would get excess top padding when the `minHeight` setting was set. ([#211](https://github.com/craftcms/redactor/issues/211))  
 
 ## 2.6.0.1 - 2020-02-14
 

@@ -1,27 +1,61 @@
 {% import '_includes/forms' as forms %}
 
-{{ forms.selectField({
-    label: "Redactor Config"|t('redactor'),
-    instructions: "You can save custom {name} configs as {ext} files in {path}."|t('redactor', {
-            name: 'Redactor',
-            ext: '`.json`',
-            path: '`config/redactor/`'
+{% set configInput %}
+    <div class="flex fullwidth">
+        <div style="align-self: flex-start;">
+            {{ forms.select({
+                name: 'configSelectionMode',
+                options: [
+                    { label: 'Choose a settings file …'|t('redactor'), value: 'choose' },
+                    { label: 'Manually define settings …'|t('redactor'), value: 'manual' }
+                ],
+                value: field.configSelectionMode,
+                toggle: true,
+                targetPrefix: '.csm-'
+            }) }}
+        </div>
+
+        <div class="csm-choose{% if field.configSelectionMode == 'manual' %} hidden{% endif %}">
+            {{ forms.select({
+                id: 'redactorConfig',
+                name: 'redactorConfig',
+                options: redactorConfigOptions,
+                value: field.redactorConfig
+            }) }}
+        </div>
+        <div class="csm-manual{% if field.configSelectionMode == 'choose' %} hidden{% endif %} flex-grow">
+            {{ forms.textarea({
+                label: "Config"|t('redactor'),
+                class: 'ltr redactor-manualConfig',
+                name: 'manualConfig',
+                value: field.manualConfig,
+                placeholder: 'JSON Config'|t('redactor'),
+                rows: 10,
+                cols: 50,
+            }) }}
+        </div>
+    </div>
+{% endset %}
+
+
+{{ forms.field({
+    label: "Config"|t('redactor'),
+    id: 'config',
+    instructions: "You can save custom {name} configs as {ext} files in {path} or you can just define them on a per-field basis."|t('redactor', {
+        name: 'Redactor',
+        ext: '`.json`',
+        path: '`config/redactor/`'
         }) ~
         ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
-    id: 'redactorConfig',
-    name: 'redactorConfig',
-    options: redactorConfigOptions,
-    value: field.redactorConfig
-}) }}
+    required: true,
+}, configInput) }}
 
-{{ forms.checkboxSelectField({
-    id: 'availableVolumes',
-    name: 'availableVolumes',
-    label: 'Available Volumes'|t('redactor'),
-    instructions: 'The volumes that should be available when selecting assets (if the selected config has an Image or File button).'|t('redactor'),
-    options: volumeOptions,
-    values: field.availableVolumes,
-    showAllOption: volumeOptions|length ? true : false
+{{ forms.checkboxField({
+    label: 'Limit source button to admins'|t('app'),
+    instructions: 'Whether the HTML source button should be visible to admins only.'|t('app'),
+    id: 'limitSourceButtonToAdmins',
+    name: 'limitSourceButtonToAdmins',
+    checked: field.limitSourceButtonToAdmins,
 }) }}
 
 {{ forms.checkboxField({
@@ -44,7 +78,7 @@
     id: 'availableTransforms',
     name: 'availableTransforms',
     label: 'Available Transforms'|t('redactor'),
-    instructions: 'The Transforms that should be available for Image selection.'|t('redactor'),
+    instructions: 'The transforms that should be available when inserting images.'|t('redactor'),
     options: transformOptions,
     values: field.availableTransforms,
     showAllOption: transformOptions|length ? true : false

@@ -24,6 +24,7 @@ use craft\models\Section;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\redactor\events\ModifyPurifierConfigEvent;
+use craft\redactor\events\ModifyRedactorConfigEvent;
 use craft\redactor\events\RegisterLinkOptionsEvent;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
@@ -71,6 +72,24 @@ class Field extends \craft\base\Field
      * ```
      */
     const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
+
+    /**
+     * @event ModifyRedactorConfigEvent The event that is triggered when loading redactor config.
+     *
+     * Plugins can get notified when redactor config is loaded
+     *
+     * ```php
+     * use craft\redactor\events\ModifyRedactorConfigEvent;
+     * use craft\redactor\Field;
+     * use yii\base\Event;
+     *
+     * Event::on(Field::class, Field::EVENT_MODIFY_REDACTOR_CONFIG, function(ModifyRedactorConfigEvent $e) {
+     *      // Never allow the bold button for reasons.
+     *     $e->config['buttonsHide'] = empty($e->config['buttonsHide']) ? ['bold'] : array_merge($e->config['buttonsHide'], ['bold']);
+     * });
+     * ```
+     */
+    const EVENT_MODIFY_REDACTOR_CONFIG = 'modifyRedactorConfig';
 
     // Static
     // =========================================================================
@@ -151,6 +170,24 @@ class Field extends \craft\base\Field
      * @since 2.6.0
      */
     public $showUnpermittedFiles = false;
+
+    /**
+     * @var bool Whether "view source" button should only be displayed to admins.
+     * @since 2.7.0
+     */
+    public $limitSourceButtonToAdmins = false;
+
+    /**
+     * @var string Config selection mode ('choose' or 'manual')
+     * @since 2.7.0
+     */
+    public $configSelectionMode = 'choose';
+
+    /**
+     * @var string Manual config to use
+     * @since 2.7.0
+     */
+    public $manualConfig = '';
 
     /**
      * @inheritdoc
@@ -368,10 +405,15 @@ class Field extends \craft\base\Field
 
         // register plugins
         $redactorConfig = $this->_getRedactorConfig();
+
         if (isset($redactorConfig['plugins'])) {
             foreach ($redactorConfig['plugins'] as $plugin) {
                 static::registerRedactorPlugin($plugin);
             }
+        }
+
+        if ($this->limitSourceButtonToAdmins) {
+            $redactorConfig['buttonsHide'] = empty($redactorConfig['buttonsHide']) ? ['html'] : array_merge($redactorConfig['buttonsHide'], ['html']);
         }
 
         $id = Html::id($this->handle);
@@ -819,7 +861,21 @@ class Field extends \craft\base\Field
      */
     private function _getRedactorConfig(): array
     {
-        return $this->_getConfig('redactor', $this->redactorConfig) ?: [];
+        if ($this->configSelectionMode === 'manual') {
+            $config = Json::decode($this->manualConfig);
+        } else {
+            $config = $this->_getConfig('redactor', $this->redactorConfig) ?: [];
+        }
+
+        // Give plugins a chance to modify the Redactor config
+        $event = new ModifyRedactorConfigEvent([
+            'config' => $config,
+            'field' => $this
+        ]);
+
+        $this->trigger(self::EVENT_MODIFY_REDACTOR_CONFIG, $event);
+
+        return $event->config;
     }
 
     /**

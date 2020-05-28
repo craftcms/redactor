@@ -22,10 +22,6 @@ body {
   .redactor-dropdown {
     @include sans-serif-font;
     font-size: 14px;
-    z-index: 2 !important;
-  }
-
-  .lp-redactor-dropdown {
     z-index: 102 !important;
   }
 
@@ -247,9 +243,10 @@ body {
 
 .redactor-source-view [contenteditable="true"] {
   display: block !important;
-  height:0 !important;
-  width:0 !important;
-  padding:0 !important;
+  height: 0 !important;
+  min-height: 0 !important;
+  width: 0 !important;
+  padding: 0 !important;
   overflow: hidden !important;
 }
 
