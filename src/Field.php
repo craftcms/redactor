@@ -24,6 +24,7 @@ use craft\models\Section;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\redactor\events\ModifyPurifierConfigEvent;
+use craft\redactor\events\ModifyRedactorConfigEvent;
 use craft\redactor\events\RegisterLinkOptionsEvent;
 use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
@@ -71,6 +72,24 @@ class Field extends \craft\base\Field
      * ```
      */
     const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
+
+    /**
+     * @event ModifyRedactorConfigEvent The event that is triggered when loading redactor config.
+     *
+     * Plugins can get notified when redactor config is loaded
+     *
+     * ```php
+     * use craft\redactor\events\ModifyRedactorConfigEvent;
+     * use craft\redactor\Field;
+     * use yii\base\Event;
+     *
+     * Event::on(Field::class, Field::EVENT_MODIFY_REDACTOR_CONFIG, function(ModifyRedactorConfigEvent $e) {
+     *      // Never allow the bold button for reasons.
+     *     $e->config['buttonsHide'] = empty($e->config['buttonsHide']) ? ['bold'] : array_merge($e->config['buttonsHide'], ['bold']);
+     * });
+     * ```
+     */
+    const EVENT_MODIFY_REDACTOR_CONFIG = 'modifyRedactorConfig';
 
     // Static
     // =========================================================================
@@ -386,6 +405,7 @@ class Field extends \craft\base\Field
 
         // register plugins
         $redactorConfig = $this->_getRedactorConfig();
+
         if (isset($redactorConfig['plugins'])) {
             foreach ($redactorConfig['plugins'] as $plugin) {
                 static::registerRedactorPlugin($plugin);
@@ -843,7 +863,15 @@ class Field extends \craft\base\Field
             $config = $this->_getConfig('redactor', $this->redactorConfig) ?: [];
         }
 
-        return $config;
+        // Give plugins a chance to modify the Redactor config
+        $event = new ModifyRedactorConfigEvent([
+            'config' => $config,
+            'field' => $this
+        ]);
+
+        $this->trigger(self::EVENT_MODIFY_REDACTOR_CONFIG, $event);
+
+        return $event->config;
     }
 
     /**

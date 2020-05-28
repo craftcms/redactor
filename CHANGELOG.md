@@ -6,6 +6,7 @@
 - It is now possible to change the transforms of selected Assets. ([#134](https://github.com/craftcms/redactor/issues/134))
 - Added the `limitSourceButtonToAdmins` field setting. ([#129](https://github.com/craftcms/redactor/issues/129))
 - It is now possible to define Redactor configuration on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
+- Added `craft\redactor\Field::EVENT_MODIFY_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
 
 ### Changed
 - Updated Redactor to 3.3.5.
