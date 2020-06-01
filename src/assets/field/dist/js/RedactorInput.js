@@ -78,7 +78,7 @@ window.livePreviewHideFullscreen = false;
                         this.redactorConfig.buttons.splice(lowestListButtonIndex, 0, 'lists');
                     }
                 } else {
-                    this.redactorConfig.buttons = [];
+                    this.redactorConfig.buttons = ['html', 'format', 'bold', 'italic', 'deleted', 'lists', 'image', 'file', 'link'];
                 }
 
                 // Now mix in the buttons provided by other options, before we start our own shenanigans

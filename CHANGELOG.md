@@ -13,6 +13,9 @@
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
 - Updated Redactor to 3.3.5.
 
+### Fixed
+- Fixed a bug where Redactor default config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
+
 ## 2.6.1 - 2020-03-18
 
 ### Changed
