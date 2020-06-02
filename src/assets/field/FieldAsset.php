@@ -34,7 +34,7 @@ class FieldAsset extends AssetBundle
             'js/CraftAssetImageEditor' . $this->dotJs(),
             'js/CraftAssetImages' . $this->dotJs(),
             'js/CraftAssetFiles' . $this->dotJs(),
-            'js/CraftEntryLinks' . $this->dotJs(),
+            'js/CraftElementLinks' . $this->dotJs(),
             'js/RedactorInput' . $this->dotJs(),
             'js/RedactorOverrides' . $this->dotJs(),
         ];

@@ -7,10 +7,12 @@
 - Added the `limitSourceButtonToAdmins` field setting. ([#129](https://github.com/craftcms/redactor/issues/129))
 - It is now possible to define Redactor configuration on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
 - Added `craft\redactor\Field::EVENT_MODIFY_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
+- Redactor now observes the `linkNewTab` option when inserting links to elements. ([#93](https://github.com/craftcms/redactor/issues/93))
 
 ### Changed
-- Redactor now requires Craft 3.5 or later.
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
+- Redactor no longer displays a dropdown, when adding a link. Instead, if allows selecting an element from the link editor modal.
+- Redactor now requires Craft 3.5 or later.
 - Updated Redactor to 3.3.5.
 
 ### Fixed

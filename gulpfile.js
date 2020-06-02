@@ -63,7 +63,7 @@ gulp.task('field-js', function() {
         .pipe(sourcemaps.write('./'))
         .pipe(gulp.dest(fieldPath+'/js'));
 
-    var CraftEntryLinks = gulp.src(fieldPath+'/js/CraftEntryLinks.js')
+    var CraftEntryLinks = gulp.src(fieldPath+'/js/CraftElementLinks.js')
         .pipe(sourcemaps.init())
         .pipe(uglify())
         .pipe(rename({ suffix: '.min' }))

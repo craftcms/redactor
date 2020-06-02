@@ -17,6 +17,9 @@ body {
     @include sans-serif-font;
     @include modal;
     z-index: 1052;
+    div.btn {
+     margin-right: 10px;
+    }
   }
 
   .redactor-dropdown {

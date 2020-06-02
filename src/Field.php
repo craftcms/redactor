@@ -11,6 +11,7 @@ use Craft;
 use craft\base\Element;
 use craft\base\ElementInterface;
 use craft\base\Volume;
+use craft\elements\Asset;
 use craft\elements\Category;
 use craft\elements\Entry;
 use craft\helpers\ArrayHelper;
@@ -637,16 +638,25 @@ class Field extends \craft\base\Field
 
         if (!empty($sectionSources)) {
             $linkOptions[] = [
-                'optionTitle' => Craft::t('redactor', 'Link to an entry'),
+                'optionTitle' => Craft::t('redactor', 'Entry'),
                 'elementType' => Entry::class,
                 'refHandle' => Entry::refHandle(),
                 'sources' => $sectionSources,
             ];
         }
 
+        if (!empty($this->_getVolumeKeys())) {
+            $linkOptions[] = [
+                'optionTitle' => Craft::t('redactor', 'Asset'),
+                'elementType' => Asset::class,
+                'refHandle' => Asset::refHandle(),
+                'sources' => $this->_getVolumeKeys(),
+            ];
+        }
+
         if (!empty($categorySources)) {
             $linkOptions[] = [
-                'optionTitle' => Craft::t('redactor', 'Link to a category'),
+                'optionTitle' => Craft::t('redactor', 'Category'),
                 'elementType' => Category::class,
                 'refHandle' => Category::refHandle(),
                 'sources' => $categorySources,

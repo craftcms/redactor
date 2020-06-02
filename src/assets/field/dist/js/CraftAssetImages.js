@@ -60,6 +60,13 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 closeOtherModals: false,
                 transforms: this.transforms
             });
+
+            let existingSelectFunction = this.assetSelectionModal.selectImagesWithTransform;
+            this.assetSelectionModal.selectImagesWithTransform = function (transform) {
+                this.$selectTransformBtn.html('Transform: ' + transform);
+                debugger
+                //existingSelectFunction.call(this, tran);
+            }.bind(this.assetSelectionModal);
         } else {
             this.assetSelectionModal.show();
         }
