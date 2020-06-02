@@ -413,7 +413,7 @@ class Field extends \craft\base\Field
             }
         }
 
-        if ($this->limitSourceButtonToAdmins) {
+        if ($this->limitSourceButtonToAdmins && !Craft::$app->getUser()->getIsAdmin()) {
             $redactorConfig['buttonsHide'] = empty($redactorConfig['buttonsHide']) ? ['html'] : array_merge($redactorConfig['buttonsHide'], ['html']);
         }
 
