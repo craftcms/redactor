@@ -1,6 +1,7 @@
 var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     linkOptions: [],
     existingText: '',
+    hack: null,
 
     // Do nothing on start.
     start: function () {
@@ -42,6 +43,10 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     onmodal: {
         link: {
             open: function(modal, form) {
+                // Prevent Redactor from aggressively refocusing, when we don't want it to.
+                this.hack = modal.app.editor.focus;
+                modal.app.editor.focus = () => null;
+
                 const zIndex = $(modal.nodes).css('zIndex'),
                     $form = $(form.nodes),
                     $formItem = $('<div class="form-item form-item-link-select"><label>Pick a link</label></div>');
@@ -65,6 +70,11 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 }
 
                 $form.prepend($formItem);
+            },
+            close: function (modal) {
+                // Revert the functionality.
+                modal.app.editor.focus = this.hack;
+                this.hack = null;
             }
         }
     }

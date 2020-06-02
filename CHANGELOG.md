@@ -17,6 +17,7 @@
 
 ### Fixed
 - Fixed a bug where Redactor default config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
+- Fixed a bug where Redactor would sometimes re-focus the editor field, causing the page to jump. ([#222](https://github.com/craftcms/redactor/issues/222))
 
 ## 2.6.1 - 2020-03-18
 
