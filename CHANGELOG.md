@@ -11,7 +11,6 @@
 - Added the “Default transform” setting, which determines which transform to apply if no transform is selected. ([#223](https://github.com/craftcms/redactor/issues/223))
 - Added the “All entries” entry source when selecting an entry link. ([#228](https://github.com/craftcms/redactor/issues/228))
 
-
 ### Changed
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
 - Redactor no longer displays a dropdown, when adding a link. Instead, if allows selecting an element from the link editor modal.
