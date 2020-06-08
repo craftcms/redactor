@@ -11,6 +11,12 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         let refHandle = arguments.refHandle,
             callback = arguments.callback;
 
+        if (!arguments.criteria) {
+            arguments.criteria = {};
+        }
+
+        arguments.criteria['uri'] = ':notempty:';
+
         // Create a new one each time because Redactor creates a new one and we can't reuse the references.
         const modal = Craft.createElementSelectorModal(arguments.elementType, {
             storageKey: 'RedactorInput.LinkTo.' + arguments.elementType,

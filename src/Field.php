@@ -732,6 +732,10 @@ class Field extends \craft\base\Field
             array_unshift($sources, 'singles');
         }
 
+        if (!empty($sources)) {
+            array_unshift($sources, '*');
+        }
+
         return $sources;
     }
 
