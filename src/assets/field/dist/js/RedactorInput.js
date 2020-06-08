@@ -27,6 +27,7 @@ window.livePreviewHideFullscreen = false;
                 this.elementSiteId = settings.elementSiteId;
                 this.redactorConfig = settings.redactorConfig;
                 this.showAllUploaders = settings.showAllUploaders;
+                this.defaultTransform = settings.defaultTransform;
 
                 this.linkOptionModals = [];
 
@@ -164,7 +165,9 @@ window.livePreviewHideFullscreen = false;
                     } else {
                         this.redactor.plugin.craftAssetImages.addButton('image', this.redactorConfig.buttons.indexOf('image'));
                     }
+
                     this.redactor.plugin.craftAssetImages.setTransforms(this.transforms);
+                    this.redactor.plugin.craftAssetImages.setDefaultTransform(this.defaultTransform);
                     this.redactor.plugin.craftAssetImages.setVolumes(this.volumes);
                     this.redactor.plugin.craftAssetImages.setElementSiteId(this.elementSiteId);
                     this.redactor.plugin.craftAssetImages.allowAllUploaders = this.showAllUploaders;

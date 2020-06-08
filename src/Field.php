@@ -191,6 +191,11 @@ class Field extends \craft\base\Field
     public $manualConfig = '';
 
     /**
+     * @var string The default transform to use.
+     */
+    public $defaultTransform = '';
+
+    /**
      * @inheritdoc
      */
     public function __construct(array $config = [])
@@ -358,6 +363,12 @@ class Field extends \craft\base\Field
             'purifierConfigOptions' => $this->_getCustomConfigOptions('htmlpurifier'),
             'volumeOptions' => $volumeOptions,
             'transformOptions' => $transformOptions,
+            'defaultTransformOptions' => array_merge([
+                [
+                    'label' => Craft::t('redactor', 'No transform'),
+                    'value' => null
+                ]
+            ], $transformOptions),
         ]);
     }
 
@@ -420,11 +431,18 @@ class Field extends \craft\base\Field
         $id = Html::id($this->handle);
         $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
 
+        $defaultTransform = '';
+
+        if (!empty($this->defaultTransform) && $transform = Craft::$app->getAssetTransforms()->getTransformByUid($this->defaultTransform)) {
+            $defaultTransform = $transform->handle;
+        }
+
         $settings = [
             'id' => $view->namespaceInputId($id),
             'linkOptions' => $this->_getLinkOptions($element),
             'volumes' => $this->_getVolumeKeys(),
             'transforms' => $this->_getTransforms(),
+            'defaultTransform' => $defaultTransform,
             'elementSiteId' => $site->id,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,

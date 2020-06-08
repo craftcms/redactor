@@ -84,6 +84,14 @@
     showAllOption: transformOptions|length ? true : false
 }) }}
 
+{{ forms.selectField({
+    id: 'defaultTransform',
+    name: 'defaultTransform',
+    label: 'Default Transform'|t('redactor'),
+    instructions: 'The default transform that should be applied when inserting images.'|t('redactor'),
+    options: defaultTransformOptions,
+    value: field.defaultTransform,
+}) }}
 
 <hr>
 <a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('redactor') }}</a>
