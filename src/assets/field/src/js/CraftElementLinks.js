@@ -2,6 +2,12 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     linkOptions: [],
     existingText: '',
     hack: null,
+    modalState: {
+        selectedLink: {
+            text: null,
+            url: null
+        }
+    },
 
     // Do nothing on start.
     start: function () {
@@ -11,11 +17,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         let refHandle = arguments.refHandle,
             callback = arguments.callback;
 
-        if (!arguments.criteria) {
-            arguments.criteria = {};
-        }
-
-        arguments.criteria['uri'] = ':notempty:';
+        this.saveSelection(this.app);
 
         // Create a new one each time because Redactor creates a new one and we can't reuse the references.
         const modal = Craft.createElementSelectorModal(arguments.elementType, {
@@ -23,23 +25,23 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
             sources: arguments.sources,
             criteria: arguments.criteria,
             defaultSiteId: this.elementSiteId,
+            autoFocusSearchBox: false,
             onSelect: $.proxy(function(elements) {
                 if (elements.length) {
-                    let element = elements[0],
-                        data = {
-                            url: element.url + '#' + refHandle + ':' + element.id + '@' + element.siteId,
-                            text: this.existingText.length > 0 ? this.existingText : element.label
-                        };
+                    const element = elements[0];
 
-                    this.temporary =
-                    callback(data);
+                    this.restoreSelection(this.app);
+
+                    this.modalState.selectedLink = {
+                        url: element.url + '#' + refHandle + ':' + element.id + '@' + element.siteId,
+                        text: this.app.selection.getText().length > 0 ? this.app.selection.getText() : element.label
+                    }
+
+                    this.app.api('module.link.open');
                 }
             }, this),
             closeOtherModals: false,
         });
-       
-        modal.$shade.css('zIndex', zIndex + 1);
-        modal.$container.css('zIndex', zIndex + 2);
     },
 
     setLinkOptions: function (linkOptions) {
@@ -53,29 +55,21 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 this.hack = modal.app.editor.focus;
                 modal.app.editor.focus = () => null;
 
-                const zIndex = $(modal.nodes).css('zIndex'),
-                    $form = $(form.nodes),
-                    $formItem = $('<div class="form-item form-item-link-select"><label>Pick a link</label></div>');
+                $form = $(form.nodes);
 
-                this.existingText = $form.find('input[name=text]').val();
-
-                for (let idx in this.linkOptions) {
-                    let option = this.linkOptions[idx];
-                    $('<div class="btn">' + option.optionTitle + '</div>').appendTo($formItem).on('click', function (ev) {
-                        this.showModal({
-                            elementType: option.elementType,
-                            refHandle: option.refHandle,
-                            sources: option.sources,
-                            criteria: option.criteria,
-                            callback: (data) => {
-                                $form.find('input[name=url]').val(data.url);
-                                $form.find('input[name=text]').val(data.text);
-                            }
-                        }, zIndex);
-                    }.bind(this));
+                if (this.modalState.selectedLink.url) {
+                    $form.find('input[name=url]').val(this.modalState.selectedLink.url);
                 }
 
-                $form.prepend($formItem);
+                if (this.modalState.selectedLink.text) {
+                    $form.find('input[name=text]').val(this.modalState.selectedLink.text);
+                }
+
+                this.modalState.selectedLink = {
+                    text: null,
+                    url: null
+                };
+
             },
             close: function (modal) {
                 // Revert the functionality.
@@ -83,6 +77,30 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 this.hack = null;
             }
         }
+    },
+
+    setLinkOptions: function (linkOptions) {
+        var button = this.app.toolbar.getButton('link'),
+            dropdown = button.getDropdown(),
+            items = dropdown.items,
+            newList = {},
+            counter = 0;
+
+        for (var option in linkOptions) {
+            option = linkOptions[option];
+            newList['custom'+(++counter)] = {
+                title: option.optionTitle,
+                api: 'plugin.craftElementLinks.showModal',
+                args: {
+                    elementType: option.elementType,
+                    refHandle: option.refHandle,
+                    sources: option.sources,
+                    criteria: option.criteria
+                }
+            };
+        }
+
+        button.setDropdown($.extend(newList, items));
     }
 });
 

@@ -67,5 +67,25 @@ Craft.Redactor.PluginBase = {
 
     setElementSiteId: function (siteId) {
         this.elementSiteId = siteId;
+    },
+
+    saveSelection: (app) => {
+        if (app.selection.isCollapsed()) {
+            app.selection.save();
+            app.selectionMarkers = false;
+        } else {
+            app.selection.saveMarkers();
+            app.selectionMarkers = true;
+        }
+    },
+
+    restoreSelection: (app) => {
+        if (app.selectionMarkers) {
+            app.selection.restoreMarkers();
+        } else {
+            app.selection.restore();
+        }
+
+        app.selectionMarkers = false;
     }
 };

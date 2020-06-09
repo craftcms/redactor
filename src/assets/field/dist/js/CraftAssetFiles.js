@@ -5,13 +5,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     volumes: null,
 
     showModal: function () {
-        if (this.app.selection.isCollapsed()) {
-            this.app.selection.save();
-            this.app.selectionMarkers = false;
-        } else {
-            this.app.selection.saveMarkers();
-            this.app.selectionMarkers = true;
-        }
+        this.saveSelection(this.app);
 
         if (typeof this.assetSelectionModal === 'undefined') {
             var refHandle = arguments.refHandle;
@@ -21,13 +15,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 criteria: {siteId: this.elementSiteId},
                 onSelect: $.proxy(function(elements) {
                     if (elements.length) {
-                        if (this.app.selectionMarkers) {
-                            this.app.selection.restoreMarkers();
-                        } else {
-                            this.app.selection.restore();
-                        }
-
-                        this.app.selectionMarkers = false;
+                        this.restoreSelection(this.app);
 
                         var element = elements[0],
                             selection = this.app.selection.getText(),

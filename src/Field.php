@@ -656,16 +656,17 @@ class Field extends \craft\base\Field
 
         if (!empty($sectionSources)) {
             $linkOptions[] = [
-                'optionTitle' => Craft::t('redactor', 'Entry'),
+                'optionTitle' => Craft::t('redactor', 'Link to an entry'),
                 'elementType' => Entry::class,
                 'refHandle' => Entry::refHandle(),
                 'sources' => $sectionSources,
+                'criteria' => ['uri' => ':notempty:']
             ];
         }
 
         if (!empty($this->_getVolumeKeys())) {
             $linkOptions[] = [
-                'optionTitle' => Craft::t('redactor', 'Asset'),
+                'optionTitle' => Craft::t('redactor', 'Link to an asset'),
                 'elementType' => Asset::class,
                 'refHandle' => Asset::refHandle(),
                 'sources' => $this->_getVolumeKeys(),
@@ -674,7 +675,7 @@ class Field extends \craft\base\Field
 
         if (!empty($categorySources)) {
             $linkOptions[] = [
-                'optionTitle' => Craft::t('redactor', 'Category'),
+                'optionTitle' => Craft::t('redactor', 'Link to a category'),
                 'elementType' => Category::class,
                 'refHandle' => Category::refHandle(),
                 'sources' => $categorySources,
