@@ -601,24 +601,28 @@ class Field extends \craft\base\Field
 
         // Find any element URLs and swap them with ref tags
         $value = preg_replace_callback(
-            '/(href=|src=)([\'"])([^\'"#]+)?(#[^\'"#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
+            '/(href=|src=)([\'"])([^\'"\?#]*)(\?[^\'"\?#]+)?(#[^\'"\?#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
             function($matches) {
-                list(, $attr, $q, $url, $hash, $elementType, $ref, $siteId, $transform) = array_pad($matches, 9, null);
+                list(, $attr, $q, $url, $query, $hash, $elementType, $ref, $siteId, $transform) = array_pad($matches, 10, null);
 
                 // Create the ref tag, and make sure :url is in there
-                $refTag = "{{$elementType}:$ref" . ($siteId ? "@$siteId" : '') . ($transform ?: ':url') . "||$url}";
+                $ref = $elementType . ':' . $ref . ($siteId ? "@$siteId" : '') . ($transform ?: ':url');
 
-                if ($hash) {
-                    // Make sure that the hash isn't actually part of the parsed URL
-                    // (someone's Entry URL Format could be "#{slug}", etc.)
-                    $url = Craft::$app->getElements()->parseRefs($refTag);
-
-                    if (mb_strpos($url, $hash) !== false) {
+                if ($query || $hash) {
+                    // Make sure that the query/hash isn't actually part of the parsed URL
+                    // (someone's Entry URL Format could include "?slug={slug}" or "#{slug}", etc.)
+                    $parsed = Craft::$app->getElements()->parseRefs("{{$ref}}");
+                    if ($query && mb_strpos($parsed, $query) !== false) {
+                        $url .= $query;
+                        $query = '';
+                    }
+                    if ($hash && mb_strpos($parsed, $hash) !== false) {
+                        $url .= $hash;
                         $hash = '';
                     }
                 }
 
-                return $attr . $q . $refTag . $hash . $q;
+                return $attr . $q . '{' . $ref . '||' . $url . '}' . $query . $hash . $q;
             },
             $value);
 

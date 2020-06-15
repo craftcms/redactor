@@ -9,6 +9,7 @@
 - It’s now possible to define the Redactor config on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
 - Added support for the `linkNewTab` Redactor config setting. ([#93](https://github.com/craftcms/redactor/issues/93))
 - Added the “All entries” source to entry selection modals. ([#228](https://github.com/craftcms/redactor/issues/228))
+- Added support for including query strings in linked element URLs. ([#235](https://github.com/craftcms/redactor/issues/235))
 - Added `craft\redactor\Field::EVENT_DEFINE_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
 
 ### Changed
