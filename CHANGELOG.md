@@ -3,25 +3,24 @@
 ## Unreleased
 
 ### Added
-- It is now possible to change the transforms of selected Assets. ([#134](https://github.com/craftcms/redactor/issues/134))
-- Added the `limitSourceButtonToAdmins` field setting. ([#129](https://github.com/craftcms/redactor/issues/129))
-- It is now possible to define Redactor configuration on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
-- Added `craft\redactor\Field::EVENT_MODIFY_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
-- Redactor now observes the `linkNewTab` option when inserting links to elements. ([#93](https://github.com/craftcms/redactor/issues/93))
-- Added the “Default transform” setting, which determines which transform to apply if no transform is selected. ([#223](https://github.com/craftcms/redactor/issues/223))
-- Added the “All entries” entry source when selecting an entry link. ([#228](https://github.com/craftcms/redactor/issues/228))
+- It is now possible to change the transforms of selected assets. ([#134](https://github.com/craftcms/redactor/issues/134))
+- Added the “Default transform” setting, which determines which image transform to apply by default. ([#223](https://github.com/craftcms/redactor/issues/223))
+- Added a field setting that determines whether non-admin users should be allowed to edit the field HTML. ([#129](https://github.com/craftcms/redactor/issues/129))
+- It’s now possible to define the Redactor config on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
+- Added support for the `linkNewTab` Redactor config setting. ([#93](https://github.com/craftcms/redactor/issues/93))
+- Added the “All entries” source to entry selection modals. ([#228](https://github.com/craftcms/redactor/issues/228))
+- Added `craft\redactor\Field::EVENT_DEFINE_REDACTOR_CONFIG`, which makes it possible to modify the Redactor config at runtime. ([#226](https://github.com/craftcms/redactor/issues/226))
 
 ### Changed
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
-- Redactor no longer displays a dropdown, when adding a link. Instead, if allows selecting an element from the link editor modal.
 - Redactor now automatically opens the "Edit image" modal after inserting a single image.
 - Redactor now only displays elements that have URIs when creating a link.
 - Redactor now requires Craft 3.5 or later.
 - Updated Redactor to 3.3.5.
 
 ### Fixed
-- Fixed a bug where Redactor default config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
-- Fixed a bug where Redactor would sometimes re-focus the editor field, causing the page to jump. ([#222](https://github.com/craftcms/redactor/issues/222))
+- Fixed a bug where the default Redactor config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
+- Fixed a bug where Redactor would sometimes re-focus the editor, causing the page to jump. ([#222](https://github.com/craftcms/redactor/issues/222))
 
 ## 2.6.1 - 2020-03-18
 

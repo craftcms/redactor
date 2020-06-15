@@ -31,6 +31,7 @@ use craft\redactor\events\RegisterPluginPathsEvent;
 use craft\validators\HandleValidator;
 use HTMLPurifier_Config;
 use yii\base\Event;
+use yii\base\InvalidArgumentException;
 use yii\base\InvalidConfigException;
 use yii\db\Schema;
 
@@ -84,13 +85,13 @@ class Field extends \craft\base\Field
      * use craft\redactor\Field;
      * use yii\base\Event;
      *
-     * Event::on(Field::class, Field::EVENT_MODIFY_REDACTOR_CONFIG, function(ModifyRedactorConfigEvent $e) {
+     * Event::on(Field::class, Field::EVENT_DEFINE_REDACTOR_CONFIG, function(ModifyRedactorConfigEvent $e) {
      *      // Never allow the bold button for reasons.
      *     $e->config['buttonsHide'] = empty($e->config['buttonsHide']) ? ['bold'] : array_merge($e->config['buttonsHide'], ['bold']);
      * });
      * ```
      */
-    const EVENT_MODIFY_REDACTOR_CONFIG = 'modifyRedactorConfig';
+    const EVENT_DEFINE_REDACTOR_CONFIG = 'defineRedactorConfig';
 
     // Static
     // =========================================================================
@@ -176,7 +177,7 @@ class Field extends \craft\base\Field
      * @var bool Whether "view source" button should only be displayed to admins.
      * @since 2.7.0
      */
-    public $limitSourceButtonToAdmins = false;
+    public $showHtmlButtonForNonAdmins = false;
 
     /**
      * @var string Config selection mode ('choose' or 'manual')
@@ -375,6 +376,29 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
+    protected function defineRules(): array
+    {
+        $rules = parent::defineRules();
+        $rules[] = [
+            ['manualConfig'],
+            function() {
+                if (!Json::isJsonObject($this->manualConfig)) {
+                    $this->addError('manualConfig', Craft::t('redactor', 'This must be a valid JSON object.'));
+                    return;
+                }
+                try {
+                    Json::decode($this->manualConfig);
+                } catch (InvalidArgumentException $e) {
+                    $this->addError('manualConfig', Craft::t('redactor', 'This must be a valid JSON object.'));
+                }
+            }
+        ];
+        return $rules;
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getContentColumnType(): string
     {
         return $this->columnType;
@@ -424,8 +448,8 @@ class Field extends \craft\base\Field
             }
         }
 
-        if ($this->limitSourceButtonToAdmins && !Craft::$app->getUser()->getIsAdmin()) {
-            $redactorConfig['buttonsHide'] = empty($redactorConfig['buttonsHide']) ? ['html'] : array_merge($redactorConfig['buttonsHide'], ['html']);
+        if (!$this->showHtmlButtonForNonAdmins && !Craft::$app->getUser()->getIsAdmin()) {
+            $redactorConfig['buttonsHide'] = array_merge($redactorConfig['buttonsHide'] ?? [], ['html']);
         }
 
         $id = Html::id($this->handle);
@@ -906,7 +930,7 @@ class Field extends \craft\base\Field
             'field' => $this
         ]);
 
-        $this->trigger(self::EVENT_MODIFY_REDACTOR_CONFIG, $event);
+        $this->trigger(self::EVENT_DEFINE_REDACTOR_CONFIG, $event);
 
         return $event->config;
     }

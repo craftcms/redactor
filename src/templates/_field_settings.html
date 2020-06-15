@@ -1,61 +1,54 @@
 {% import '_includes/forms' as forms %}
 
 {% set configInput %}
-    <div class="flex fullwidth">
-        <div style="align-self: flex-start;">
-            {{ forms.select({
-                name: 'configSelectionMode',
-                options: [
-                    { label: 'Choose a settings file …'|t('redactor'), value: 'choose' },
-                    { label: 'Manually define settings …'|t('redactor'), value: 'manual' }
-                ],
-                value: field.configSelectionMode,
-                toggle: true,
-                targetPrefix: '.csm-'
-            }) }}
-        </div>
+    <div class="flex">
+        {{ forms.select({
+            name: 'configSelectionMode',
+            options: [
+                { label: 'Choose a config file'|t('redactor'), value: 'choose' },
+                { label: 'Enter a custom config'|t('redactor'), value: 'manual' }
+            ],
+            value: field.configSelectionMode,
+            toggle: true,
+            targetPrefix: '.csm-'
+        }) }}
 
-        <div class="csm-choose{% if field.configSelectionMode == 'manual' %} hidden{% endif %}">
-            {{ forms.select({
-                id: 'redactorConfig',
-                name: 'redactorConfig',
-                options: redactorConfigOptions,
-                value: field.redactorConfig
-            }) }}
-        </div>
-        <div class="csm-manual{% if field.configSelectionMode == 'choose' %} hidden{% endif %} flex-grow">
-            {{ forms.textarea({
-                label: "Config"|t('redactor'),
-                class: 'ltr redactor-manualConfig',
-                name: 'manualConfig',
-                value: field.manualConfig,
-                placeholder: 'JSON Config'|t('redactor'),
-                rows: 10,
-                cols: 50,
-            }) }}
-        </div>
+        {{ forms.select({
+            id: 'redactorConfig',
+            name: 'redactorConfig',
+            class: ['csm-choose', field.configSelectionMode == 'manual' ? 'hidden']|filter,
+            options: redactorConfigOptions,
+            value: field.redactorConfig
+        }) }}
     </div>
 {% endset %}
 
-
 {{ forms.field({
-    label: "Config"|t('redactor'),
+    label: "Redactor Config"|t('redactor'),
     id: 'config',
-    instructions: "You can save custom {name} configs as {ext} files in {path} or you can just define them on a per-field basis."|t('redactor', {
-        name: 'Redactor',
-        ext: '`.json`',
-        path: '`config/redactor/`'
-        }) ~
-        ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
+    instructions: "You can save custom Redactor configs as `.json` files in `config/redactor/`, or you can enter a custom config."|t('redactor')
+        ~ ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank" class="go">'~"View available settings"|t('redactor')~'</a>',
     required: true,
 }, configInput) }}
 
+{{ forms.textareaField({
+    label: "Custom Redactor Config"|t('redactor'),
+    instructions: 'The config must be entered as valid JSON.'|t('redactor'),
+    fieldClass: ['csm-manual', field.configSelectionMode == 'choose' ? 'hidden']|filter,
+    class: ['code', 'ltr'],
+    name: 'manualConfig',
+    value: field.manualConfig,
+    rows: 10,
+    cols: 50,
+    errors: field.getErrors('manualConfig'),
+}) }}
+
 {{ forms.checkboxField({
-    label: 'Limit source button to admins'|t('app'),
-    instructions: 'Whether the HTML source button should be visible to admins only.'|t('app'),
-    id: 'limitSourceButtonToAdmins',
-    name: 'limitSourceButtonToAdmins',
-    checked: field.limitSourceButtonToAdmins,
+    label: 'Show the “HTML” button for non-admin users'|t('redactor'),
+    instructions: 'Whether the “HTML” button should be visible for non-admin users.'|t('redactor'),
+    id: 'showHtmlButtonForNonAdmins',
+    name: 'showHtmlButtonForNonAdmins',
+    checked: field.showHtmlButtonForNonAdmins,
 }) }}
 
 {{ forms.checkboxField({
