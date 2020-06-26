@@ -68,6 +68,16 @@ Use this as a starting point, which is the default config that Redactor fields u
 
 (The [HTML.AllowedComments](http://htmlpurifier.org/live/configdoc/plain.html#HTML.AllowedComments) option is required for the `pagebreak` plugin.)
 
+To allow YouTube embeds, for example, you would need to add the following settings:
+
+```json
+{
+  "HTML.SafeIframe": true,
+  "URI.SafeIframeRegexp": "%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/)%",
+  "...": "..."
+}
+``` 
+
 See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/plain.html) for a list of available config options.
 
 ### Redactor JS Plugins
