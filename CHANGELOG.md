@@ -16,6 +16,7 @@
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
 - Redactor now automatically opens the "Edit image" modal after inserting a single image.
 - Redactor now only displays elements that have URIs when creating a link.
+- It’s now possible to include SVG images within field values, without them being removed by HTML Purifier. They will be sanitized with SVG Sanitizer instead.
 - Redactor now requires Craft 3.5 or later.
 - Updated Redactor to 3.3.5.
 

@@ -560,7 +560,18 @@ class Field extends \craft\base\Field
                 // Parse reference tags so HTMLPurifier doesn't encode the curly braces
                 $value = $this->_parseRefs($value, $element);
 
+                // Sanitize & tokenize any SVGs
+                $svgTokens = [];
+                $svgContent = [];
+                $value = preg_replace_callback('/<svg\b.*>.*<\/svg>/Uis', function(array $match) use (&$svgTokens, &$svgContent): string {
+                    $svgContent[] = Html::sanitizeSvg($match[0]);
+                    return $svgTokens[] = 'svg:' . StringHelper::randomString(10);
+                }, $value);
+
                 $value = HtmlPurifier::process($value, $this->_getPurifierConfig());
+
+                // Put the sanitized SVGs back
+                $value = str_replace($svgTokens, $svgContent, $value);
             }
 
             if ($this->removeInlineStyles) {
