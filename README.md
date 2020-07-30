@@ -73,7 +73,7 @@ To allow YouTube embeds, for example, you would need to add the following settin
 ```json
 {
   "HTML.SafeIframe": true,
-  "URI.SafeIframeRegexp": "%^(https?:)?//(www\.youtube(?:-nocookie)?\.com/embed/)%",
+  "URI.SafeIframeRegexp": "%^(https?:)?//(www\\.youtube(?:-nocookie)?\\.com/embed/)%",
   "...": "..."
 }
 ``` 
