@@ -1,19 +1,22 @@
 {
   "private": true,
   "main": "gulpfile.js",
+  "scripts": {
+    "gulp:redactor": "gulp redactor-js",
+    "gulp:field": "gulp field-js"
+  },
   "devDependencies": {
     "craftcms-sass": "^3.4.0",
+    "del": "^5.1.0",
     "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^4.0.0",
-    "gulp-clean-css": "^3.9.4",
+    "gulp-autoprefixer": "^7.0.1",
+    "gulp-clean-css": "^3.10.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.1",
-    "gulp-uglify": "^3.0.1",
-    "merge-stream": "^1.0.1"
-  },
-  "dependencies": {
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-uglify-es": "^2.0.0",
+    "merge-stream": "^1.0.1",
+    "moment": "^2.24.0",
     "natives": "^1.1.6"
   }
 }

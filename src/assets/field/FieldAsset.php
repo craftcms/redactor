@@ -20,31 +20,35 @@ class FieldAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public function init()
-    {
-        $this->sourcePath = __DIR__ . '/dist';
+    public $depends = [
+        CpAsset::class,
+        RedactorAsset::class,
+    ];
 
-        $this->depends = [
-            CpAsset::class,
-            RedactorAsset::class,
-        ];
+    /**
+     * @inheritdoc
+     */
+    public $sourcePath = __DIR__ . '/dist';
 
-        $this->js = [
-            'js/PluginBase' . $this->dotJs(),
-            'js/CraftAssetImageEditor' . $this->dotJs(),
-            'js/CraftAssetImages' . $this->dotJs(),
-            'js/CraftAssetFiles' . $this->dotJs(),
-            'js/CraftElementLinks' . $this->dotJs(),
-            'js/RedactorInput' . $this->dotJs(),
-            'js/RedactorOverrides' . $this->dotJs(),
-        ];
+    /**
+     * @inheritdoc
+     */
+    public $css = [
+        'css/RedactorInput.css',
+    ];
 
-        $this->css = [
-            'css/RedactorInput.min.css',
-        ];
-
-        parent::init();
-    }
+    /**
+     * @inheritdoc
+     */
+    public $js = [
+        'js/PluginBase.min.js',
+        'js/CraftAssetImageEditor.min.js',
+        'js/CraftAssetImages.min.js',
+        'js/CraftAssetFiles.min.js',
+        'js/CraftElementLinks.min.js',
+        'js/RedactorInput.min.js',
+        'js/RedactorOverrides.min.js',
+    ];
 
     /**
      * @inheritdoc

@@ -26,22 +26,34 @@ class RedactorAsset extends AssetBundle
     /**
      * @inheritdoc
      */
+    public $depends = [
+        JqueryAsset::class,
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public $sourcePath = __DIR__ . '/dist';
+
+    /**
+     * @inheritdoc
+     */
+    public $css = [
+        'redactor.css',
+    ];
+
+    /**
+     * @inheritdoc
+     */
+    public $js = [
+        'redactor.min.js',
+    ];
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
-        $this->sourcePath = dirname(__DIR__, 3) . '/lib/redactor';
-
-        $this->depends = [
-            JqueryAsset::class,
-        ];
-
-        $this->css = [
-            'redactor.css',
-        ];
-
-        $this->js = [
-            'redactor' . $this->dotJs(),
-        ];
-
         // set the Redactor language
         self::$redactorLanguage = 'en';
 
@@ -52,7 +64,7 @@ class RedactorAsset extends AssetBundle
         }
 
         foreach ($languages as $lang) {
-            $subPath = '_langs' . DIRECTORY_SEPARATOR . "{$lang}.js";
+            $subPath = '_langs' . DIRECTORY_SEPARATOR . "{$lang}.min.js";
             if (is_file($this->sourcePath . DIRECTORY_SEPARATOR . $subPath)) {
                 $this->js[] = $subPath;
                 self::$redactorLanguage = $lang;

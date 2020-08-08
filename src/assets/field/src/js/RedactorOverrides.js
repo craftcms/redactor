@@ -220,7 +220,7 @@ var inputCleanerService = $R['services']['cleaner'];
 inputCleanerService.prototype.input = function(html, paragraphize, started)
 {
     // pre/code
-    html = this.encodePreCode(html);
+    html = this.encodeCode(html);
 
     // converting entity
     html = html.replace(/\$/g, '&#36;');

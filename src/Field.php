@@ -323,7 +323,7 @@ class Field extends \craft\base\Field
         $event = new RegisterPluginPathsEvent([
             'paths' => [
                 Craft::getAlias('@config/redactor/plugins'),
-                dirname(__DIR__) . '/lib/redactor-plugins',
+                __DIR__ . '/assets/redactor-plugins/dist',
             ]
         ]);
         Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);

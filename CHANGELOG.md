@@ -18,7 +18,7 @@
 - Redactor now only displays elements that have URIs when creating a link.
 - It’s now possible to include SVG images within field values, without them being removed by HTML Purifier. They will be sanitized with SVG Sanitizer instead.
 - Redactor now requires Craft 3.5 or later.
-- Updated Redactor to 3.3.5.
+- Updated Redactor to 3.4.2.
 
 ### Fixed
 - Fixed a bug where the default Redactor config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
