@@ -74,7 +74,7 @@ body {
   }
 }
 
-.input {
+.redactor {
   &.errors > div.redactor-box {
     border: 1px solid $errorColor !important;
   }
@@ -213,10 +213,7 @@ body {
   }
 
   .redactor-styles {
-    @include readable;
     @include sans-serif-font;
-    font-size: 16px;
-    line-height: 22px;
     color: $textColor;
 
     h6 {
@@ -231,6 +228,35 @@ body {
     small {
       font-size: 0.7em !important;
     }
+  }
+
+  &:not(.readable) {
+    .redactor-box .redactor-toolbar,
+    .redactor-styles {
+      padding: 6px 9px;
+    }
+
+    .redactor-toolbar a.re-button-icon {
+      padding: 6px 14px 5px;
+      font-size: 14px;
+    }
+  }
+
+  &.readable {
+    .redactor-box .redactor-toolbar ,
+    .redactor-styles {
+      padding: 16px 18px;
+    }
+
+    .redactor-styles {
+      @include readable;
+      font-size: 16px;
+      line-height: 22px;
+    }
+  }
+
+  .redactor-box .redactor-toolbar {
+    padding-bottom: 0 !important;
   }
 }
 

@@ -3,6 +3,7 @@
 ## Unreleased
 
 ### Added
+- Added the “UI Mode” field setting.
 - It’s now possible to change the transforms of selected assets. ([#134](https://github.com/craftcms/redactor/issues/134))
 - Added the “Default transform” setting, which can be used to set a default transform that should be applied to images. ([#223](https://github.com/craftcms/redactor/issues/223))
 - Added a field setting that determines whether non-admin users should be allowed to edit the field HTML. ([#129](https://github.com/craftcms/redactor/issues/129))

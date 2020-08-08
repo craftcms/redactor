@@ -110,6 +110,12 @@ class Field extends \craft\base\Field
     // =========================================================================
 
     /**
+     * @var string The UI mode of the field.
+     * @since 2.7.0
+     */
+    public $uiMode = 'enlarged';
+
+    /**
      * @var string|null The Redactor config file to use
      */
     public $redactorConfig;
@@ -499,9 +505,16 @@ class Field extends \craft\base\Field
             ]), $value);
         }
 
-        return Html::textarea($this->handle, $value, [
+        $textarea = Html::textarea($this->handle, $value, [
             'id' => $id,
             'style' => ['display' => 'none'],
+        ]);
+
+        return Html::tag('div', $textarea, [
+            'class' => array_filter([
+                'redactor',
+                $this->uiMode === 'enlarged' ? 'readable' : null,
+            ]),
         ]);
     }
 
@@ -512,10 +525,10 @@ class Field extends \craft\base\Field
     {
         /** @var FieldData|null $value */
         return Html::tag('div', $value ?: '&nbsp;', [
-            'class' => [
+            'class' => array_filter([
                 'text',
-                'readable',
-            ],
+                $this->uiMode === 'enlarged' ? 'readable' : null,
+            ]),
         ]);
     }
 
