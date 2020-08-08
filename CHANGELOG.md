@@ -7,6 +7,7 @@
 - Added the “Default transform” setting, which can be used to set a default transform that should be applied to images. ([#223](https://github.com/craftcms/redactor/issues/223))
 - Added a field setting that determines whether non-admin users should be allowed to edit the field HTML. ([#129](https://github.com/craftcms/redactor/issues/129))
 - It’s now possible to define the Redactor config on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
+- It’s now possible to create a `Default.json` Redactor config, which will be used by default, or if the specified config file is missing. ([#247](https://github.com/craftcms/redactor/issues/247)) 
 - Added support for the `linkNewTab` Redactor config setting. ([#93](https://github.com/craftcms/redactor/issues/93))
 - Added the “All entries” source to entry selection modals. ([#228](https://github.com/craftcms/redactor/issues/228))
 - Added support for including query strings in linked element URLs. ([#235](https://github.com/craftcms/redactor/issues/235))

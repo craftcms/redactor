@@ -910,7 +910,10 @@ class Field extends \craft\base\Field
             ]);
 
             foreach ($files as $file) {
-                $options[pathinfo($file, PATHINFO_BASENAME)] = pathinfo($file, PATHINFO_FILENAME);
+                $filename = basename($file);
+                if ($filename !== 'Default.json') {
+                    $options[$filename] = pathinfo($file, PATHINFO_FILENAME);
+                }
             }
         }
 
@@ -921,18 +924,26 @@ class Field extends \craft\base\Field
      * Returns a JSON-decoded config, if it exists.
      *
      * @param string $dir The directory name within the config/ folder to look for the config file
-     * @param string|null $file The filename to load
+     * @param string|null $file The filename to load.
+     * @param string|null $default The default filename to return.
      * @return array|false The config, or false if the file doesn't exist
      */
-    private function _getConfig(string $dir, string $file = null)
+    private function _getConfig(string $dir, string $file = null, string $default = null)
     {
         if (!$file) {
-            return false;
+            if (!$default) {
+                return false;
+            }
+            $file = $default;
         }
 
         $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file;
 
         if (!is_file($path)) {
+            if ($file !== $default) {
+                // Try again with Default
+                return $this->_getConfig($dir, $default);
+            }
             return false;
         }
 
@@ -949,7 +960,7 @@ class Field extends \craft\base\Field
         if ($this->configSelectionMode === 'manual') {
             $config = Json::decode($this->manualConfig);
         } else {
-            $config = $this->_getConfig('redactor', $this->redactorConfig) ?: [];
+            $config = $this->_getConfig('redactor', $this->redactorConfig, 'Default.json') ?: [];
         }
 
         // Give plugins a chance to modify the Redactor config
