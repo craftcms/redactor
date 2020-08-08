@@ -3,8 +3,8 @@
 ## Unreleased
 
 ### Added
-- It is now possible to change the transforms of selected assets. ([#134](https://github.com/craftcms/redactor/issues/134))
-- Added the “Default transform” setting, which determines which image transform to apply by default. ([#223](https://github.com/craftcms/redactor/issues/223))
+- It’s now possible to change the transforms of selected assets. ([#134](https://github.com/craftcms/redactor/issues/134))
+- Added the “Default transform” setting, which can be used to set a default transform that should be applied to images. ([#223](https://github.com/craftcms/redactor/issues/223))
 - Added a field setting that determines whether non-admin users should be allowed to edit the field HTML. ([#129](https://github.com/craftcms/redactor/issues/129))
 - It’s now possible to define the Redactor config on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
 - Added support for the `linkNewTab` Redactor config setting. ([#93](https://github.com/craftcms/redactor/issues/93))
@@ -14,8 +14,8 @@
 
 ### Changed
 - Redactor fields now store fallback URLs on reference tag values, to be used if the linked element is no longer available. ([#168](https://github.com/craftcms/redactor/issues/168))
-- Redactor now automatically opens the "Edit image" modal after inserting a single image.
-- Redactor now only displays elements that have URIs when creating a link.
+- Redactor now automatically opens the “Edit image” modal after inserting a single image.
+- Redactor now only displays elements that have URIs when linking to an element.
 - It’s now possible to include SVG images within field values, without them being removed by HTML Purifier. They will be sanitized with SVG Sanitizer instead.
 - Redactor now requires Craft 3.5 or later.
 - Updated Redactor to 3.4.2.
@@ -159,7 +159,7 @@
 
 ### Fixed
 - Updating Redactor fixed a bug where inserting links to entries would not work in Firefox. ([#61](https://github.com/craftcms/redactor/issues/61))
-- Updating Redactor fixed a bug where using "inlinestyle" plugin would overwrite tags. ([#58](https://github.com/craftcms/redactor/issues/58))
+- Updating Redactor fixed a bug where using the `inlinestyle` plugin would overwrite tags. ([#58](https://github.com/craftcms/redactor/issues/58))
 
 ## 2.1.5 - 2018-07-30
 
