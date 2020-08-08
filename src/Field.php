@@ -425,7 +425,7 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function getInputHtml($value, ElementInterface $element = null): string
+    protected function inputHtml($value, ElementInterface $element = null): string
     {
         /** @var FieldData|null $value */
         /** @var Element $element */
@@ -509,9 +509,9 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function getSearchKeywords($value, ElementInterface $element): string
+    protected function searchKeywords($value, ElementInterface $element): string
     {
-        $keywords = parent::getSearchKeywords($value, $element);
+        $keywords = parent::searchKeywords($value, $element);
 
         if (Craft::$app->getDb()->getIsMysql()) {
             $keywords = StringHelper::encodeMb4($keywords);
