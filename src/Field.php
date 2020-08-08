@@ -491,10 +491,18 @@ class Field extends \craft\base\Field
             $value = $this->_parseRefs($value, $element);
 
             // Swap any <!--pagebreak-->'s with <hr>'s
-            $value = str_replace('<!--pagebreak-->', '<hr class="redactor_pagebreak" style="display:none" unselectable="on" contenteditable="false" />', $value);
+            $value = str_replace('<!--pagebreak-->', Html::tag('hr', '', [
+                'class' => 'redactor_pagebreak',
+                'style' => ['display' => 'none'],
+                'unselectable' => 'on',
+                'contenteditable' => 'false',
+            ]), $value);
         }
 
-        return '<textarea id="' . $id . '" name="' . $this->handle . '" style="display: none">' . htmlentities($value, ENT_NOQUOTES, 'UTF-8') . '</textarea>';
+        return Html::textarea($this->handle, $value, [
+            'id' => $id,
+            'style' => ['display' => 'none'],
+        ]);
     }
 
     /**
@@ -503,7 +511,12 @@ class Field extends \craft\base\Field
     public function getStaticHtml($value, ElementInterface $element): string
     {
         /** @var FieldData|null $value */
-        return '<div class="text">' . ($value ?: '&nbsp;') . '</div>';
+        return Html::tag('div', $value ?: '&nbsp;', [
+            'class' => [
+                'text',
+                'readable',
+            ],
+        ]);
     }
 
     /**
