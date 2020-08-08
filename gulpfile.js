@@ -74,16 +74,6 @@ gulp.task('redactor-plugin-css', ['redactor-clean'], () => {
 });
 
 gulp.task('field-js', () => {
-    var files = [
-        fieldSrcPath+'/js/RedactorInput.js',
-        fieldSrcPath+'/js/PluginBase.js',
-        fieldSrcPath+'/js/CraftAssetImages.js',
-        fieldSrcPath+'/js/CraftAssetImageEditor.js',
-        fieldSrcPath+'/js/CraftAssetFiles.js',
-        fieldSrcPath+'/js/CraftElementLinks.js',
-        fieldSrcPath+'/js/RedactorOverrides.js'
-    ];
-
     gulp.src(`${fieldSrcPath}/js/*`)
         .pipe(sourcemaps.init())
         .pipe(uglify())
