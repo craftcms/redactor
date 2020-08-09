@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.7.0 - 2020-08-09
 
 ### Added
 - Added the “UI Mode” field setting.
