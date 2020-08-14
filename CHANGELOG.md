@@ -2,11 +2,11 @@
 
 ## Unreleased
 
-### Fixed
-- Restored the Asset Sources setting. ([#254](https://github.com/craftcms/redactor/issues/254))
-
 ### Changed
 - Improved the styling of fixed toolbars.
+
+### Fixed
+- Restored the Asset Sources setting. ([#254](https://github.com/craftcms/redactor/issues/254))
 
 ## 2.7.0 - 2020-08-09
 
