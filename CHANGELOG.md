@@ -7,6 +7,7 @@
 
 ### Fixed
 - Restored the Asset Sources setting. ([#254](https://github.com/craftcms/redactor/issues/254))
+- Fixed a bug where images with query strings in their URLs could be missing from the input. ([#255](https://github.com/craftcms/redactor/issues/255))
 
 ## 2.7.0 - 2020-08-09
 
