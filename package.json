@@ -2,8 +2,8 @@
   "private": true,
   "main": "gulpfile.js",
   "scripts": {
-    "gulp:redactor": "gulp redactor-js",
-    "gulp:field": "gulp field-js"
+    "gulp:redactor": "gulp redactor",
+    "gulp:field": "gulp field"
   },
   "devDependencies": {
     "craftcms-sass": "^3.4.0",
