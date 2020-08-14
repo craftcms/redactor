@@ -243,9 +243,22 @@ body {
   }
 
   &.readable {
-    .redactor-box .redactor-toolbar ,
+    .redactor-box .redactor-toolbar,
     .redactor-styles {
       padding: 16px 18px;
+    }
+
+    .redactor-box .redactor-toolbar.redactor-toolbar-fixed {
+      padding-top: 8px;
+      padding-bottom: 4px !important;
+      background-color: hsl(212, 50%, 99%) !important;
+
+      @supports (backdrop-filter: blur(10px)) {
+        & {
+          background-color: transparentize(hsl(212, 50%, 99%), 0.25) !important;
+          backdrop-filter: blur(10px);
+        }
+      }
     }
 
     .redactor-styles {

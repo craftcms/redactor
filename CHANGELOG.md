@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Improved the styling of fixed toolbars.
+
 ## 2.7.0 - 2020-08-09
 
 ### Added

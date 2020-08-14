@@ -159,17 +159,17 @@ toolbarFixedClass.prototype._doFixed = function() {
     var tolerance = 20;
 
     if (this.livePreview) {
-        var headerBuffer = $('.lp-editor-container header.flex').length ? $('.lp-editor-container header.flex').height() : 0;
+        var headerBuffer = $('.lp-editor-container header.flex').length ? $('.lp-editor-container header.flex').outerHeight() : 0;
         var distanceFromScreenTop = $editor.offset().top - headerBuffer;
         var bottomFromScreenTop = distanceFromScreenTop + $editor.height() - toolbarHeight;
     } else {
-        var headerBuffer = $('body.fixed-header #header').length ? $('body.fixed-header #header').height() : 0;
+        var headerBuffer = $('body.fixed-header #header').length ? $('body.fixed-header #header').outerHeight() : 0;
         var distanceFromScreenTop = $editor.offset().top - this.$win.scrollTop() - headerBuffer;
         var bottomFromScreenTop = distanceFromScreenTop + $editor.height() - toolbarHeight;
     }
 
-    pinIt = distanceFromScreenTop  + tolerance < 0 && bottomFromScreenTop > 0;
-    pinDistance = $editor.scrollTop() + headerBuffer + tolerance;
+    pinIt = (distanceFromScreenTop + tolerance) < 0 && bottomFromScreenTop > 0;
+    pinDistance = $editor.scrollTop() + headerBuffer;
 
     // Figure out when to pin the toolbar
 
