@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixed
+- Restored the Asset Sources setting. ([#254](https://github.com/craftcms/redactor/issues/254))
+
 ### Changed
 - Improved the styling of fixed toolbars.
 
