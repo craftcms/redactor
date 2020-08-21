@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where Redactor was removing empty `alt` attributes on images when saving. ([#259](https://github.com/craftcms/redactor/issues/259))
+
 ## 2.7.1 - 2020-08-14
 
 ### Changed

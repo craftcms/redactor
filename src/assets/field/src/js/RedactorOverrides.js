@@ -272,6 +272,61 @@ inputCleanerService.prototype.input = function(html, paragraphize, started)
     return html;
 }
 
+inputCleanerService.prototype.output = function(html, removeMarkers)
+{
+    html = this.removeInvisibleSpaces(html);
+
+    if (this.opts.breakline) {
+        html = html.replace(/<\/(span|strong|b|i|em)><br\s?\/?><\/div>/gi, "</$1></div>");
+        html = html.replace(/<br\s?\/?><\/(span|strong|b|i|em)><\/div>/gi, "</$1></div>");
+    }
+
+    html = html.replace(/&#36;/g, '$');
+
+    // empty
+    if (this._isSpacedEmpty(html)) return '';
+    if (this._isParagraphEmpty(html)) return '';
+
+    html = this.removeServiceTagsAndAttrs(html, removeMarkers);
+
+    // store components
+    html = this.storeComponents(html);
+
+    html = this.removeSpanWithoutAttributes(html);
+    html = this.removeFirstBlockBreaklineInHtml(html);
+
+    html = (this.opts.removeScript) ? html : this._unreplaceScriptTag(html);
+    html = (this.opts.preClass) ? this._setPreClass(html) : html;
+    html = (this.opts.linkNofollow) ? this._setLinkNofollow(html) : html;
+    html = (this.opts.removeNewLines) ? this.cleanNewLines(html) : html;
+
+    // restore components
+    html = this.restoreComponents(html);
+
+    // convert to figure
+    var converter = $R.create('cleaner.figure', this.app);
+    html = converter.unconvert(html, this.unconvertRules);
+
+    // final clean up
+    html = this.removeEmptyAttributes(html, ['style', 'class', 'rel', 'title']);
+    html = this.cleanSpacesInPre(html);
+    html = this.tidy(html);
+
+    // converting entity
+    html = html.replace(/&amp;/g, '&');
+
+    // breakline tidy
+    if (this.opts.breakline) {
+        html = html.replace(/<br\s?\/?>/gi, "<br>\n");
+        html = html.replace(/<br\s?\/?>\n+/gi, "<br>\n");
+    }
+
+    // check whitespaces
+    html = (html.replace(/\n/g, '') === '') ? '' : html;
+
+    return html;
+};
+
 var toolbarDropdownClass = $R['classes']['toolbar.dropdown'];
 
 toolbarDropdownClass.prototype.updatePosition = function ()
