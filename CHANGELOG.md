@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.7.2 - 2020-08-25
 
 ### Changed
 - The `showHtmlButtonForNonAdmins` setting now defaults to `true` for existing fields. ([#257](https://github.com/craftcms/redactor/issues/257))
