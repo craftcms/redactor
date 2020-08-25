@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Changed
+- The `showHtmlButtonForNonAdmins` setting now defaults to `true` for existing fields. ([#257](https://github.com/craftcms/redactor/issues/257))
+
 ### Fixed
 - Fixed a bug where Redactor was removing empty `alt` attributes on images when saving. ([#259](https://github.com/craftcms/redactor/issues/259))
 

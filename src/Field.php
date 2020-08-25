@@ -208,6 +208,11 @@ class Field extends \craft\base\Field
      */
     public function __construct(array $config = [])
     {
+        // Default showHtmlButtonForNonAdmins to true for existing Assets fields
+        if (isset($config['id']) && !isset($config['showHtmlButtonForNonAdmins'])) {
+            $config['showHtmlButtonForNonAdmins'] = true;
+        }
+
         // normalize a mix/match of ids and uids to a list of uids.
         if (isset($config['availableVolumes']) && is_array($config['availableVolumes'])) {
             $ids = [];
