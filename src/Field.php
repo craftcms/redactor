@@ -517,10 +517,10 @@ class Field extends \craft\base\Field
         ]);
 
         return Html::tag('div', $textarea, [
-            'class' => array_filter([
+            'class' => [
                 'redactor',
-                $this->uiMode === 'enlarged' ? 'readable' : null,
-            ]),
+                $this->uiMode,
+            ],
         ]);
     }
 

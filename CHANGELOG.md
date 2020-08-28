@@ -1,5 +1,11 @@
 # Release Notes for Redactor for Craft CMS
 
+## 2.7.3 - 2020-08-28
+
+### Fixed
+- Fixed the Redactor status bar styling. ([#256](https://github.com/craftcms/redactor/issues/256))
+- Fixed various content styling issues when the UI Mode was set to “Normal”. ([#262](https://github.com/craftcms/redactor/issues/262))
+
 ## 2.7.2 - 2020-08-25
 
 ### Changed
