@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed content styling issues. ([#266](https://github.com/craftcms/redactor/issues/266))
+
 ## 2.7.3 - 2020-08-28
 
 ### Fixed
