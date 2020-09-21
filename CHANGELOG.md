@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where “air” toolbar buttons had very low contrast. ([#271](https://github.com/craftcms/redactor/issues/271))
+
 ## 2.7.4 - 2020-09-02
 
 ### Fixed
