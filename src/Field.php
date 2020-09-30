@@ -1011,14 +1011,14 @@ class Field extends \craft\base\Field
         $purifierConfig = HTMLPurifier_Config::createDefault();
         $purifierConfig->autoFinalize = false;
 
-        if ($config = $this->_getConfig('htmlpurifier', $this->purifierConfig)) {
-            foreach ($config as $option => $value) {
-                $purifierConfig->set($option, $value);
-            }
-        } else {
-            $purifierConfig->set('Attr.AllowedFrameTargets', ['_blank']);
-            $purifierConfig->set('Attr.EnableID', true);
-            $purifierConfig->set('HTML.AllowedComments', ['pagebreak']); // remove this later!
+        $config = $this->_getConfig('htmlpurifier', $this->purifierConfig) ?: [
+            'Attr.AllowedFrameTargets' => ['_blank'],
+            'Attr.EnableID' => true,
+            'HTML.AllowedComments' => ['pagebreak'],
+        ];
+
+        foreach ($config as $option => $value) {
+            $purifierConfig->set($option, $value);
         }
 
         // Give plugins a chance to modify the HTML Purifier config, or add new ones
