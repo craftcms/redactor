@@ -62,7 +62,7 @@ See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/pla
 
 ### Redactor JS Plugins
 
-All [1st party Redactor JS plugins](https://imperavi.com/redactor/plugins/) are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
+All [first party Redactor JS plugins](https://imperavi.com/redactor/plugins/) are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.
 
 ```json
 {
