@@ -52,7 +52,7 @@
 - Added the “Default transform” setting, which can be used to set a default transform that should be applied to images. ([#223](https://github.com/craftcms/redactor/issues/223))
 - Added a field setting that determines whether non-admin users should be allowed to edit the field HTML. ([#129](https://github.com/craftcms/redactor/issues/129))
 - It’s now possible to define the Redactor config on a per-field basis. ([#144](https://github.com/craftcms/redactor/issues/144))
-- It’s now possible to create a `Default.json` Redactor config, which will be used by default, or if the specified config file is missing. ([#247](https://github.com/craftcms/redactor/issues/247)) 
+- It’s now possible to create a `Default.json` Redactor config, which will be used by default, or if the specified config file is missing. ([#247](https://github.com/craftcms/redactor/issues/247))
 - Added support for the `linkNewTab` Redactor config setting. ([#93](https://github.com/craftcms/redactor/issues/93))
 - Added the “All entries” source to entry selection modals. ([#228](https://github.com/craftcms/redactor/issues/228))
 - Added support for including query strings in linked element URLs. ([#235](https://github.com/craftcms/redactor/issues/235))
@@ -73,11 +73,11 @@
 ## 2.6.1 - 2020-03-18
 
 ### Changed
-- Updated Redactor to 3.3.4. 
+- Updated Redactor to 3.3.4.
 
 ### Fixed
 - Fixed a bug where toolbar menus were getting a lower z-index than element editor HUDs. ([#215](https://github.com/craftcms/redactor/issues/215))
-- Fixed a bug where the source view would get excess top padding when the `minHeight` setting was set. ([#211](https://github.com/craftcms/redactor/issues/211))  
+- Fixed a bug where the source view would get excess top padding when the `minHeight` setting was set. ([#211](https://github.com/craftcms/redactor/issues/211))
 
 ## 2.6.0.1 - 2020-02-14
 
@@ -138,7 +138,7 @@
 ## 2.3.3.1 - 2019-04-26
 
 ### Fixed
-- Fixed an error that occurred when updating to Redactor 2.3.3 if any Redactor fields didn’t have a `cleanupHtml` setting saved. 
+- Fixed an error that occurred when updating to Redactor 2.3.3 if any Redactor fields didn’t have a `cleanupHtml` setting saved.
 
 ## 2.3.3 - 2019-04-26
 
@@ -192,7 +192,7 @@
 ### Changed
 - Updated Redactor to 3.1.4
 - Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
-- Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82)) 
+- Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82))
 
 ### Fixed
 - Fixed a bug where image editor would be unavailable for inserted assets. ([#95](https://github.com/craftcms/redactor/issues/95))
