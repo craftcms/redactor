@@ -956,24 +956,20 @@ class Field extends \craft\base\Field
      *
      * @param string $dir The directory name within the config/ folder to look for the config file
      * @param string|null $file The filename to load.
-     * @param string|null $default The default filename to return.
      * @return array|false The config, or false if the file doesn't exist
      */
-    private function _getConfig(string $dir, string $file = null, string $default = null)
+    private function _getConfig(string $dir, string $file = null)
     {
         if (!$file) {
-            if (!$default) {
-                return false;
-            }
-            $file = $default;
+            $file = 'Default.json';
         }
 
         $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . $dir . DIRECTORY_SEPARATOR . $file;
 
         if (!is_file($path)) {
-            if ($file !== $default) {
+            if ($file !== 'Default.json') {
                 // Try again with Default
-                return $this->_getConfig($dir, $default);
+                return $this->_getConfig($dir);
             }
             return false;
         }
@@ -991,7 +987,7 @@ class Field extends \craft\base\Field
         if ($this->configSelectionMode === 'manual') {
             $config = Json::decode($this->manualConfig);
         } else {
-            $config = $this->_getConfig('redactor', $this->redactorConfig, 'Default.json') ?: [];
+            $config = $this->_getConfig('redactor', $this->redactorConfig) ?: [];
         }
 
         // Give plugins a chance to modify the Redactor config

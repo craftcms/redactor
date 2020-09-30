@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Added
+- It’s now possible to create a `Default.json` HTML Purifier config, which will be used by default, or if the specified config file is missing.
+
 ## 2.7.5 - 2020-09-22
 
 ### Fixed
