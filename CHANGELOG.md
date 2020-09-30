@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- Updated Redactor to 3.4.3. ([#272](https://github.com/craftcms/redactor/issues/272))
+
 ## 2.8.0 - 2020-09-30
 
 ### Added
