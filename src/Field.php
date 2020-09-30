@@ -1015,6 +1015,8 @@ class Field extends \craft\base\Field
             'Attr.AllowedFrameTargets' => ['_blank'],
             'Attr.EnableID' => true,
             'HTML.AllowedComments' => ['pagebreak'],
+            'HTML.SafeIframe' => true,
+            'URI.SafeIframeRegexp' => '%^https?://(www.youtube.com/embed/|player.vimeo.com/video/)%',
         ];
 
         foreach ($config as $option => $value) {

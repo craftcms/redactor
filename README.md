@@ -56,27 +56,7 @@ Redactor fields use [HTML Purifier](http://htmlpurifier.org) to ensure that no m
 
 You can create custom HTML Purifier configs that will be available to your Redactor fields. They should be created as JSON files in your `config/htmlpurifier/` folder.
 
-Use this as a starting point, which is the default config that Redactor fields use if no custom HTML Purifier config is selected:
-
-```json
-{
-    "Attr.AllowedFrameTargets": ["_blank"],
-    "Attr.EnableID": true,
-    "HTML.AllowedComments": ["pagebreak"]
-}
-```
-
-(The [HTML.AllowedComments](http://htmlpurifier.org/live/configdoc/plain.html#HTML.AllowedComments) option is required for the `pagebreak` plugin.)
-
-To allow YouTube embeds, for example, you would need to add the following settings:
-
-```json
-{
-  "HTML.SafeIframe": true,
-  "URI.SafeIframeRegexp": "%^(https?:)?//(www\\.youtube(?:-nocookie)?\\.com/embed/)%",
-  "...": "..."
-}
-``` 
+Copy [Default.json](https://github.com/craftcms/craft/blob/master/config/htmlpurifier/Default.json) as a starting point, which is the default config that Redactor fields use if no custom HTML Purifier config is selected.
 
 See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/plain.html) for a list of available config options.
 
