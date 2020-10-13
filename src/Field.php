@@ -391,6 +391,7 @@ class Field extends \craft\base\Field
     protected function defineRules(): array
     {
         $rules = parent::defineRules();
+        $rules[] = [['manualConfig'], 'trim'];
         $rules[] = [
             ['manualConfig'],
             function() {

@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where the Custom Redactor Config setting wasn’t validating as JSON if it contained any leading/trailing whitespace. ([#279](https://github.com/craftcms/redactor/issues/279))
+
 ## 2.8.1 - 2020-09-30
 
 ### Changed
