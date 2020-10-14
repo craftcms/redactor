@@ -201,6 +201,10 @@ window.livePreviewHideFullscreen = false;
                     });
                 }
 
+                this.trigger('afterInitializeRedactor', {
+                    inputField: this,
+                });
+
                 delete Craft.RedactorInput.currentInstance;
             },
 

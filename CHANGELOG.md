@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Added an `afterInitializeRedactor` event which allows further customization after Craft has initialized its plugins. ([#275](https://github.com/craftcms/redactor/issues/275))
+
 ### Fixed
 - Fixed a bug where the Custom Redactor Config setting wasn’t validating as JSON if it contained any leading/trailing whitespace. ([#279](https://github.com/craftcms/redactor/issues/279))
 
