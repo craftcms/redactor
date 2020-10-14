@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.8.2 - 2020-10-14
 
 ### Added
 - Added an `afterInitializeRedactor` event which allows further customization after Craft has initialized its plugins. ([#275](https://github.com/craftcms/redactor/issues/275))
