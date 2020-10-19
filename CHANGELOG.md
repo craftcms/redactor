@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.8.3 - 2020-10-19
 
 ### Fixed
 - Fixed a bug where protocol-relative YouTube and Vimeo video URLs were getting stripped by HTML Purifier. ([#278](https://github.com/craftcms/redactor/issues/278))
