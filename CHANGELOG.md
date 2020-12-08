@@ -10,6 +10,7 @@
 
 ### Changed
 - Updated Redactor to 3.4.7.
+- Updated German and French translations.
 
 ## 2.8.4 - 2020-11-30
 
