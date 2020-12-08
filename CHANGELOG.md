@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.8.5 - 2020-12-08
 
 ### Added
 - Added the `enforceButtonOrder` Redactor config option, that allows setting an arbitrary button order. ([#218](https://github.com/craftcms/redactor/issues/218))
