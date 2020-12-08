@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Fixed
+- Fixed a bug where Redactor would sometimes have trouble adding buttons to the toolbar. ([#293](https://github.com/craftcms/redactor/issues/293))
+
 ### Changed
 - Updated Redactor to 3.4.7.
 

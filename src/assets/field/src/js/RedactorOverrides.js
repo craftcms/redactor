@@ -414,6 +414,46 @@ contextBarClass.prototype.init = function (app) {
     attachPreviewListeners(attachLivePreview, detachLivePreview);
 };
 
+var toolbarService = $R['services']['toolbar'];
+
+toolbarService.prototype.addButton = function(name, btnObj, position, $el, start)
+{
+    position = position || 'end';
+
+    var $button = $R.create('toolbar.button', this.app, name, btnObj);
+    if (btnObj.observe)
+    {
+        this.opts.activeButtonsObservers[name] = { observe: btnObj.observe, button: $button };
+    }
+
+    if (this.is())
+    {
+        if (position === 'first') this.$toolbar.prepend($button);
+        else if (position === 'after') $el.after($button);
+        else if (position === 'before') $el.before($button);
+        else {
+            var index = this.opts.buttons.indexOf(name);
+
+            if (start !== true && index !== -1) {
+                if (index === 0) {
+                    this.$toolbar.prepend($button);
+                }
+                else {
+                    var $btns = this._findButtons();
+
+                    // If this was an added button, it might not exist in the options with how things are, so make sure to stay inside bounds
+                    var $btn = $btns.eq(Math.min(index, $btns.length) - 1);
+                    $btn.after($button);
+                }
+            }
+            else {
+                this.$toolbar.append($button);
+            }
+        }
+    }
+
+    return $button;
+};
 
 function attachPreviewListeners (openCallback, closeCallback) {
     Garnish.on(Craft.Preview, 'open', openCallback);
