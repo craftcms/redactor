@@ -2,6 +2,9 @@
 
 ## Unreleased
 
+### Added
+- Added the `enforceButtonOrder` Redactor config option, that allows setting an arbitrary button order. ([#218](https://github.com/craftcms/redactor/issues/218))
+
 ### Fixed
 - Fixed a bug where Redactor would sometimes have trouble adding buttons to the toolbar. ([#293](https://github.com/craftcms/redactor/issues/293))
 

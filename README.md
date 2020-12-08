@@ -50,6 +50,10 @@ For example, if you created a `config/redactor/Standard.json` file with the foll
 
 See the [Redactor documentation](https://imperavi.com/redactor/docs/settings/) for a list of available config options and buttons.
 
+### Craft Redactor config options
+
+Craft addes the `enforceButtonOrder` config option that can be set to a list of button names in the expected order. This option should be used to address the uncontrollable button order set by Redactor when adding plugins to the configuration.
+
 ### HTML Purifier Configs
 
 Redactor fields use [HTML Purifier](http://htmlpurifier.org) to ensure that no malicious code makes it into its field values, to prevent XSS attacks and other vulnerabilities.

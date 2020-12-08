@@ -19,6 +19,8 @@ window.livePreviewHideFullscreen = false;
             redactor: null,
             linkOptionModals: null,
 
+            enforceButtonOrder: null,
+
             init: function(settings) {
                 this.id = settings.id;
                 this.linkOptions = settings.linkOptions;
@@ -30,6 +32,11 @@ window.livePreviewHideFullscreen = false;
                 this.defaultTransform = settings.defaultTransform;
 
                 this.linkOptionModals = [];
+
+                if (this.redactorConfig.enforceButtonOrder) {
+                    this.enforceButtonOrder = this.redactorConfig.enforceButtonOrder;
+                    delete this.redactorConfig.enforceButtonOrder;
+                }
 
                 if (!this.redactorConfig.lang) {
                     this.redactorConfig.lang = settings.redactorLang;
@@ -194,7 +201,7 @@ window.livePreviewHideFullscreen = false;
                 if (this.redactorConfig.plugins.indexOf('fullscreen') !== -1 && typeof Craft.livePreview != "undefined" && window.livePreviewHideFullscreen === false) {
                     window.livePreviewHideFullscreen = true;
                     Craft.livePreview.on('beforeEnter', function (ev) {
-                       $('a.re-button.re-fullscreen').addClass('hidden');
+                        $('a.re-button.re-fullscreen').addClass('hidden');
                     });
                     Craft.livePreview.on('beforeExit', function (ev) {
                         $('a.re-button.re-fullscreen').removeClass('hidden');
@@ -204,6 +211,25 @@ window.livePreviewHideFullscreen = false;
                 this.trigger('afterInitializeRedactor', {
                     inputField: this,
                 });
+
+                if (this.enforceButtonOrder) {
+                    const desiredOrder = this.enforceButtonOrder;
+
+                    let $toolbar = $(this.redactor.toolbar.getElement().nodes);
+                    if (desiredOrder.length > 0) {
+                        let index = 0;
+
+                        // Reverse the desired order, so we can prepend them.
+                        // The other option was to leave the order and append them, but this better addresses an edge case
+                        // Where not all buttons and plugin buttons are defined in the enforced button order.
+                        for (let buttonName of desiredOrder.reverse()) {
+                            let $existing = $toolbar.find(`[data-re-name=${buttonName}]`);
+                            if ($existing.length > 0) {
+                                $toolbar.prepend($existing);
+                            }
+                        }
+                    }
+                }
 
                 delete Craft.RedactorInput.currentInstance;
             },
