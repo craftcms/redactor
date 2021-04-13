@@ -104,7 +104,8 @@
 
       &.redactor-focus {
         // have to manually copy this because we are competing with Redactor's !important
-        border-color: transparentize($inputColor, 0.2) !important;
+        border-color: $darkFocusColor !important;
+        box-shadow: 0 0 0 2px transparentize($darkFocusColor, 0.5);
       }
     }
   }
@@ -271,6 +272,11 @@
     color: $textColor;
     font-size: 16px;
     line-height: 22px;
+
+    &:focus {
+      border: none;
+      box-shadow: none;
+    }
 
     h6 {
       text-transform: none;
