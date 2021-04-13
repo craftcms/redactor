@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.8.6 - 2021-04-13
 
 ### Changed
 - Improved the field’s focus styles.
