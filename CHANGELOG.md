@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Changed
+- The list of Redactor config files is now sorted alphabetically. ([#308](https://github.com/craftcms/redactor/pull/308))
+
 ## 2.8.6 - 2021-04-13
 
 ### Changed
