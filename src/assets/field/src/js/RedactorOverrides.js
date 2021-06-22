@@ -406,8 +406,10 @@ contextBarClass.prototype.init = function (app) {
     };
 
     var detachLivePreview = () => {
-        $target = $((this.toolbar.isTarget()) ? this.toolbar.getTargetElement() : this.$body);
-        $(this.$contextbar.get()).appendTo($target.get(0));
+        var $target = this.toolbar.getTargetElement();
+        if ($target.length) {
+            $(this.$contextbar.get(0)).appendTo($target.get(0));
+        }
         this.livePreview = false;
     }
 
