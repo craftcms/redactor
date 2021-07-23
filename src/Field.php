@@ -44,9 +44,6 @@ use yii\db\Schema;
  */
 class Field extends \craft\base\Field
 {
-    // Constants
-    // =========================================================================
-
     /**
      * @event RegisterPluginPathsEvent The event that is triggered when registering paths that contain Redactor plugins.
      */
@@ -94,9 +91,6 @@ class Field extends \craft\base\Field
      */
     const EVENT_DEFINE_REDACTOR_CONFIG = 'defineRedactorConfig';
 
-    // Static
-    // =========================================================================
-
     /**
      * @var array List of the Redactor plugins that have already been registered for this request
      */
@@ -106,9 +100,6 @@ class Field extends \craft\base\Field
      * @var array|null List of the paths that may contain Redactor plugins
      */
     private static $_pluginPaths;
-
-    // Properties
-    // =========================================================================
 
     /**
      * @var string The UI mode of the field.
@@ -342,9 +333,6 @@ class Field extends \craft\base\Field
 
         return self::$_pluginPaths = $event->paths;
     }
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * @inheritdoc
@@ -682,9 +670,6 @@ class Field extends \craft\base\Field
 
         return $value;
     }
-
-    // Private Methods
-    // =========================================================================
 
     /**
      * Parse ref tags in URLs, while preserving the original tag values in the URL fragments

@@ -18,9 +18,6 @@ use yii\base\Event;
  */
 class ModifyPurifierConfigEvent extends Event
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @var HTMLPurifier_Config $config the HTML Purifier config
      */

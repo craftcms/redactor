@@ -18,9 +18,6 @@ use Twig\Markup;
  */
 class FieldData extends Markup
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @var
      */
@@ -30,9 +27,6 @@ class FieldData extends Markup
      * @var string
      */
     private $_rawContent;
-
-    // Public Methods
-    // =========================================================================
 
     /**
      * Constructor

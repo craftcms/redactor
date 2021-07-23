@@ -17,9 +17,6 @@ use yii\base\Event;
  */
 class RegisterLinkOptionsEvent extends Event
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @var array The registered link options
      */

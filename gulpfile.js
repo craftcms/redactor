@@ -17,81 +17,81 @@ const fieldSrcPath = `${assetsPath}/field/src`;
 const fieldDistPath = `${assetsPath}/field/dist`;
 
 gulp.task('redactor-clean', () => {
-    return del([
-        `${redactorSrcPath}/**/*.min.*`,
-        `${pluginsSrcPath}/**/*.min.*`,
-    ]);
+  return del([
+    `${redactorSrcPath}/**/*.min.*`,
+    `${pluginsSrcPath}/**/*.min.*`,
+  ]);
 });
 
 gulp.task('redactor-js', ['redactor-clean'], () => {
-    return gulp.src(`${redactorSrcPath}/**/*.js`)
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(rename(path => {
-            path.dirname = `../../${redactorDistPath}/${path.dirname}`;
-            path.extname = '.min.js';
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(file => {
-            return file.base;
-        }))
+  return gulp.src(`${redactorSrcPath}/**/*.js`)
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(rename(path => {
+      path.dirname = `../../${redactorDistPath}/${path.dirname}`;
+      path.extname = '.min.js';
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(file => {
+      return file.base;
+    }))
 });
 
 gulp.task('redactor-css', ['redactor-clean'], () => {
-    return gulp.src(redactorSrcPath+'/redactor.css')
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer())
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(redactorDistPath));
+  return gulp.src(redactorSrcPath+'/redactor.css')
+    .pipe(sourcemaps.init())
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(redactorDistPath));
 });
 
 gulp.task('redactor-plugin-js', ['redactor-clean'], () => {
-    return gulp.src(`${pluginsSrcPath}/**/*.js`)
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(rename(path => {
-            path.dirname = `../../${pluginsDistPath}/${path.dirname}`;
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(file => {
-            return file.base;
-        }))
+  return gulp.src(`${pluginsSrcPath}/**/*.js`)
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(rename(path => {
+      path.dirname = `../../${pluginsDistPath}/${path.dirname}`;
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(file => {
+      return file.base;
+    }))
 });
 
 gulp.task('redactor-plugin-css', ['redactor-clean'], () => {
-    return gulp.src(`${pluginsSrcPath}/**/*.css`)
-        .pipe(sourcemaps.init())
-        .pipe(autoprefixer())
-        .pipe(cleanCSS())
-        .pipe(rename(path => {
-            path.dirname = `../../${pluginsDistPath}/${path.dirname}`;
-        }))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(file => {
-            return file.base;
-        }))
+  return gulp.src(`${pluginsSrcPath}/**/*.css`)
+    .pipe(sourcemaps.init())
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
+    .pipe(rename(path => {
+      path.dirname = `../../${pluginsDistPath}/${path.dirname}`;
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(file => {
+      return file.base;
+    }))
 });
 
 gulp.task('field-js', () => {
-    gulp.src(`${fieldSrcPath}/js/*`)
-        .pipe(sourcemaps.init())
-        .pipe(uglify())
-        .pipe(rename({ suffix: '.min' }))
-        .pipe(sourcemaps.write('./'))
-        .pipe(gulp.dest(fieldDistPath+'/js'));
+  gulp.src(`${fieldSrcPath}/js/*`)
+    .pipe(sourcemaps.init())
+    .pipe(uglify())
+    .pipe(rename({ suffix: '.min' }))
+    .pipe(sourcemaps.write('./'))
+    .pipe(gulp.dest(fieldDistPath+'/js'));
 });
 
 gulp.task('field-css', () => {
-    return gulp.src(`${fieldSrcPath}/css/*`)
-        .pipe(sourcemaps.init())
-        .pipe(sass({
-            outputStyle: 'compact'
-        }).on('error', sass.logError))
-        .pipe(autoprefixer())
-        .pipe(cleanCSS())
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(fieldDistPath+'/css'));
+  return gulp.src(`${fieldSrcPath}/css/*`)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      outputStyle: 'compact'
+    }).on('error', sass.logError))
+    .pipe(autoprefixer())
+    .pipe(cleanCSS())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(fieldDistPath+'/css'));
 });
 
 gulp.task('redactor-plugins', ['redactor-plugin-js', 'redactor-plugin-css']);

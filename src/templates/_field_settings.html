@@ -1,190 +1,190 @@
 {% import '_includes/forms' as forms %}
 
 {{ forms.selectField({
-    label: 'UI Mode'|t('app'),
-    instructions: 'How the field should be presented in the control panel.'|t('app'),
-    id: 'ui-mode',
-    name: 'uiMode',
-    options: [
-        {label: 'Normal'|t('app'), value: 'normal'},
-        {label: 'Enlarged'|t('app'), value: 'enlarged'},
-    ],
-    value: field.uiMode,
+  label: 'UI Mode'|t('app'),
+  instructions: 'How the field should be presented in the control panel.'|t('app'),
+  id: 'ui-mode',
+  name: 'uiMode',
+  options: [
+    { label: 'Normal'|t('app'), value: 'normal' },
+    { label: 'Enlarged'|t('app'), value: 'enlarged' },
+  ],
+  value: field.uiMode,
 }) }}
 
 {% set configInput %}
-    <div class="flex">
-        {{ forms.select({
-            name: 'configSelectionMode',
-            options: [
-                { label: 'Choose a config file'|t('redactor'), value: 'choose' },
-                { label: 'Enter a custom config'|t('redactor'), value: 'manual' }
-            ],
-            value: field.configSelectionMode,
-            toggle: true,
-            targetPrefix: '.csm-'
-        }) }}
+  <div class="flex">
+    {{ forms.select({
+      name: 'configSelectionMode',
+      options: [
+        { label: 'Choose a config file'|t('redactor'), value: 'choose' },
+        { label: 'Enter a custom config'|t('redactor'), value: 'manual' }
+      ],
+      value: field.configSelectionMode,
+      toggle: true,
+      targetPrefix: '.csm-'
+    }) }}
 
-        {{ forms.select({
-            id: 'redactorConfig',
-            name: 'redactorConfig',
-            class: ['csm-choose', field.configSelectionMode == 'manual' ? 'hidden']|filter,
-            options: redactorConfigOptions,
-            value: field.redactorConfig
-        }) }}
-    </div>
+    {{ forms.select({
+      id: 'redactorConfig',
+      name: 'redactorConfig',
+      class: ['csm-choose', field.configSelectionMode == 'manual' ? 'hidden']|filter,
+      options: redactorConfigOptions,
+      value: field.redactorConfig
+    }) }}
+  </div>
 {% endset %}
 
 {{ forms.field({
-    label: "Redactor Config"|t('redactor'),
-    id: 'config',
-    instructions: "You can save custom Redactor configs as `.json` files in `config/redactor/`, or you can enter a custom config."|t('redactor')
-        ~ ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank" class="go">'~"View available settings"|t('redactor')~'</a>',
-    required: true,
+  label: "Redactor Config"|t('redactor'),
+  id: 'config',
+  instructions: "You can save custom Redactor configs as `.json` files in `config/redactor/`, or you can enter a custom config."|t('redactor')
+      ~ ' <a href="http://imperavi.com/redactor/docs/settings/" rel="noopener" target="_blank" class="go">'~"View available settings"|t('redactor')~'</a>',
+  required: true,
 }, configInput) }}
 
 {{ forms.textareaField({
-    label: "Custom Redactor Config"|t('redactor'),
-    instructions: 'The config must be entered as valid JSON.'|t('redactor'),
-    fieldClass: ['csm-manual', field.configSelectionMode == 'choose' ? 'hidden']|filter,
-    class: ['code', 'ltr'],
-    name: 'manualConfig',
-    value: field.manualConfig,
-    rows: 10,
-    cols: 50,
-    errors: field.getErrors('manualConfig'),
+  label: "Custom Redactor Config"|t('redactor'),
+  instructions: 'The config must be entered as valid JSON.'|t('redactor'),
+  fieldClass: ['csm-manual', field.configSelectionMode == 'choose' ? 'hidden']|filter,
+  class: ['code', 'ltr'],
+  name: 'manualConfig',
+  value: field.manualConfig,
+  rows: 10,
+  cols: 50,
+  errors: field.getErrors('manualConfig'),
 }) }}
 
 {{ forms.checkboxField({
-    label: 'Show the “HTML” button for non-admin users'|t('redactor'),
-    instructions: 'Whether the “HTML” button should be visible for non-admin users.'|t('redactor'),
-    id: 'showHtmlButtonForNonAdmins',
-    name: 'showHtmlButtonForNonAdmins',
-    checked: field.showHtmlButtonForNonAdmins,
+  label: 'Show the “HTML” button for non-admin users'|t('redactor'),
+  instructions: 'Whether the “HTML” button should be visible for non-admin users.'|t('redactor'),
+  id: 'showHtmlButtonForNonAdmins',
+  name: 'showHtmlButtonForNonAdmins',
+  checked: field.showHtmlButtonForNonAdmins,
 }) }}
 
 {{ forms.checkboxField({
-    label: 'Show unpermitted volumes'|t('app'),
-    instructions: 'Whether to show volumes that the user doesn’t have permission to view.'|t('app'),
-    id: 'showUnpermittedVolumes',
-    name: 'showUnpermittedVolumes',
-    checked: field.showUnpermittedVolumes,
+  label: 'Show unpermitted volumes'|t('app'),
+  instructions: 'Whether to show volumes that the user doesn’t have permission to view.'|t('app'),
+  id: 'showUnpermittedVolumes',
+  name: 'showUnpermittedVolumes',
+  checked: field.showUnpermittedVolumes,
 }) }}
 
 {{ forms.checkboxField({
-    label: 'Show unpermitted files'|t('app'),
-    instructions: 'Whether to show files that the user doesn’t have permission to view, per the “View files uploaded by other users” permission.'|t('app'),
-    id: 'showUnpermittedFiles',
-    name: 'showUnpermittedFiles',
-    checked: field.showUnpermittedFiles,
+  label: 'Show unpermitted files'|t('app'),
+  instructions: 'Whether to show files that the user doesn’t have permission to view, per the “View files uploaded by other users” permission.'|t('app'),
+  id: 'showUnpermittedFiles',
+  name: 'showUnpermittedFiles',
+  checked: field.showUnpermittedFiles,
 }) }}
 
 {{ forms.checkboxSelectField({
-    id: 'availableVolumes',
-    name: 'availableVolumes',
-    label: 'Available Volumes'|t('redactor'),
-    instructions: 'The volumes that should be available when selecting assets (if the selected config has an Image or File button).'|t('redactor'),
-    options: volumeOptions,
-    values: field.availableVolumes,
-    showAllOption: volumeOptions|length ? true : false
+  id: 'availableVolumes',
+  name: 'availableVolumes',
+  label: 'Available Volumes'|t('redactor'),
+  instructions: 'The volumes that should be available when selecting assets (if the selected config has an Image or File button).'|t('redactor'),
+  options: volumeOptions,
+  values: field.availableVolumes,
+  showAllOption: volumeOptions|length ? true : false
 }) }}
 
 {{ forms.checkboxSelectField({
-    id: 'availableTransforms',
-    name: 'availableTransforms',
-    label: 'Available Transforms'|t('redactor'),
-    instructions: 'The transforms that should be available when inserting images.'|t('redactor'),
-    options: transformOptions,
-    values: field.availableTransforms,
-    showAllOption: transformOptions|length ? true : false
+  id: 'availableTransforms',
+  name: 'availableTransforms',
+  label: 'Available Transforms'|t('redactor'),
+  instructions: 'The transforms that should be available when inserting images.'|t('redactor'),
+  options: transformOptions,
+  values: field.availableTransforms,
+  showAllOption: transformOptions|length ? true : false
 }) }}
 
 {{ forms.selectField({
-    id: 'defaultTransform',
-    name: 'defaultTransform',
-    label: 'Default Transform'|t('redactor'),
-    instructions: 'The default transform that should be applied when inserting images.'|t('redactor'),
-    options: defaultTransformOptions,
-    value: field.defaultTransform,
+  id: 'defaultTransform',
+  name: 'defaultTransform',
+  label: 'Default Transform'|t('redactor'),
+  instructions: 'The default transform that should be applied when inserting images.'|t('redactor'),
+  options: defaultTransformOptions,
+  value: field.defaultTransform,
 }) }}
 
 <hr>
 <a class="fieldtoggle" data-target="advanced">{{ "Advanced"|t('redactor') }}</a>
 <div id="advanced" class="hidden">
-    <div class="field">
-        <div class="heading">
-            <label>{{ "Clean up HTML"|t('redactor') }}</label>
-            <div class="instructions">
-                {{ "The cleanup actions that should be executed on save."|t('redactor') }}
-            </div>
-        </div>
-
-        <div>
-            {{ forms.checkbox({
-                label: "Remove inline styles"|t('redactor'),
-                id: 'removeInlineStyles',
-                name: 'removeInlineStyles',
-                checked: field.removeInlineStyles
-            }) }}
-        </div>
-
-        <div>
-            {{ forms.checkbox({
-                label: "Remove empty tags"|t('redactor'),
-                id: 'removeEmptyTags',
-                name: 'removeEmptyTags',
-                checked: field.removeEmptyTags
-            }) }}
-        </div>
-
-        <div>
-            {{ forms.checkbox({
-                label: "Replace non-breaking spaces with regular spaces"|t('redactor'),
-                id: 'removeNbsp',
-                name: 'removeNbsp',
-                checked: field.removeNbsp
-            }) }}
-        </div>
+  <div class="field">
+    <div class="heading">
+      <label>{{ "Clean up HTML"|t('redactor') }}</label>
+      <div class="instructions">
+        {{ "The cleanup actions that should be executed on save."|t('redactor') }}
+      </div>
     </div>
 
-    {{ forms.checkboxField({
-        label: "Purify HTML"|t('redactor'),
-        instructions: 'Removes any potentially-malicious code on save, by running the submitted data through <a href="http://htmlpurifier.org/" rel="noopener" target="_blank">HTML Purifier</a>.'|t('redactor'),
-        warning: 'Disable this at your own risk!'|t('redactor'),
-        id: 'purifyHtml',
-        name: 'purifyHtml',
-        checked: field.purifyHtml,
-        toggle: 'purifier-config-container'
+    <div>
+      {{ forms.checkbox({
+        label: "Remove inline styles"|t('redactor'),
+        id: 'removeInlineStyles',
+        name: 'removeInlineStyles',
+        checked: field.removeInlineStyles
+      }) }}
+    </div>
+
+    <div>
+      {{ forms.checkbox({
+        label: "Remove empty tags"|t('redactor'),
+        id: 'removeEmptyTags',
+        name: 'removeEmptyTags',
+        checked: field.removeEmptyTags
+      }) }}
+    </div>
+
+    <div>
+      {{ forms.checkbox({
+        label: "Replace non-breaking spaces with regular spaces"|t('redactor'),
+        id: 'removeNbsp',
+        name: 'removeNbsp',
+        checked: field.removeNbsp
+      }) }}
+    </div>
+  </div>
+
+  {{ forms.checkboxField({
+    label: "Purify HTML"|t('redactor'),
+    instructions: 'Removes any potentially-malicious code on save, by running the submitted data through <a href="http://htmlpurifier.org/" rel="noopener" target="_blank">HTML Purifier</a>.'|t('redactor'),
+    warning: 'Disable this at your own risk!'|t('redactor'),
+    id: 'purifyHtml',
+    name: 'purifyHtml',
+    checked: field.purifyHtml,
+    toggle: 'purifier-config-container'
+  }) }}
+
+  <div id="purifier-config-container"{% if not field.purifyHtml %} class="hidden"{% endif %}>
+    {{ forms.selectField({
+      label: "HTML Purifier Config"|t('redactor'),
+      instructions: "You can save custom {name} configs as {ext} files in {path}."|t('redactor', {
+        name: 'HTML Purifier Config',
+        ext: '`.json`',
+        path: '`config/htmlpurifier/`'
+      }) ~
+      ' <a href="http://htmlpurifier.org/live/configdoc/plain.html" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
+      id: 'purifierConfig',
+      name: 'purifierConfig',
+      options: purifierConfigOptions,
+      value: field.purifierConfig
     }) }}
+  </div>
 
-    <div id="purifier-config-container"{% if not field.purifyHtml %} class="hidden"{% endif %}>
-        {{ forms.selectField({
-            label: "HTML Purifier Config"|t('redactor'),
-            instructions: "You can save custom {name} configs as {ext} files in {path}."|t('redactor', {
-                name: 'HTML Purifier Config',
-                ext: '`.json`',
-                path: '`config/htmlpurifier/`'
-            }) ~
-            ' <a href="http://htmlpurifier.org/live/configdoc/plain.html" rel="noopener" target="_blank">'~"View available settings"|t('redactor')~'</a>',
-            id: 'purifierConfig',
-            name: 'purifierConfig',
-            options: purifierConfigOptions,
-            value: field.purifierConfig
-        }) }}
-    </div>
-
-    {% if craft.app.db.isMysql %}
-        {{ forms.selectField({
-            label: "Column Type"|t('redactor'),
-            id: 'column-type',
-            name: 'columnType',
-            instructions: "The type of column this field should get in the database."|t('redactor'),
-            options: [
-                { value: 'text', label: 'text (~64KB)' },
-                { value: 'mediumtext', label: 'mediumtext (~16MB)' },
-            ],
-            value: field.columnType,
-            warning: (field.id ? "Changing this may result in data loss."|t('redactor')),
-        }) }}
-    {% endif %}
+  {% if craft.app.db.isMysql %}
+    {{ forms.selectField({
+      label: "Column Type"|t('redactor'),
+      id: 'column-type',
+      name: 'columnType',
+      instructions: "The type of column this field should get in the database."|t('redactor'),
+      options: [
+        { value: 'text', label: 'text (~64KB)' },
+        { value: 'mediumtext', label: 'mediumtext (~16MB)' },
+      ],
+      value: field.columnType,
+      warning: (field.id ? "Changing this may result in data loss."|t('redactor')),
+    }) }}
+  {% endif %}
 </div>

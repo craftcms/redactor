@@ -80,7 +80,7 @@ You can also supply your own Redactor plugins by saving them in your `config/red
 config/
 └── redactor/
     └── plugins/
-        ├── foo.js 
+        ├── foo.js
         └── bar/
             └── bar.js
 ```

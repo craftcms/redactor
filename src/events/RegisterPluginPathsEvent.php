@@ -17,9 +17,6 @@ use yii\base\Event;
  */
 class RegisterPluginPathsEvent extends Event
 {
-    // Properties
-    // =========================================================================
-
     /**
      * @var string[] The registered Redactor plugin paths
      */
