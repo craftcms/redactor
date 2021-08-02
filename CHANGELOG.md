@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.8.8 - 2021-08-02
 
 ### Fixed
 - Fixed a bug where a Javascript error was thrown when closing live preview pane, causing Redactor to break. ([#299](https://github.com/craftcms/redactor/issues/299), [#282](https://github.com/craftcms/redactor/issues/282))
