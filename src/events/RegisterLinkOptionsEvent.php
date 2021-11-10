@@ -20,5 +20,5 @@ class RegisterLinkOptionsEvent extends Event
     /**
      * @var array The registered link options
      */
-    public $linkOptions = [];
+    public array $linkOptions = [];
 }

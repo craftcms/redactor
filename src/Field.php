@@ -93,59 +93,59 @@ class Field extends \craft\base\Field
     /**
      * @var array List of the Redactor plugins that have already been registered for this request
      */
-    private static $_registeredPlugins = [];
+    private static array $_registeredPlugins = [];
 
     /**
      * @var array|null List of the paths that may contain Redactor plugins
      */
-    private static $_pluginPaths;
+    private static ?array $_pluginPaths = null;
 
     /**
      * @var string The UI mode of the field.
      * @since 2.7.0
      */
-    public $uiMode = 'enlarged';
+    public string $uiMode = 'enlarged';
 
     /**
      * @var string|null The Redactor config file to use
      */
-    public $redactorConfig;
+    public ?string $redactorConfig = null;
 
     /**
      * @var string|null The HTML Purifier config file to use
      */
-    public $purifierConfig;
+    public ?string $purifierConfig = null;
 
     /**
      * @var bool Whether the HTML should be cleaned up on save
      * @deprecated in 2.4
      */
-    public $cleanupHtml = true;
+    public bool $cleanupHtml = true;
 
     /**
      * @var bool Whether disallowed inline styles should be removed on save
      */
-    public $removeInlineStyles = true;
+    public bool $removeInlineStyles = true;
 
     /**
      * @var bool Whether empty tags should be removed on save
      */
-    public $removeEmptyTags = true;
+    public bool $removeEmptyTags = true;
 
     /**
      * @var bool Whether non-breaking spaces should be replaced by regular spaces on save
      */
-    public $removeNbsp = true;
+    public bool $removeNbsp = true;
 
     /**
      * @var bool Whether the HTML should be purified on save
      */
-    public $purifyHtml = true;
+    public bool $purifyHtml = true;
 
     /**
      * @var string The type of database column the field should have in the content table
      */
-    public $columnType = Schema::TYPE_TEXT;
+    public string $columnType = Schema::TYPE_TEXT;
 
     /**
      * @var string|array|null The volumes that should be available for Image selection.
@@ -161,37 +161,37 @@ class Field extends \craft\base\Field
      * @var bool Whether to show input sources for volumes the user doesn’t have permission to view.
      * @since 2.6.0
      */
-    public $showUnpermittedVolumes = false;
+    public bool $showUnpermittedVolumes = false;
 
     /**
      * @var bool Whether to show files the user doesn’t have permission to view, per the
      * “View files uploaded by other users” permission.
      * @since 2.6.0
      */
-    public $showUnpermittedFiles = false;
+    public bool $showUnpermittedFiles = false;
 
     /**
      * @var bool Whether "view source" button should only be displayed to admins.
      * @since 2.7.0
      */
-    public $showHtmlButtonForNonAdmins = false;
+    public bool $showHtmlButtonForNonAdmins = false;
 
     /**
      * @var string Config selection mode ('choose' or 'manual')
      * @since 2.7.0
      */
-    public $configSelectionMode = 'choose';
+    public string $configSelectionMode = 'choose';
 
     /**
      * @var string Manual config to use
      * @since 2.7.0
      */
-    public $manualConfig = '';
+    public string $manualConfig = '';
 
     /**
      * @var string The default transform to use.
      */
-    public $defaultTransform = '';
+    public string $defaultTransform = '';
 
     /**
      * @inheritdoc
@@ -259,16 +259,6 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function init()
-    {
-        $this->showUnpermittedVolumes = (bool)$this->showUnpermittedVolumes;
-        $this->showUnpermittedFiles = (bool)$this->showUnpermittedFiles;
-        parent::init();
-    }
-
-    /**
-     * @inheritdoc
-     */
     public static function displayName(): string
     {
         return Craft::t('redactor', 'Redactor');
@@ -281,7 +271,7 @@ class Field extends \craft\base\Field
      * @return void
      * @throws InvalidConfigException if the plugin can't be found
      */
-    public static function registerRedactorPlugin(string $plugin)
+    public static function registerRedactorPlugin(string $plugin): void
     {
         if (isset(self::$_registeredPlugins[$plugin])) {
             return;
@@ -291,15 +281,15 @@ class Field extends \craft\base\Field
         $view = Craft::$app->getView();
 
         foreach ($paths as $registeredPath) {
-            foreach (["{$registeredPath}/{$plugin}", $registeredPath] as $path) {
-                if (file_exists("{$path}/{$plugin}.js")) {
+            foreach (["$registeredPath/$plugin", $registeredPath] as $path) {
+                if (file_exists("$path/$plugin.js")) {
                     $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
-                    $view->registerJsFile("{$baseUrl}/{$plugin}.js", [
+                    $view->registerJsFile("$baseUrl/$plugin.js", [
                         'depends' => RedactorAsset::class
                     ]);
                     // CSS file too?
-                    if (file_exists("{$path}/{$plugin}.css")) {
-                        $view->registerCssFile("{$baseUrl}/{$plugin}.css");
+                    if (file_exists("$path/$plugin.css")) {
+                        $view->registerCssFile("$baseUrl/$plugin.css");
                     }
                     // Don't do this twice
                     self::$_registeredPlugins[$plugin] = true;
@@ -336,7 +326,7 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function getSettingsHtml()
+    public function getSettingsHtml(): ?string
     {
         $volumeOptions = [];
         foreach (Craft::$app->getVolumes()->getPublicVolumes() as $volume) {
@@ -407,7 +397,7 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function normalizeValue($value, ElementInterface $element = null)
+    public function normalizeValue($value, ElementInterface $element = null): ?FieldData
     {
         if ($value instanceof FieldData) {
             return $value;
@@ -554,7 +544,7 @@ class Field extends \craft\base\Field
     /**
      * @inheritdoc
      */
-    public function serializeValue($value, ElementInterface $element = null)
+    public function serializeValue($value, ElementInterface $element = null): ?string
     {
         /** @var FieldData|null $value */
         if (!$value) {
@@ -607,7 +597,7 @@ class Field extends \craft\base\Field
                         foreach ($styles as $style) {
                             list($name, $value) = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
                             if (isset($allowedStyles[$name])) {
-                                $allowed[] = "{$name}: {$value}";
+                                $allowed[] = "$name: $value";
                             }
                         }
                         return $matches[1] . (!empty($allowed) ? ' style="' . implode('; ', $allowed) . '"' : '');
@@ -641,6 +631,7 @@ class Field extends \craft\base\Field
                     // Make sure that the query/hash isn't actually part of the parsed URL
                     // - someone's Entry URL Format could include "?slug={slug}" or "#{slug}", etc.
                     // - assets could include ?mtime=X&focal=none, etc.
+                    /** @noinspection PhpUnnecessaryCurlyVarSyntaxInspection */
                     $parsed = Craft::$app->getElements()->parseRefs("{{$ref}}");
                     if ($query) {
                         // Decode any HTML entities, e.g. &amp;
@@ -849,7 +840,7 @@ class Field extends \craft\base\Field
 
         foreach ($allVolumes as $volume) {
             $allowedBySettings = $this->availableVolumes === '*' || (is_array($this->availableVolumes) && in_array($volume->uid, $this->availableVolumes));
-            if ($allowedBySettings && ($this->showUnpermittedVolumes || $userService->checkPermission("viewVolume:{$volume->uid}"))) {
+            if ($allowedBySettings && ($this->showUnpermittedVolumes || $userService->checkPermission("viewVolume:$volume->uid"))) {
                 $allowedVolumes[] = $volume->uid;
             }
         }

@@ -7,6 +7,8 @@ use craft\base\Volume;
 use craft\elements\Asset;
 use craft\elements\User;
 use craft\web\Controller as BaseController;
+use yii\base\InvalidConfigException;
+use yii\web\BadRequestHttpException;
 use yii\web\Response;
 
 /**
@@ -26,8 +28,8 @@ class DefaultController extends BaseController
      * Check if user allowed to edit an Asset
      *
      * @return Response
-     * @throws \yii\base\InvalidConfigException
-     * @throws \yii\web\BadRequestHttpException
+     * @throws InvalidConfigException
+     * @throws BadRequestHttpException
      */
     public function actionCanEdit(): Response
     {
@@ -35,6 +37,7 @@ class DefaultController extends BaseController
         $this->requirePostRequest();
 
         $assetId = Craft::$app->getRequest()->getRequiredBodyParam('assetId');
+        /** @var Asset|null $asset */
         $asset = Asset::find()->id($assetId)->one();
 
         if (!$asset) {

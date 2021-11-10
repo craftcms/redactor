@@ -24,8 +24,10 @@
     "docs": "https://github.com/craftcms/redactor/blob/v2/README.md",
     "rss": "https://github.com/craftcms/redactor/commits/v2.atom"
   },
+  "minimum-stability": "dev",
+  "prefer-stable": true,
   "require": {
-    "craftcms/cms": "^3.5.0"
+    "craftcms/cms": "^4.0.0-alpha"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.96"

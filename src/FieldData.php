@@ -21,12 +21,12 @@ class FieldData extends Markup
     /**
      * @var Markup[]
      */
-    private $_pages;
+    private array $_pages;
 
     /**
      * @var string
      */
-    private $_rawContent;
+    private string $_rawContent;
 
     /**
      * Constructor
@@ -90,9 +90,9 @@ class FieldData extends Markup
      * Returns a specific page.
      *
      * @param int $pageNumber
-     * @return string|null
+     * @return Markup|null
      */
-    public function getPage(int $pageNumber)
+    public function getPage(int $pageNumber): ?Markup
     {
         $pages = $this->getPages();
 

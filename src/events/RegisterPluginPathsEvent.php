@@ -20,5 +20,5 @@ class RegisterPluginPathsEvent extends Event
     /**
      * @var string[] The registered Redactor plugin paths
      */
-    public $paths = [];
+    public array $paths = [];
 }

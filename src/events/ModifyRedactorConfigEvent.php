@@ -21,10 +21,10 @@ class ModifyRedactorConfigEvent extends Event
     /**
      * @var array $config The loaded redactor config
      */
-    public $config;
+    public array $config;
 
     /**
      * @var Field $field The redactor field being configured
      */
-    public $field;
+    public Field $field;
 }

@@ -8,9 +8,9 @@
 namespace craft\redactor\assets\field;
 
 use craft\redactor\assets\redactor\RedactorAsset;
-use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
 use craft\web\View;
+use yii\web\AssetBundle;
 
 /**
  * Redactor field asset bundle

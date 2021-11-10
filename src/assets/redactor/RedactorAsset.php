@@ -9,8 +9,8 @@ namespace craft\redactor\assets\redactor;
 
 use Craft;
 use craft\helpers\Json;
-use craft\web\AssetBundle;
 use craft\web\View;
+use yii\web\AssetBundle;
 use yii\web\JqueryAsset;
 
 /**
@@ -19,9 +19,9 @@ use yii\web\JqueryAsset;
 class RedactorAsset extends AssetBundle
 {
     /**
-     * @var string the language Redactor should use
+     * @var string|null the language Redactor should use
      */
-    public static $redactorLanguage;
+    public static ?string $redactorLanguage = null;
 
     /**
      * @inheritdoc
@@ -52,7 +52,7 @@ class RedactorAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public function init()
+    public function init(): void
     {
         // set the Redactor language
         self::$redactorLanguage = 'en';
@@ -64,7 +64,7 @@ class RedactorAsset extends AssetBundle
         }
 
         foreach ($languages as $lang) {
-            $subPath = '_langs' . DIRECTORY_SEPARATOR . "{$lang}.min.js";
+            $subPath = '_langs' . DIRECTORY_SEPARATOR . "$lang.min.js";
             if (is_file($this->sourcePath . DIRECTORY_SEPARATOR . $subPath)) {
                 $this->js[] = $subPath;
                 self::$redactorLanguage = $lang;
@@ -80,7 +80,7 @@ class RedactorAsset extends AssetBundle
      *
      * @param View $view
      */
-    public static function registerTranslations(View $view)
+    public static function registerTranslations(View $view): void
     {
         $customTranslations = [
             'image-editor' => Craft::t('redactor', 'Image editor'),

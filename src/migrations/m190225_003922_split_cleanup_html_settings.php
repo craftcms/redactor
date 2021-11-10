@@ -8,8 +8,7 @@ use craft\db\Query;
 use craft\helpers\ArrayHelper;
 use craft\helpers\Json;
 use craft\redactor\Field;
-use craft\services\Fields;
-use craft\services\Matrix;
+use craft\services\ProjectConfig;
 
 /**
  * m190225_003922_split_cleanup_html_settings migration.
@@ -33,24 +32,24 @@ class m190225_003922_split_cleanup_html_settings extends Migration
         $fieldsToMigrate = [];
 
         // Migrate regular fields
-        $fields = $projectConfig->get(Fields::CONFIG_FIELDS_KEY) ?? [];
+        $fields = $projectConfig->get(ProjectConfig::PATH_FIELDS) ?? [];
         foreach ($fields as $fieldUid => $field) {
             if (isset($field['type']) && $field['type'] === Field::class) {
                 $fieldsToMigrate[$fieldUid] = [
-                    'configPath' => Fields::CONFIG_FIELDS_KEY . '.' . $fieldUid,
+                    'configPath' => ProjectConfig::PATH_FIELDS . '.' . $fieldUid,
                     'config' => $field,
                 ];
             }
         }
 
         // Migrate fields found in Matrix blocks
-        $matrixBlockTypes = $projectConfig->get(Matrix::CONFIG_BLOCKTYPE_KEY) ?? [];
+        $matrixBlockTypes = $projectConfig->get(ProjectConfig::PATH_MATRIX_BLOCK_TYPES) ?? [];
         foreach ($matrixBlockTypes as $matrixBlockTypeUid => $matrixBlockType) {
             $fields = $matrixBlockType['fields'] ?? [];
             foreach ($fields as $fieldUid => $field) {
                 if (isset($field['type']) && $field['type'] === Field::class) {
                     $fieldsToMigrate[$fieldUid] = [
-                        'configPath' => Matrix::CONFIG_BLOCKTYPE_KEY . '.' . $matrixBlockTypeUid . '.fields.' . $fieldUid,
+                        'configPath' => ProjectConfig::PATH_MATRIX_BLOCK_TYPES . '.' . $matrixBlockTypeUid . '.fields.' . $fieldUid,
                         'config' => $field,
                     ];
                 }

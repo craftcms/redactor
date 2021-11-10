@@ -21,5 +21,5 @@ class ModifyPurifierConfigEvent extends Event
     /**
      * @var HTMLPurifier_Config $config the HTML Purifier config
      */
-    public $config;
+    public HTMLPurifier_Config $config;
 }

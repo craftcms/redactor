@@ -21,7 +21,7 @@ class m180430_204710_remove_old_plugins extends Migration
         $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . 'redactor';
 
         if (is_dir($path)) {
-            echo "    > updating Redactor configs in {$path}\n";
+            echo "    > updating Redactor configs in $path\n";
 
             $files = FileHelper::findFiles($path, [
                 'only' => ['*.json'],
@@ -29,7 +29,7 @@ class m180430_204710_remove_old_plugins extends Migration
 
             foreach ($files as $file) {
                 $name = basename($file);
-                echo "      > processing {$name} ... ";
+                echo "      > processing $name ... ";
                 $config = Json::decodeIfJson(file_get_contents($file));
                 if (!is_array($config)) {
                     echo "skipped (not valid JSON)\n";
