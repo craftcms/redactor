@@ -929,7 +929,7 @@ class Field extends \craft\base\Field
                 }
             }
         }
-        
+
         ksort($options);
 
         return $options;
