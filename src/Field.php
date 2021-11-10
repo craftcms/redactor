@@ -8,7 +8,6 @@
 namespace craft\redactor;
 
 use Craft;
-use craft\base\Element;
 use craft\base\ElementInterface;
 use craft\base\Volume;
 use craft\elements\Asset;
@@ -340,8 +339,8 @@ class Field extends \craft\base\Field
     public function getSettingsHtml()
     {
         $volumeOptions = [];
-        /** @var $volume Volume */
         foreach (Craft::$app->getVolumes()->getPublicVolumes() as $volume) {
+            /** @var $volume Volume */
             if ($volume->hasUrls) {
                 $volumeOptions[] = [
                     'label' => Html::encode($volume->name),
@@ -419,7 +418,6 @@ class Field extends \craft\base\Field
         }
 
         // Prevent everyone from having to use the |raw filter when outputting RTE content
-        /** @var Element|null $element */
         return new FieldData($value, $element->siteId ?? null);
     }
 
@@ -429,7 +427,6 @@ class Field extends \craft\base\Field
     protected function inputHtml($value, ElementInterface $element = null): string
     {
         /** @var FieldData|null $value */
-        /** @var Element $element */
 
         // register the asset/redactor bundles
         $view = Craft::$app->getView();
@@ -686,7 +683,6 @@ class Field extends \craft\base\Field
         }
 
         return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')(?:\|\|[^\}]+)?\})(?:\?([^\'"#]*))?(#[^\'"#]+)?\2/', function($matches) use ($element) {
-            /** @var Element|null $element */
             list ($fullMatch, $attr, $q, $refTag, $ref, $query, $fragment) = array_pad($matches, 7, null);
             $parsed = Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null);
             // If the ref tag couldn't be parsed, leave it alone
@@ -707,16 +703,16 @@ class Field extends \craft\base\Field
     /**
      * Returns the link options available to the field.
      * Each link option is represented by an array with the following keys:
-     * - `optionTitle` (required) – the user-facing option title that appears in the Link dropdown menu
-     * - `elementType` (required) – the element type class that the option should be linking to
-     * - `sources` (optional) – the sources that the user should be able to select elements from
-     * - `criteria` (optional) – any specific element criteria parameters that should limit which elements the user can select
-     * - `storageKey` (optional) – the localStorage key that should be used to store the element selector modal state (defaults to RedactorInput.LinkTo[ElementType])
+     * - `optionTitle` (required) – the user-facing option title that appears in the Link dropdown menu
+     * - `elementType` (required) – the element type class that the option should be linking to
+     * - `sources` (optional) – the sources that the user should be able to select elements from
+     * - `criteria` (optional) – any specific element criteria parameters that should limit which elements the user can select
+     * - `storageKey` (optional) – the localStorage key that should be used to store the element selector modal state (defaults to RedactorInput.LinkTo[ElementType])
      *
-     * @param Element|null $element The element the field is associated with, if there is one
+     * @param ElementInterface|null $element The element the field is associated with, if there is one
      * @return array
      */
-    private function _getLinkOptions(Element $element = null): array
+    private function _getLinkOptions(ElementInterface $element = null): array
     {
         $linkOptions = [];
 
@@ -773,10 +769,10 @@ class Field extends \craft\base\Field
     /**
      * Returns the available section sources.
      *
-     * @param Element|null $element The element the field is associated with, if there is one
+     * @param ElementInterface|null $element The element the field is associated with, if there is one
      * @return array
      */
-    private function _getSectionSources(Element $element = null): array
+    private function _getSectionSources(ElementInterface $element = null): array
     {
         $sources = [];
         $sections = Craft::$app->getSections()->getAllSections();
@@ -812,10 +808,10 @@ class Field extends \craft\base\Field
     /**
      * Returns the available category sources.
      *
-     * @param Element|null $element The element the field is associated with, if there is one
+     * @param ElementInterface|null $element The element the field is associated with, if there is one
      * @return array
      */
-    private function _getCategorySources(Element $element = null): array
+    private function _getCategorySources(ElementInterface $element = null): array
     {
         $sources = [];
 
