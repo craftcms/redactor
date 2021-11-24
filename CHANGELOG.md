@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where translation messages weren’t getting registered for JavaScript properly.
+
 ## 2.8.8 - 2021-08-02
 
 ### Fixed
