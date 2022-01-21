@@ -340,7 +340,7 @@ class Field extends \craft\base\Field
         }
 
         $transformOptions = [];
-        foreach (Craft::$app->getAssetTransforms()->getAllTransforms() as $transform) {
+        foreach (Craft::$app->getImageTransforms()->getAllTransforms() as $transform) {
             $transformOptions[] = [
                 'label' => Html::encode($transform->name),
                 'value' => $transform->uid
@@ -445,7 +445,7 @@ class Field extends \craft\base\Field
 
         $defaultTransform = '';
 
-        if (!empty($this->defaultTransform) && $transform = Craft::$app->getAssetTransforms()->getTransformByUid($this->defaultTransform)) {
+        if (!empty($this->defaultTransform) && $transform = Craft::$app->getImageTransforms()->getTransformByUid($this->defaultTransform)) {
             $defaultTransform = $transform->handle;
         }
 
@@ -881,7 +881,7 @@ class Field extends \craft\base\Field
             return [];
         }
 
-        $allTransforms = Craft::$app->getAssetTransforms()->getAllTransforms();
+        $allTransforms = Craft::$app->getImageTransforms()->getAllTransforms();
         $transformList = [];
 
         foreach ($allTransforms as $transform) {
