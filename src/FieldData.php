@@ -19,7 +19,7 @@ use Twig\Markup;
 class FieldData extends Markup
 {
     /**
-     * @var
+     * @var Markup[]
      */
     private $_pages;
 
@@ -68,11 +68,11 @@ class FieldData extends Markup
     /**
      * Returns an array of the individual page contents.
      *
-     * @return \Twig_Markup[]
+     * @return Markup[]
      */
     public function getPages(): array
     {
-        if ($this->_pages !== null) {
+        if (isset($this->_pages)) {
             return $this->_pages;
         }
 
@@ -80,7 +80,7 @@ class FieldData extends Markup
         $pages = explode('<!--pagebreak-->', (string)$this);
 
         foreach ($pages as $page) {
-            $this->_pages[] = new \Twig_Markup($page, Craft::$app->charset);
+            $this->_pages[] = new Markup($page, Craft::$app->charset);
         }
 
         return $this->_pages;

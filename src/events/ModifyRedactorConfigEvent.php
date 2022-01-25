@@ -8,7 +8,6 @@
 namespace craft\redactor\events;
 
 use craft\redactor\Field;
-use HTMLPurifier_Config;
 use yii\base\Event;
 
 /**

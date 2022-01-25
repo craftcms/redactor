@@ -27,10 +27,16 @@
   "require": {
     "craftcms/cms": "^3.5.0"
   },
+  "require-dev": {
+    "phpstan/phpstan": "^0.12.96"
+  },
   "autoload": {
     "psr-4": {
       "craft\\redactor\\": "src/"
     }
+  },
+  "scripts": {
+    "phpstan": "phpstan --memory-limit=1G"
   },
   "extra": {
     "name": "Redactor",

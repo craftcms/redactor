@@ -16,7 +16,7 @@ class m180430_204710_remove_old_plugins extends Migration
     /**
      * @inheritdoc
      */
-    public function safeUp()
+    public function safeUp(): bool
     {
         $path = Craft::$app->getPath()->getConfigPath() . DIRECTORY_SEPARATOR . 'redactor';
 
@@ -56,12 +56,14 @@ class m180430_204710_remove_old_plugins extends Migration
                 }
             }
         }
+
+        return true;
     }
 
     /**
      * @inheritdoc
      */
-    public function safeDown()
+    public function safeDown(): bool
     {
         echo "m180430_204710_remove_old_plugins cannot be reverted.\n";
         return false;

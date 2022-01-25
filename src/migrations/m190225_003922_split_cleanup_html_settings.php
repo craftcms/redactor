@@ -19,7 +19,7 @@ class m190225_003922_split_cleanup_html_settings extends Migration
     /**
      * @inheritdoc
      */
-    public function safeUp()
+    public function safeUp(): bool
     {
         $projectConfig = Craft::$app->getProjectConfig();
 
@@ -113,12 +113,13 @@ class m190225_003922_split_cleanup_html_settings extends Migration
         }
 
         $projectConfig->muteEvents = false;
+        return true;
     }
 
     /**
      * @inheritdoc
      */
-    public function safeDown()
+    public function safeDown(): bool
     {
         echo "m190225_003922_split_cleanup_html_settings cannot be reverted.\n";
         return false;
