@@ -22,6 +22,7 @@ use craft\helpers\Json;
 use craft\helpers\StringHelper;
 use craft\helpers\UrlHelper;
 use craft\models\Section;
+use craft\models\Site;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\redactor\events\ModifyPurifierConfigEvent;
@@ -451,12 +452,18 @@ class Field extends \craft\base\Field
         }
 
         $id = Html::id($this->handle);
-        $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
+        $sitesService = Craft::$app->getSites();
+        $site = ($element ? $element->getSite() : $sitesService->getCurrentSite());
 
         $defaultTransform = '';
 
         if (!empty($this->defaultTransform) && $transform = Craft::$app->getAssetTransforms()->getTransformByUid($this->defaultTransform)) {
             $defaultTransform = $transform->handle;
+        }
+
+        $allSites = [];
+        foreach ($sitesService->getAllSites(false) as $site) {
+            $allSites[$site->id] = $site->name;
         }
 
         $settings = [
@@ -466,6 +473,7 @@ class Field extends \craft\base\Field
             'transforms' => $this->_getTransforms(),
             'defaultTransform' => $defaultTransform,
             'elementSiteId' => $site->id,
+            'allSites' => $allSites,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,
             'showAllUploaders' => $this->showUnpermittedFiles,
@@ -605,7 +613,7 @@ class Field extends \craft\base\Field
                         $allowed = [];
                         $styles = explode(';', $matches[2]);
                         foreach ($styles as $style) {
-                            list($name, $value) = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
+                            [$name, $value] = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
                             if (isset($allowedStyles[$name])) {
                                 $allowed[] = "{$name}: {$value}";
                             }
@@ -632,7 +640,7 @@ class Field extends \craft\base\Field
         $value = preg_replace_callback(
             '/(href=|src=)([\'"])([^\'"\?#]*)(\?[^\'"\?#]+)?(#[^\'"\?#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
             function($matches) {
-                list(, $attr, $q, $url, $query, $hash, $elementType, $ref, $siteId, $transform) = array_pad($matches, 10, null);
+                [, $attr, $q, $url, $query, $hash, $elementType, $ref, $siteId, $transform] = array_pad($matches, 10, null);
 
                 // Create the ref tag, and make sure :url is in there
                 $ref = $elementType . ':' . $ref . ($siteId ? "@$siteId" : '') . ($transform ?: ':url');
@@ -683,7 +691,7 @@ class Field extends \craft\base\Field
         }
 
         return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')(?:\|\|[^\}]+)?\})(?:\?([^\'"#]*))?(#[^\'"#]+)?\2/', function($matches) use ($element) {
-            list ($fullMatch, $attr, $q, $refTag, $ref, $query, $fragment) = array_pad($matches, 7, null);
+            [$fullMatch, $attr, $q, $refTag, $ref, $query, $fragment] = array_pad($matches, 7, null);
             $parsed = Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null);
             // If the ref tag couldn't be parsed, leave it alone
             if ($parsed === $refTag) {
