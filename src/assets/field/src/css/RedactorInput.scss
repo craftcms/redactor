@@ -332,6 +332,9 @@
 .redactor-context-toolbar {
   z-index: 4 !important;
 }
+body.redactor-element-editor-open .redactor-context-toolbar {
+  z-index: 104 !important;
+}
 
 #redactor-image-resizer {
   z-index: 3 !important;

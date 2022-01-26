@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fixed a bug where deleting content via context bar would not update the redactor field data. ([#348](https://github.com/craftcms/redactor/issues/348))
+- Fixed a bug where context bars would disappear behind any open element editor. ([#239](https://github.com/craftcms/redactor/issues/239))
 
 ### Changed
 - Updated Redactor to 3.5.2.

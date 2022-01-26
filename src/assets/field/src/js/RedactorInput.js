@@ -141,6 +141,10 @@ window.livePreviewHideFullscreen = false;
 
                 // Initialize Redactor
                 this.initRedactor();
+
+                Garnish.on(Craft.Slideout, 'open', () => $('body').addClass('redactor-element-editor-open'));
+                Garnish.on(Craft.Slideout, 'close', () => $('body').removeClass('redactor-element-editor-open'));
+
             },
 
             initRedactor: function() {
