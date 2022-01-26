@@ -668,6 +668,54 @@ class Field extends \craft\base\Field
             },
             $value);
 
+        // Swap any regular URLS with element refs, too
+
+        // Get all URLs, sort by longest first.
+        $sortArray = [];
+        $siteUrlsById = [];
+        foreach (Craft::$app->getSites()->getAllSites(false) as $site) {
+            if ($site->hasUrls) {
+                $siteUrlsById[$site->id] = $site->getBaseUrl();
+                $sortArray[$site->id] = strlen($siteUrlsById[$site->id]);
+            }
+        }
+        arsort($sortArray);
+
+        $value = preg_replace_callback(
+            '/(href=|src=)([\'"])(http.*)?\2/',
+            function($matches) use ($sortArray, $siteUrlsById) {
+                $url = $matches[3];
+
+                // Longest URL first
+                foreach ($sortArray as $siteId => $bogus) {
+                    // Starts with a site URL
+
+                    if (StringHelper::startsWith($url, $siteUrlsById[$siteId])) {
+                        // Drop query
+                        $uri = preg_replace('/\?.*/', '', $url);
+
+                        // Drop page trigger
+                        $pageTrigger = Craft::$app->getConfig()->getGeneral()->getPageTrigger();
+                        if (strpos($pageTrigger, '?') !== 0) {
+                            $pageTrigger = preg_quote($pageTrigger, '/');
+                            $uri = preg_replace("/^(?:(.*)\/)?$pageTrigger(\d+)$/", '', $uri);
+                        }
+
+                        // Drop site URL.
+                        $uri = StringHelper::removeLeft($uri, $siteUrlsById[$siteId]);
+
+                        if ($element = Craft::$app->getElements()->getElementByUri($uri, $siteId, true)) {
+                            $refHandle = $element::refHandle();
+                            $url = '{' . $refHandle . ':' . $element->id . '@' . $siteId . ':url||' . $url . '}';
+                            break;
+                        }
+                    }
+                }
+
+                return $matches[1] . $matches[2] . $url . $matches[2];
+            },
+            $value);
+
         if (Craft::$app->getDb()->getIsMysql()) {
             // Encode any 4-byte UTF-8 characters.
             $value = StringHelper::encodeMb4($value);
