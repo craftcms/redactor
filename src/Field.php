@@ -1087,6 +1087,7 @@ class Field extends \craft\base\Field
         }
         if (isset($plugins['fontcolor'])) {
             $styles['color'] = true;
+            $styles['background-color'] = true;
         }
         if (isset($plugins['fontfamily'])) {
             $styles['font-family'] = true;
