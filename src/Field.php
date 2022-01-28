@@ -344,7 +344,7 @@ class Field extends \craft\base\Field
             /** @var $volume Volume */
             if ($volume->hasUrls) {
                 $volumeOptions[] = [
-                    'label' => Html::encode($volume->name),
+                    'label' => $volume->name,
                     'value' => $volume->uid
                 ];
             }
@@ -353,7 +353,7 @@ class Field extends \craft\base\Field
         $transformOptions = [];
         foreach (Craft::$app->getAssetTransforms()->getAllTransforms() as $transform) {
             $transformOptions[] = [
-                'label' => Html::encode($transform->name),
+                'label' => $transform->name,
                 'value' => $transform->uid
             ];
         }
@@ -952,8 +952,8 @@ class Field extends \craft\base\Field
         foreach ($allTransforms as $transform) {
             if (!is_array($this->availableTransforms) || in_array($transform->uid, $this->availableTransforms, false)) {
                 $transformList[] = [
-                    'handle' => Html::encode($transform->handle),
-                    'name' => Html::encode($transform->name)
+                    'handle' => $transform->handle,
+                    'name' => $transform->name
                 ];
             }
         }

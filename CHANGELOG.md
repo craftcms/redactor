@@ -11,6 +11,7 @@
 - Fixed a bug where context bars would disappear behind an open element editor. ([#239](https://github.com/craftcms/redactor/issues/239))
 - Fixed a bug where sometimes an empty Redactor field would pass validation. ([#260](https://github.com/craftcms/redactor/issues/260))
 - Fixed a bug where Redactor fields were stripping some inline styles, even if allowed by field plugins. ([#315](https://github.com/craftcms/redactor/issues/315))
+- Fixed a bug where Volume and Transform titles were double-encoded. ([#297](https://github.com/craftcms/redactor/issues/297))
 
 ### Changed
 - Updated Redactor to 3.5.2.
