@@ -12,6 +12,7 @@
 - Fixed a bug where sometimes an empty Redactor field would pass validation. ([#260](https://github.com/craftcms/redactor/issues/260))
 - Fixed a bug where Redactor fields were stripping some inline styles, even if allowed by field plugins. ([#315](https://github.com/craftcms/redactor/issues/315))
 - Fixed a bug where Volume and Transform titles were double-encoded. ([#297](https://github.com/craftcms/redactor/issues/297))
+- Fixed a bug where inserting a link into a long Redactor field would cause the browser to jump to the top of the field. ([#344](https://github.com/craftcms/redactor/issues/344))
 
 ### Changed
 - Updated Redactor to 3.5.2.
