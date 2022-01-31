@@ -68,4 +68,19 @@ Craft.Redactor.PluginBase = {
     setElementSiteId: function (siteId) {
         this.elementSiteId = siteId;
     },
+
+    registerCmdS: (saveCb, closeCb) => {
+        // Add a new layer
+        Garnish.shortcutManager.addLayer();
+
+        // Trigger the save callback on Cmd+S
+        Garnish.shortcutManager.registerShortcut({keyCode: Garnish.S_KEY, ctrl: true}, () => {
+            saveCb();
+        });
+
+        // Trigger the close callback on Esc
+        Garnish.shortcutManager.registerShortcut(Garnish.ESC_KEY, () => {
+            closeCb();
+        });
+    }
 };

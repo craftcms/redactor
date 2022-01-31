@@ -5,6 +5,7 @@
 ### Added
 - Added a site selection menu to link edit modals for Craft entry links. ([#242](https://github.com/craftcms/redactor/issues/242))
 - Redactor now will automatically convert any known URLs to an element reference on save. ([#249](https://github.com/craftcms/redactor/issues/249))
+- Hitting Cmd+S when editing image details will now close the modal and save changes. ([#290](https://github.com/craftcms/redactor/issues/290))
 
 ### Fixed
 - Fixed a bug where deleting content via context bar would not update the redactor field data. ([#348](https://github.com/craftcms/redactor/issues/348))

@@ -55,7 +55,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                             if (isTransform || this.defaultTransform.length == 0) {
                                 data['asset'+asset.id] = {
                                     url: this._buildAssetUrl(asset.id, asset.url, isTransform ? transform : this.defaultTransform),
-                                    id: asset.id
+                                    id: asset.id,
                                 };
 
                                 if (assets.length) {
@@ -142,6 +142,18 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     onmodal: {
         imageedit: {
             open: function(modal, form) {
+                this.registerCmdS(
+                    () => {
+                        // Seems to be the simplest way.
+                        const imageModule = this.app.module.image;
+                        const modalModule = this.app.module.modal;
+                        imageModule._save(modalModule.$modal, modalModule.$modalForm);
+                    },
+                    () => {
+                        this.app.api('module.modal.close');
+                    }
+                );
+
                 const parts = this._getAssetUrlComponents(this.app.module.image.$image.$element.nodes[0].src);
 
                 if (!parts) {
@@ -172,6 +184,10 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
                 $(form.nodes[0]).append($formItem);
             },
+
+            close: function () {
+                Garnish.shortcutManager.removeLayer();
+            }
         }
     },
 
