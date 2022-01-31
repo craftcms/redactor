@@ -2,8 +2,23 @@
 
 ## Unreleased
 
+### Added
+- Added a site selection menu to link edit modals for Craft entry links. ([#242](https://github.com/craftcms/redactor/issues/242))
+- Redactor now will automatically convert any known URLs to an element reference on save. ([#249](https://github.com/craftcms/redactor/issues/249))
+- Hitting Cmd+S when editing image details will now close the modal and save changes. ([#290](https://github.com/craftcms/redactor/issues/290))
+
 ### Fixed
+- Fixed a bug where deleting content via context bar would not update the redactor field data. ([#348](https://github.com/craftcms/redactor/issues/348))
+- Fixed a bug where context bars would disappear behind an open element editor. ([#239](https://github.com/craftcms/redactor/issues/239))
+- Fixed a bug where sometimes an empty Redactor field would pass validation. ([#260](https://github.com/craftcms/redactor/issues/260))
+- Fixed a bug where Redactor fields were stripping some inline styles, even if allowed by field plugins. ([#315](https://github.com/craftcms/redactor/issues/315))
+- Fixed a bug where Volume and Transform titles were double-encoded. ([#297](https://github.com/craftcms/redactor/issues/297))
+- Fixed a bug where inserting a link into a long Redactor field would cause the browser to jump to the top of the field. ([#344](https://github.com/craftcms/redactor/issues/344))
+- Fixed a bug where Redactor would not remove inline styles in tables. ([#350](https://github.com/craftcms/redactor/issues/350))
 - Fixed a bug where translation messages weren’t getting registered for JavaScript properly.
+
+### Changed
+- Updated Redactor to 3.5.2.
 
 ## 2.8.8 - 2021-08-02
 

@@ -22,6 +22,7 @@ use craft\helpers\Json;
 use craft\helpers\StringHelper;
 use craft\helpers\UrlHelper;
 use craft\models\Section;
+use craft\models\Site;
 use craft\redactor\assets\field\FieldAsset;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\redactor\events\ModifyPurifierConfigEvent;
@@ -343,7 +344,7 @@ class Field extends \craft\base\Field
             /** @var $volume Volume */
             if ($volume->hasUrls) {
                 $volumeOptions[] = [
-                    'label' => Html::encode($volume->name),
+                    'label' => $volume->name,
                     'value' => $volume->uid
                 ];
             }
@@ -352,7 +353,7 @@ class Field extends \craft\base\Field
         $transformOptions = [];
         foreach (Craft::$app->getAssetTransforms()->getAllTransforms() as $transform) {
             $transformOptions[] = [
-                'label' => Html::encode($transform->name),
+                'label' => $transform->name,
                 'value' => $transform->uid
             ];
         }
@@ -413,6 +414,12 @@ class Field extends \craft\base\Field
             return $value;
         }
 
+        // Temporary fix (hopefully) for a Redactor bug where some HTML will get submitted when the field is blank,
+        // if any text was typed into the field, and then deleted
+        if ($value === '<p><br></p>') {
+            $value = null;
+        }
+
         if (!$value) {
             return null;
         }
@@ -451,12 +458,18 @@ class Field extends \craft\base\Field
         }
 
         $id = Html::id($this->handle);
-        $site = ($element ? $element->getSite() : Craft::$app->getSites()->getCurrentSite());
+        $sitesService = Craft::$app->getSites();
+        $site = ($element ? $element->getSite() : $sitesService->getCurrentSite());
 
         $defaultTransform = '';
 
         if (!empty($this->defaultTransform) && $transform = Craft::$app->getAssetTransforms()->getTransformByUid($this->defaultTransform)) {
             $defaultTransform = $transform->handle;
+        }
+
+        $allSites = [];
+        foreach ($sitesService->getAllSites(false) as $site) {
+            $allSites[$site->id] = $site->name;
         }
 
         $settings = [
@@ -466,6 +479,7 @@ class Field extends \craft\base\Field
             'transforms' => $this->_getTransforms(),
             'defaultTransform' => $defaultTransform,
             'elementSiteId' => $site->id,
+            'allSites' => $allSites,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,
             'showAllUploaders' => $this->showUnpermittedFiles,
@@ -564,12 +578,6 @@ class Field extends \craft\base\Field
         // Get the raw value
         $value = $value->getRawContent();
 
-        // Temporary fix (hopefully) for a Redactor bug where some HTML will get submitted when the field is blank,
-        // if any text was typed into the field, and then deleted
-        if ($value === '<p><br></p>') {
-            $value = '';
-        }
-
         if ($value) {
             // Swap any pagebreak <hr>'s with <!--pagebreak-->'s
             $value = preg_replace('/<hr class="redactor_pagebreak".*?>/', '<!--pagebreak-->', $value);
@@ -599,13 +607,13 @@ class Field extends \craft\base\Field
                 // Remove disallowed inline styles
                 $allowedStyles = $this->_allowedStyles();
                 $value = preg_replace_callback(
-                    '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span|img)\b[^>]*)\s+style="([^"]*)"/',
+                    '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span|img|table|thead|tbody|tr|td|th)\b[^>]*)\s+style="([^"]*)"/',
                     function(array $matches) use ($allowedStyles) {
                         // Only allow certain styles through
                         $allowed = [];
                         $styles = explode(';', $matches[2]);
                         foreach ($styles as $style) {
-                            list($name, $value) = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
+                            [$name, $value] = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
                             if (isset($allowedStyles[$name])) {
                                 $allowed[] = "{$name}: {$value}";
                             }
@@ -632,7 +640,7 @@ class Field extends \craft\base\Field
         $value = preg_replace_callback(
             '/(href=|src=)([\'"])([^\'"\?#]*)(\?[^\'"\?#]+)?(#[^\'"\?#]+)?(?:#|%23)([\w\\\\]+)\:(\d+)(?:@(\d+))?(\:(?:transform\:)?' . HandleValidator::$handlePattern . ')?\2/',
             function($matches) {
-                list(, $attr, $q, $url, $query, $hash, $elementType, $ref, $siteId, $transform) = array_pad($matches, 10, null);
+                [, $attr, $q, $url, $query, $hash, $elementType, $ref, $siteId, $transform] = array_pad($matches, 10, null);
 
                 // Create the ref tag, and make sure :url is in there
                 $ref = $elementType . ':' . $ref . ($siteId ? "@$siteId" : '') . ($transform ?: ':url');
@@ -660,6 +668,54 @@ class Field extends \craft\base\Field
             },
             $value);
 
+        // Swap any regular URLS with element refs, too
+
+        // Get all URLs, sort by longest first.
+        $sortArray = [];
+        $siteUrlsById = [];
+        foreach (Craft::$app->getSites()->getAllSites(false) as $site) {
+            if ($site->hasUrls) {
+                $siteUrlsById[$site->id] = $site->getBaseUrl();
+                $sortArray[$site->id] = strlen($siteUrlsById[$site->id]);
+            }
+        }
+        arsort($sortArray);
+
+        $value = preg_replace_callback(
+            '/(href=|src=)([\'"])(http.*)?\2/',
+            function($matches) use ($sortArray, $siteUrlsById) {
+                $url = $matches[3];
+
+                // Longest URL first
+                foreach ($sortArray as $siteId => $bogus) {
+                    // Starts with a site URL
+
+                    if (StringHelper::startsWith($url, $siteUrlsById[$siteId])) {
+                        // Drop query
+                        $uri = preg_replace('/\?.*/', '', $url);
+
+                        // Drop page trigger
+                        $pageTrigger = Craft::$app->getConfig()->getGeneral()->getPageTrigger();
+                        if (strpos($pageTrigger, '?') !== 0) {
+                            $pageTrigger = preg_quote($pageTrigger, '/');
+                            $uri = preg_replace("/^(?:(.*)\/)?$pageTrigger(\d+)$/", '', $uri);
+                        }
+
+                        // Drop site URL.
+                        $uri = StringHelper::removeLeft($uri, $siteUrlsById[$siteId]);
+
+                        if ($element = Craft::$app->getElements()->getElementByUri($uri, $siteId, true)) {
+                            $refHandle = $element::refHandle();
+                            $url = '{' . $refHandle . ':' . $element->id . '@' . $siteId . ':url||' . $url . '}';
+                            break;
+                        }
+                    }
+                }
+
+                return $matches[1] . $matches[2] . $url . $matches[2];
+            },
+            $value);
+
         if (Craft::$app->getDb()->getIsMysql()) {
             // Encode any 4-byte UTF-8 characters.
             $value = StringHelper::encodeMb4($value);
@@ -683,7 +739,7 @@ class Field extends \craft\base\Field
         }
 
         return preg_replace_callback('/(href=|src=)([\'"])(\{([\w\\\\]+\:\d+(?:@\d+)?\:(?:transform\:)?' . HandleValidator::$handlePattern . ')(?:\|\|[^\}]+)?\})(?:\?([^\'"#]*))?(#[^\'"#]+)?\2/', function($matches) use ($element) {
-            list ($fullMatch, $attr, $q, $refTag, $ref, $query, $fragment) = array_pad($matches, 7, null);
+            [$fullMatch, $attr, $q, $refTag, $ref, $query, $fragment] = array_pad($matches, 7, null);
             $parsed = Craft::$app->getElements()->parseRefs($refTag, $element->siteId ?? null);
             // If the ref tag couldn't be parsed, leave it alone
             if ($parsed === $refTag) {
@@ -896,8 +952,8 @@ class Field extends \craft\base\Field
         foreach ($allTransforms as $transform) {
             if (!is_array($this->availableTransforms) || in_array($transform->uid, $this->availableTransforms, false)) {
                 $transformList[] = [
-                    'handle' => Html::encode($transform->handle),
-                    'name' => Html::encode($transform->name)
+                    'handle' => $transform->handle,
+                    'name' => $transform->name
                 ];
             }
         }
@@ -1031,6 +1087,7 @@ class Field extends \craft\base\Field
         }
         if (isset($plugins['fontcolor'])) {
             $styles['color'] = true;
+            $styles['background-color'] = true;
         }
         if (isset($plugins['fontfamily'])) {
             $styles['font-family'] = true;
