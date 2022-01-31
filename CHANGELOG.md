@@ -3,22 +3,22 @@
 ## Unreleased
 
 ### Added
-- Added a site selection menu to link edit modals for Craft entry links. ([#242](https://github.com/craftcms/redactor/issues/242))
-- Redactor now will automatically convert any known URLs to an element reference on save. ([#249](https://github.com/craftcms/redactor/issues/249))
-- Hitting Cmd+S when editing image details will now close the modal and save changes. ([#290](https://github.com/craftcms/redactor/issues/290))
+- Redactor fields now convert static element URLs to reference tags on save. ([#249](https://github.com/craftcms/redactor/issues/249))
+- Entry selection modals now include a site selector. ([#242](https://github.com/craftcms/redactor/issues/242))
+- Image modals now support a <kbd>Command</kbd>/<kbd>Ctrl</kbd> + <kbd>S</kbd> keyboard shortcut. ([#290](https://github.com/craftcms/redactor/issues/290))
 
 ### Fixed
-- Fixed a bug where deleting content via context bar would not update the redactor field data. ([#348](https://github.com/craftcms/redactor/issues/348))
-- Fixed a bug where context bars would disappear behind an open element editor. ([#239](https://github.com/craftcms/redactor/issues/239))
-- Fixed a bug where sometimes an empty Redactor field would pass validation. ([#260](https://github.com/craftcms/redactor/issues/260))
-- Fixed a bug where Redactor fields were stripping some inline styles, even if allowed by field plugins. ([#315](https://github.com/craftcms/redactor/issues/315))
-- Fixed a bug where Volume and Transform titles were double-encoded. ([#297](https://github.com/craftcms/redactor/issues/297))
-- Fixed a bug where inserting a link into a long Redactor field would cause the browser to jump to the top of the field. ([#344](https://github.com/craftcms/redactor/issues/344))
-- Fixed a bug where Redactor would not remove inline styles in tables. ([#350](https://github.com/craftcms/redactor/issues/350))
+- Fixed a bug where the field value wasn’t updated after content was removed via a context bar. ([#348](https://github.com/craftcms/redactor/issues/348))
+- Fixed a bug where context bars weren’t visible within editor slideouts. ([#239](https://github.com/craftcms/redactor/issues/239))
+- Fixed a bug where empty Redactor fields could be seen as not empty during validation. ([#260](https://github.com/craftcms/redactor/issues/260))
+- Fixed a bug where some inline styles could be removed even if they were allowed by field plugins. ([#315](https://github.com/craftcms/redactor/issues/315))
+- Fixed a bug where volume and transform names were getting double-encoded. ([#297](https://github.com/craftcms/redactor/issues/297))
+- Fixed a bug where inserting a link into a large Redactor field would cause the browser to jump to the top of the field. ([#344](https://github.com/craftcms/redactor/issues/344))
+- Fixed a bug where inline styles within tables weren’t getting removed. ([#350](https://github.com/craftcms/redactor/issues/350))
 - Fixed a bug where translation messages weren’t getting registered for JavaScript properly.
 
 ### Changed
-- Updated Redactor to 3.5.2.
+- Updated Redactor.js to 3.5.2.
 
 ## 2.8.8 - 2021-08-02
 
@@ -47,13 +47,13 @@
 - Fixed a bug where Redactor would sometimes have trouble adding buttons to the toolbar. ([#293](https://github.com/craftcms/redactor/issues/293))
 
 ### Changed
-- Updated Redactor to 3.4.7.
+- Updated Redactor.js to 3.4.7.
 - Updated German and French translations.
 
 ## 2.8.4 - 2020-11-30
 
 ### Changed
-- Updated Redactor to 3.4.6. ([#281](https://github.com/craftcms/redactor/issues/281))
+- Updated Redactor.js to 3.4.6. ([#281](https://github.com/craftcms/redactor/issues/281))
 
 ## 2.8.3 - 2020-10-19
 
@@ -71,7 +71,7 @@
 ## 2.8.1 - 2020-09-30
 
 ### Changed
-- Updated Redactor to 3.4.3. ([#272](https://github.com/craftcms/redactor/issues/272))
+- Updated Redactor.js to 3.4.3. ([#272](https://github.com/craftcms/redactor/issues/272))
 
 ## 2.8.0 - 2020-09-30
 
@@ -132,7 +132,7 @@
 - Redactor now only displays elements that have URIs when linking to an element.
 - It’s now possible to include SVG images within field values, without them being removed by HTML Purifier. They will be sanitized with SVG Sanitizer instead.
 - Redactor now requires Craft 3.5 or later.
-- Updated Redactor to 3.4.2.
+- Updated Redactor.js to 3.4.2.
 
 ### Fixed
 - Fixed a bug where the default Redactor config would not include image and link buttons. ([#224](https://github.com/craftcms/redactor/issues/224))
@@ -141,7 +141,7 @@
 ## 2.6.1 - 2020-03-18
 
 ### Changed
-- Updated Redactor to 3.3.4.
+- Updated Redactor.js to 3.3.4.
 
 ### Fixed
 - Fixed a bug where toolbar menus were getting a lower z-index than element editor HUDs. ([#215](https://github.com/craftcms/redactor/issues/215))
@@ -164,7 +164,7 @@
 ### Changed
 - The “Remove inline styles” setting now also applies to `<img>` tags.
 - Redactor fields no longer remove `style` attributes from `<img>` tags on load. ([#192](https://github.com/craftcms/redactor/issues/192))
-- Updated Redactor to 3.3.2.
+- Updated Redactor.js to 3.3.2.
 
 ### Fixed
 - Fixed a bug where it could be impossible to scroll within a Redactor field after pasting in HTML. ([#117](https://github.com/craftcms/redactor/issues/117))
@@ -192,7 +192,7 @@
 ### Changed
 - Redactor now requires Craft 3.2 or later.
 - Entry and category links within Redactor field values now point to the same site that the field’s element was loaded in. ([#163](https://github.com/craftcms/redactor/issues/163))
-- Updated Redactor to 3.3.0.
+- Updated Redactor.js to 3.3.0.
 
 ### Fixed
 - Fixed a style inconsistency between `<h6>` tags in the Format menu and how they actually look in the editor. ([#142](https://github.com/craftcms/redactor/pull/142))
@@ -212,7 +212,7 @@
 
 ### Changed
 - Split the `cleanupHtml` setting into three separate settings: `removeInlineStyles`, `removeEmptyTags`, and `removeNbsp`. ([#125](https://github.com/craftcms/redactor/pull/125))
-- Updated Redactor to 3.1.8.
+- Updated Redactor.js to 3.1.8.
 
 ### Fixed
 - Fixed a bug where linking files or assets would not work as expected. ([#136](https://github.com/craftcms/redactor/issues/136))
@@ -223,7 +223,7 @@
 ## 2.3.2 - 2019-02-21
 
 ### Changed
-- Updated Redactor to 3.1.7.
+- Updated Redactor.js to 3.1.7.
 
 ### Fixed
 - Fixed a bug where full-screen editor would be obscured by the sidebar if the `toolbarFixed` config setting was set to `false.` ([#120](https://github.com/craftcms/redactor/issues/120))
@@ -237,7 +237,7 @@
 ## 2.3.0 - 2019-01-22
 
 ### Changed
-- Updated Redactor to 3.1.6.
+- Updated Redactor.js to 3.1.6.
 
 ### Fixed
 - Fixed a bug where adding links inside lists would not work as expected. ([#104](https://github.com/craftcms/redactor/issues/104))
@@ -258,7 +258,7 @@
 ## 2.1.7 - 2018-12-17
 
 ### Changed
-- Updated Redactor to 3.1.4
+- Updated Redactor.js to 3.1.4
 - Fullscreen plugin is now not available for use during Live Preview. ([#94](https://github.com/craftcms/redactor/issues/94))
 - Redactor fields’ default HTML Purifier config now allows `id` attributes. ([#82](https://github.com/craftcms/redactor/issues/82))
 
@@ -269,7 +269,7 @@
 ## 2.1.6 - 2018-08-21
 
 ### Changed
-- Updated Redactor to 3.1.1
+- Updated Redactor.js to 3.1.1
 
 ### Fixed
 - Updating Redactor fixed a bug where inserting links to entries would not work in Firefox. ([#61](https://github.com/craftcms/redactor/issues/61))
@@ -304,7 +304,7 @@
 ## 2.1.1 - 2018-07-13
 
 ### Changed
-- Updated Redactor to 3.0.11.
+- Updated Redactor.js to 3.0.11.
 - 6th level headings are no longer displayed in all-uppercase in the editor. ([craftcms/cms#2927](https://github.com/craftcms/cms/issues/2927))
 
 ### Fixed
@@ -318,7 +318,7 @@
 ## 2.1.0 - 2018-05-15
 
 ### Changed
-- Updated Redactor to 3.0.9.
+- Updated Redactor.js to 3.0.9.
 - Improved Redactor field styles. ([#49](https://github.com/craftcms/redactor/pull/49))
 
 ## 2.0.1 - 2018-05-07
@@ -326,7 +326,7 @@
 ### Changed
 - The plugin now attempts to remove `codemirror` and `source` values from Redactor configs on install.
 - Redactor fields with the “Clean up HTML?” setting enabled now convert non-breaking spaces to normal spaces. ([#24](https://github.com/craftcms/redactor/issues/24))
-- Updated Redactor to 3.0.8.
+- Updated Redactor.js to 3.0.8.
 
 ### Fixed
 - Fixed a bug where inline styles created by the Alignment, Fontcolor, Fontfamily, and Fontsize plugins weren’t getting saved if the “Clean up HTML?” setting was enabled. ([#41](https://github.com/craftcms/redactor/issues/41))
@@ -341,7 +341,7 @@
 ## 2.0.0 - 2018-05-01
 
 ### Added
-- Updated Redactor to 3.0.6.
+- Updated Redactor.js to 3.0.6.
 - Added an Image Editor shortcut for asset-based images.
 - Bundled the [BeyondGrammar](https://imperavi.com/redactor/plugins/beyondgrammar/), [Handle](https://imperavi.com/redactor/plugins/handle/), [Specialchars](https://imperavi.com/redactor/plugins/specialchars/), [Variable](https://imperavi.com/redactor/plugins/variable/), and [Widget](https://imperavi.com/redactor/plugins/widget/) Redactor plugins.
 
@@ -351,7 +351,7 @@
 ## 1.1.0 - 2018-04-03
 
 ### Changed
-- Updated Redactor to 2.12.
+- Updated Redactor.js to 2.12.
 - Redactor now comes bundled with all of Imperavi’s Redactor 2 plugins. ([#14](https://github.com/craftcms/redactor/issues/14))
 
 ### Fixed
