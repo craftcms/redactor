@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.9.0 - 2022-01-31
 
 ### Added
 - Redactor fields now convert static element URLs to reference tags on save. ([#249](https://github.com/craftcms/redactor/issues/249))
