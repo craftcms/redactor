@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where Redactor field would crash if attempting to save content that had empty links. ([#355](https://github.com/craftcms/redactor/issues/355))
+
 ## 2.9.0 - 2022-01-31
 
 ### Added

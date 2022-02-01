@@ -684,7 +684,11 @@ class Field extends \craft\base\Field
         $value = preg_replace_callback(
             '/(href=|src=)([\'"])(http.*)?\2/',
             function($matches) use ($sortArray, $siteUrlsById) {
-                $url = $matches[3];
+                $url = $matches[3] ?? null;
+
+                if (!$url) {
+                    return '';
+                }
 
                 // Longest URL first
                 foreach ($sortArray as $siteId => $bogus) {
