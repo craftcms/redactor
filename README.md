@@ -76,7 +76,7 @@ All [first party Redactor JS plugins](https://imperavi.com/redactor/plugins/) ar
 
 You can also supply your own Redactor plugins by saving them in your `config/redactor/` folder. You can either place the plugin directly in that folder, or within a subfolder that is named after the plugin:
 
-```json
+```
 config/
 └── redactor/
     └── plugins/
