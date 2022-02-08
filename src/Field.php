@@ -578,62 +578,64 @@ class Field extends \craft\base\Field
         // Get the raw value
         $value = $value->getRawContent();
 
-        if ($value) {
-            // Swap any pagebreak <hr>'s with <!--pagebreak-->'s
-            $value = preg_replace('/<hr class="redactor_pagebreak".*?>/', '<!--pagebreak-->', $value);
+        if (!$value) {
+            return null;
+        }
 
-            if ($this->purifyHtml) {
-                // Parse reference tags so HTMLPurifier doesn't encode the curly braces
-                $value = $this->_parseRefs($value, $element);
+        // Swap any pagebreak <hr>'s with <!--pagebreak-->'s
+        $value = preg_replace('/<hr class="redactor_pagebreak".*?>/', '<!--pagebreak-->', $value);
 
-                // Sanitize & tokenize any SVGs
-                $svgTokens = [];
-                $svgContent = [];
-                $value = preg_replace_callback('/<svg\b.*>.*<\/svg>/Uis', function(array $match) use (&$svgTokens, &$svgContent): string {
-                    $svgContent[] = Html::sanitizeSvg($match[0]);
-                    return $svgTokens[] = 'svg:' . StringHelper::randomString(10);
-                }, $value);
+        if ($this->purifyHtml) {
+            // Parse reference tags so HTMLPurifier doesn't encode the curly braces
+            $value = $this->_parseRefs($value, $element);
 
-                $value = HtmlPurifier::process($value, $this->_getPurifierConfig());
+            // Sanitize & tokenize any SVGs
+            $svgTokens = [];
+            $svgContent = [];
+            $value = preg_replace_callback('/<svg\b.*>.*<\/svg>/Uis', function(array $match) use (&$svgTokens, &$svgContent): string {
+                $svgContent[] = Html::sanitizeSvg($match[0]);
+                return $svgTokens[] = 'svg:' . StringHelper::randomString(10);
+            }, $value);
 
-                // Put the sanitized SVGs back
-                $value = str_replace($svgTokens, $svgContent, $value);
-            }
+            $value = HtmlPurifier::process($value, $this->_getPurifierConfig());
 
-            if ($this->removeInlineStyles) {
-                // Remove <font> tags
-                $value = preg_replace('/<(?:\/)?font\b[^>]*>/', '', $value);
+            // Put the sanitized SVGs back
+            $value = str_replace($svgTokens, $svgContent, $value);
+        }
 
-                // Remove disallowed inline styles
-                $allowedStyles = $this->_allowedStyles();
-                $value = preg_replace_callback(
-                    '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span|img|table|thead|tbody|tr|td|th)\b[^>]*)\s+style="([^"]*)"/',
-                    function(array $matches) use ($allowedStyles) {
-                        // Only allow certain styles through
-                        $allowed = [];
-                        $styles = explode(';', $matches[2]);
-                        foreach ($styles as $style) {
-                            [$name, $value] = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
-                            if (isset($allowedStyles[$name])) {
-                                $allowed[] = "{$name}: {$value}";
-                            }
+        if ($this->removeInlineStyles) {
+            // Remove <font> tags
+            $value = preg_replace('/<(?:\/)?font\b[^>]*>/', '', $value);
+
+            // Remove disallowed inline styles
+            $allowedStyles = $this->_allowedStyles();
+            $value = preg_replace_callback(
+                '/(<(?:h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|b|i|u|a|span|img|table|thead|tbody|tr|td|th)\b[^>]*)\s+style="([^"]*)"/',
+                function(array $matches) use ($allowedStyles) {
+                    // Only allow certain styles through
+                    $allowed = [];
+                    $styles = explode(';', $matches[2]);
+                    foreach ($styles as $style) {
+                        [$name, $value] = array_map('trim', array_pad(explode(':', $style, 2), 2, ''));
+                        if (isset($allowedStyles[$name])) {
+                            $allowed[] = "{$name}: {$value}";
                         }
-                        return $matches[1] . (!empty($allowed) ? ' style="' . implode('; ', $allowed) . '"' : '');
-                    },
-                    $value
-                );
-            }
+                    }
+                    return $matches[1] . (!empty($allowed) ? ' style="' . implode('; ', $allowed) . '"' : '');
+                },
+                $value
+            );
+        }
 
-            if ($this->removeEmptyTags) {
-                // Remove empty tags
-                $value = preg_replace('/<(h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|a|b|i|u|span)\s*><\/\1>/', '', $value);
-            }
+        if ($this->removeEmptyTags) {
+            // Remove empty tags
+            $value = preg_replace('/<(h1|h2|h3|h4|h5|h6|p|div|blockquote|pre|strong|em|a|b|i|u|span)\s*><\/\1>/', '', $value);
+        }
 
-            if ($this->removeNbsp) {
-                // Replace non-breaking spaces with regular spaces
-                $value = preg_replace('/(&nbsp;|&#160;|\x{00A0})/u', ' ', $value);
-                $value = preg_replace('/  +/', ' ', $value);
-            }
+        if ($this->removeNbsp) {
+            // Replace non-breaking spaces with regular spaces
+            $value = preg_replace('/(&nbsp;|&#160;|\x{00A0})/u', ' ', $value);
+            $value = preg_replace('/  +/', ' ', $value);
         }
 
         // Find any element URLs and swap them with ref tags
