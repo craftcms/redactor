@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where Live Preview wouldn't work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
+
 ## 2.9.1 - 2022-02-07
 
 ### Fixed
