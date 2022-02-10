@@ -698,6 +698,12 @@ class Field extends \craft\base\Field
 
                     if (StringHelper::startsWith($url, $siteUrlsById[$siteId])) {
                         // Drop query
+                        $query = parse_url($url, PHP_URL_QUERY);
+
+                        if (!empty($query)) {
+                           break;
+                        }
+
                         $uri = preg_replace('/\?.*/', '', $url);
 
                         // Drop page trigger
