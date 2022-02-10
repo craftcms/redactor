@@ -73,7 +73,8 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
                 let elementUrl = $form.find('input[name=url]').val();
 
-                if (elementUrl.length > 0) {
+                // Only add site selector if it looks like an element reference link
+                if (elementUrl.match(/#(category|entry|product):\d+/)) {
                     let siteOptions = this.allSites;
                     let selectedSite = 0;
 
