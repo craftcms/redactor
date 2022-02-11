@@ -8,7 +8,7 @@
 - Static element URLs that contain query string parameters are no longer converted to reference tags.
 
 ### Deprecated
-- Deprecated `craft\ckeditor\events\ModifyPurifierConfigEvent`. `craft\htmlfield\events\ModifyPurifierConfigEvent` should be used instead.
+- Deprecated `craft\redactor\events\ModifyPurifierConfigEvent`. `craft\htmlfield\events\ModifyPurifierConfigEvent` should be used instead.
 
 ### Fixed
 - Fixed a bug where Live Preview wouldn't work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
