@@ -12,6 +12,7 @@ window.livePreviewHideFullscreen = false;
             linkOptions: null,
             volumes: null,
             elementSiteId: null,
+            allSites: {},
             redactorConfig: null,
             showAllUploaders: false,
 
@@ -27,6 +28,7 @@ window.livePreviewHideFullscreen = false;
                 this.volumes = settings.volumes;
                 this.transforms = settings.transforms;
                 this.elementSiteId = settings.elementSiteId;
+                this.allSites = settings.allSites;
                 this.redactorConfig = settings.redactorConfig;
                 this.showAllUploaders = settings.showAllUploaders;
                 this.defaultTransform = settings.defaultTransform;
@@ -141,6 +143,11 @@ window.livePreviewHideFullscreen = false;
 
                 // Initialize Redactor
                 this.initRedactor();
+
+                if (typeof Craft.Slideout !== 'undefined') {
+                    Garnish.on(Craft.Slideout, 'open', () => $('body').addClass('redactor-element-editor-open'));
+                    Garnish.on(Craft.Slideout, 'close', () => $('body').removeClass('redactor-element-editor-open'));
+                }
             },
 
             initRedactor: function() {
@@ -192,7 +199,7 @@ window.livePreviewHideFullscreen = false;
 
                 if (toolbarButtons.indexOf('link') !== -1) {
                     this.redactor.plugin.craftElementLinks.setElementSiteId(this.elementSiteId);
-
+                    this.redactor.plugin.craftElementLinks.setAllSites(this.allSites);
                     if (this.linkOptions.length) {
                         this.redactor.plugin.craftElementLinks.setLinkOptions(this.linkOptions);
                     }

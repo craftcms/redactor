@@ -6,7 +6,7 @@ This plugin adds a “Redactor” field type to Craft CMS, which provides a rich
 
 ## Requirements
 
-This plugin requires Craft CMS 3.5 or later.
+This plugin requires Craft CMS 3.6 or later.
 
 ## Installation
 
@@ -76,7 +76,7 @@ All [first party Redactor JS plugins](https://imperavi.com/redactor/plugins/) ar
 
 You can also supply your own Redactor plugins by saving them in your `config/redactor/` folder. You can either place the plugin directly in that folder, or within a subfolder that is named after the plugin:
 
-```json
+```
 config/
 └── redactor/
     └── plugins/

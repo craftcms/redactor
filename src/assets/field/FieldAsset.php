@@ -58,7 +58,7 @@ class FieldAsset extends AssetBundle
         parent::registerAssetFiles($view);
 
         if ($view instanceof View) {
-            $view->registerTranslations('app', [
+            $view->registerTranslations('redactor', [
                 'Insert image',
                 'Insert URL',
                 'Choose image',

@@ -416,6 +416,23 @@ contextBarClass.prototype.init = function (app) {
     attachPreviewListeners(attachLivePreview, detachLivePreview);
 };
 
+contextBarClass.prototype.close = function(e) {
+    if (!this.$contextbar) return;
+    if (e)
+    {
+        var $target = $R.dom(e.target);
+        if (this.$el && $target.closest(this.$el).length !== 0)
+        {
+            return;
+        }
+    }
+
+    this.$contextbar.hide();
+    this.$contextbar.removeClass('open');
+    this.$doc.off('.redactor.context');
+    this.app.broadcast('hardsync');
+};
+
 var toolbarService = $R['services']['toolbar'];
 
 toolbarService.prototype.addButton = function(name, btnObj, position, $el, start)

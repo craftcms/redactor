@@ -69,23 +69,18 @@ Craft.Redactor.PluginBase = {
         this.elementSiteId = siteId;
     },
 
-    saveSelection: (app) => {
-        if (app.selection.isCollapsed()) {
-            app.selection.save();
-            app.selectionMarkers = false;
-        } else {
-            app.selection.saveMarkers();
-            app.selectionMarkers = true;
-        }
-    },
+    registerCmdS: (saveCb, closeCb) => {
+        // Add a new layer
+        Garnish.shortcutManager.addLayer();
 
-    restoreSelection: (app) => {
-        if (app.selectionMarkers) {
-            app.selection.restoreMarkers();
-        } else {
-            app.selection.restore();
-        }
+        // Trigger the save callback on Cmd+S
+        Garnish.shortcutManager.registerShortcut({keyCode: Garnish.S_KEY, ctrl: true}, () => {
+            saveCb();
+        });
 
-        app.selectionMarkers = false;
+        // Trigger the close callback on Esc
+        Garnish.shortcutManager.registerShortcut(Garnish.ESC_KEY, () => {
+            closeCb();
+        });
     }
 };
