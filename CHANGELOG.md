@@ -5,7 +5,7 @@
 ### Changed
 - Redactor now requires Craft 3.6 or later.
 - The site selector dropdown now appears only for eligible links. ([#360](https://github.com/craftcms/redactor/issues/360))
-- Static element URLs are no longer converted, if the URL includes query parameters.
+- Static element URLs that contain query string parameters are no longer converted to reference tags.
 
 ### Fixed
 - Fixed a bug where Live Preview wouldn't work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
