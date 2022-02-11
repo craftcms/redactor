@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.0 - 2022-02-11
 
 ### Changed
 - Redactor now requires Craft 3.6 or later.
