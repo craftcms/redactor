@@ -3,7 +3,6 @@
 namespace craft\redactor\controllers;
 
 use Craft;
-use craft\base\Volume;
 use craft\elements\Asset;
 use craft\elements\User;
 use craft\web\Controller as BaseController;
@@ -46,7 +45,6 @@ class DefaultController extends BaseController
             ]);
         }
 
-        /** @var Volume $volume */
         $volume = $asset->getVolume();
         /** @var User $user */
         $user = Craft::$app->getUser()->getIdentity();

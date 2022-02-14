@@ -9,7 +9,6 @@ namespace craft\redactor;
 
 use Craft;
 use craft\base\ElementInterface;
-use craft\base\Volume;
 use craft\elements\Asset;
 use craft\elements\Category;
 use craft\elements\Entry;
@@ -295,8 +294,7 @@ class Field extends HtmlField
     {
         $volumeOptions = [];
         foreach (Craft::$app->getVolumes()->getPublicVolumes() as $volume) {
-            /** @var $volume Volume */
-            if ($volume->hasUrls) {
+            if ($volume->getFs()->hasUrls) {
                 $volumeOptions[] = [
                     'label' => $volume->name,
                     'value' => $volume->uid
