@@ -7,19 +7,14 @@
 
 namespace craft\redactor\events;
 
-use HTMLPurifier_Config;
-use yii\base\Event;
-
-/**
- * ModifyPurifierConfig class.
- *
- * @author Pixel & Tonic, Inc. <support@pixelandtonic.com>
- * @since 2.6
- */
-class ModifyPurifierConfigEvent extends Event
-{
+/** @phpstan-ignore-next-line */
+if (false) {
     /**
-     * @var HTMLPurifier_Config $config the HTML Purifier config
+     * @deprecated in 2.10.0. Use `craft\htmlfield\events\ModifyPurifierConfigEvent` instead.
      */
-    public HTMLPurifier_Config $config;
+    class ModifyPurifierConfigEvent
+    {
+    }
 }
+
+class_exists(\craft\htmlfield\events\ModifyPurifierConfigEvent::class);

@@ -1,7 +1,7 @@
 {
   "name": "craftcms/redactor",
   "description": "Edit rich text content in Craft CMS using Redactor by Imperavi.",
-  "version": "2.9.1",
+  "version": "2.10.0",
   "type": "craft-plugin",
   "keywords": [
     "html",
@@ -27,7 +27,8 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "craftcms/cms": "^4.0.0-alpha"
+    "craftcms/cms": "^4.0.0-alpha",
+    "craftcms/html-field": "^2.0.0-alpha.1"
   },
   "require-dev": {
     "phpstan/phpstan": "^0.12.96"
@@ -44,5 +45,11 @@
     "name": "Redactor",
     "handle": "redactor",
     "documentationUrl": "https://github.com/craftcms/redactor/blob/v2/README.md"
+  },
+  "config": {
+    "allow-plugins": {
+      "yiisoft/yii2-composer": true,
+      "craftcms/plugin-installer": true
+    }
   }
 }

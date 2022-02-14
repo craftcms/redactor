@@ -13,8 +13,10 @@ gulpfile.js export-ignore
 lib/ export-ignore
 package.json export-ignore
 package-lock.json export-ignore
+phpstan.neon export-ignore
 README.md export-ignore
 SECURITY.md export-ignore
+stubs/ export-ignore
 tests/ export-ignore
 
 # Auto detect text files and perform LF normalization

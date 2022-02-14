@@ -1,11 +1,14 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.0 - 2022-02-11
 
 ### Changed
 - Redactor now requires Craft 3.6 or later.
 - The site selector dropdown now appears only for eligible links. ([#360](https://github.com/craftcms/redactor/issues/360))
-- Static element URLs are no longer converted, if the URL includes query parameters.
+- Static element URLs that contain query string parameters are no longer converted to reference tags.
+
+### Deprecated
+- Deprecated `craft\redactor\events\ModifyPurifierConfigEvent`. `craft\htmlfield\events\ModifyPurifierConfigEvent` should be used instead.
 
 ### Fixed
 - Fixed a bug where Live Preview wouldn't work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
