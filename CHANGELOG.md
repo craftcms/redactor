@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-### Unreleased
+### 2.10.1 - 2022-02-16
 
 ### Changed
 - Improved HTML sanitizing on input.
