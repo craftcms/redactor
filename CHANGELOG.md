@@ -1,5 +1,16 @@
 # Release Notes for Redactor for Craft CMS
 
+### 2.10.1 - 2022-02-16
+
+### Changed
+- Improved HTML sanitizing on input.
+
+### Fixed
+- Fixed a but where Redactor fields would not initialize properly when they were the first field in a new Matrix block. ([#364](https://github.com/craftcms/redactor/issues/364))
+
+### Security
+- Fixed an XSS vulnerability
+
 ## 2.10.0 - 2022-02-11
 
 ### Changed
