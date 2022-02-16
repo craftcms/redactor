@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+### Unreleased
+
+### Changed
+- Improved HTMl sanitizing on input.
+
 ## 2.10.0 - 2022-02-11
 
 ### Changed

@@ -219,8 +219,45 @@ var inputCleanerService = $R['services']['cleaner'];
 
 inputCleanerService.prototype.input = function(html, paragraphize, started)
 {
+    // fix &curren; entity in the links
+    html = html.replace(/¤t/gi, '&current');
+
+    // store
+    var storedComments = [];
+    html = this.storeComments(html, storedComments);
+
     // pre/code
     html = this.encodeCode(html);
+
+    // sanitize
+    var $wrapper = this.utils.buildWrapper(html);
+    $wrapper.find('a, b, i, strong, em, img, svg, details, audio').removeAttr('onload onerror ontoggle onwheel onmouseover oncopy');
+    $wrapper.find('a, iframe, embed').each(function(node) {
+        var $node = $R.dom(node);
+        var href = $node.attr('href');
+        var src = $node.attr('src');
+        if (href && href.trim().search(/^data|javascript:/i) !== -1) $node.attr('href', '');
+        if (src && src.trim().search(/^data|javascript:/i) !== -1) $node.attr('src', '');
+    });
+
+    var imageattrs = ['alt', 'title', 'src', 'class', 'width', 'height', 'srcset', 'usemap'];
+    $wrapper.find('img').each(function(node) {
+        if (node.attributes.length > 0) {
+            var attrs = node.attributes;
+            for (var i = attrs.length - 1; i >= 0; i--) {
+                var removeAttrs = (attrs[i].name.search(/^data-/) === -1 && imageattrs.indexOf(attrs[i].name) === -1);
+                var removeDataSrc = (attrs[i].name === 'src' && attrs[i].value.search(/^data|javascript:/i) !== -1);
+                if (this.opts.imageSrcData) removeDataSrc = false;
+
+                if (removeAttrs || removeDataSrc) {
+                    node.removeAttribute(attrs[i].name);
+                }
+            }
+        }
+    }.bind(this));
+
+    // get wrapper html
+    html = this.utils.getWrapperHtml($wrapper);
 
     // converting entity
     html = html.replace(/\$/g, '&#36;');
@@ -243,28 +280,16 @@ inputCleanerService.prototype.input = function(html, paragraphize, started)
     html = (this.opts.removeComments) ? this.removeComments(html) : html;
     html = (this._isSpacedEmpty(html)) ? this.opts.emptyHtml : html;
 
+
     // restore components
     html = this.restoreComponents(html);
+
 
     // clear wrapped components
     html = this._cleanWrapped(html);
 
-    // remove image attributes
-    var $wrapper = this.utils.buildWrapper(html);
-    var imageattrs = ['alt', 'title', 'src', 'class', 'width', 'height', 'srcset', 'style'];
-    $wrapper.find('img').each(function(node) {
-        if (node.attributes.length > 0) {
-            var attrs = node.attributes;
-            for (var i = attrs.length - 1; i >= 0; i--) {
-                if (attrs[i].name.search(/^data\-/) === -1 && imageattrs.indexOf(attrs[i].name) === -1) {
-                    node.removeAttribute(attrs[i].name);
-                }
-            }
-        }
-    });
-
-    // get wrapper html
-    html = this.utils.getWrapperHtml($wrapper);
+    // restore comments
+    html = this.restoreComments(html, storedComments);
 
     // paragraphize
     html = (paragraphize) ? this.paragraphize(html) : html;
