@@ -2,6 +2,9 @@
 
 ### Unreleased
 
+### Fixed
+- Fixed a but where Redactor fields would not initialize properly if it was the first field in a new matrix block. ([#364](https://github.com/craftcms/redactor/issues/364))
+
 ### Changed
 - Improved HTMl sanitizing on input.
 
