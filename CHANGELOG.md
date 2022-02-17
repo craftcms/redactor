@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug introduced when fixing #364. (#368](https://github.com/craftcms/redactor/issues/368))
+
 ## 2.10.1 - 2022-02-16
 
 ### Changed
