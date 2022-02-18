@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.3 - 2022-02-18
 
 ### Fixed
 - Fixed a bug where linking to a Craft element inside a table would always change the original link text.
