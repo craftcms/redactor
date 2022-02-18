@@ -30,14 +30,15 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 if (!matches[4]) {
                     node.src = matches[1] + '?' + (new Date().getTime()) + '#asset:' + matches[2];
                 } else {
-                    var params = {
+                    var data = {
                         assetId: matches[2],
                         handle: matches[4]
                     };
-                    Craft.postActionRequest('assets/generate-transform', params, function(data) {
-                        node.src = data.url + '?' + (new Date().getTime()) + '#asset:' + matches[2] + ':transform:' + matches[4];
-                    });
-                }
+
+                    Craft.sendActionRequest('POST', 'assets/generate-transform', {data})
+                        .then((response) => {
+                            node.src = response.data.url + '?' + (new Date().getTime()) + '#asset:' + matches[2] + ':transform:' + matches[4];
+                        });
             }
         }.bind(this);
 

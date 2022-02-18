@@ -332,8 +332,8 @@ window.livePreviewHideFullscreen = false;
                         var matches = matches = $img.attr('src').match(/#asset:(\d+)/i);
                         if (matches) {
                             var assetId = matches[1];
-                            Craft.postActionRequest('redactor', {assetId: assetId}, function (data) {
-                                if (data.success) {
+                            Craft.sendActionRequest('POST', 'redactor', {data: {assetId}})
+                                .then((response) => {
                                     var buttons = {
                                         "image-editor": {
                                             title: this.redactor.lang.get('image-editor'),
@@ -352,10 +352,10 @@ window.livePreviewHideFullscreen = false;
                                     };
 
                                     contextbar.set(e, node, buttons);
-                                }
-
-                                repositionContextBar(e, contextbar);
-                            }.bind(this));
+                                })
+                                .finally(() => {
+                                    repositionContextBar(e, contextbar);
+                                });
                         }
                     }
 

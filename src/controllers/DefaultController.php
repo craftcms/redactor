@@ -40,20 +40,17 @@ class DefaultController extends BaseController
         $asset = Asset::find()->id($assetId)->one();
 
         if (!$asset) {
-            return $this->asJson([
-                'success' => false
-            ]);
+            return $this->asFailure();
         }
 
         $volume = $asset->getVolume();
         /** @var User $user */
         $user = Craft::$app->getUser()->getIdentity();
 
-        return $this->asJson([
-            'success' => (
-                $user->can('saveAssetInVolume:' . $volume->uid) &&
-                $user->can('deleteFilesAndFoldersInVolume:' . $volume->uid)
-            ),
-        ]);
+        $success =
+            $user->can('saveAssetInVolume:' . $volume->uid) &&
+            $user->can('deleteFilesAndFoldersInVolume:' . $volume->uid);
+
+        return $success ? $this->asSuccess() : $this->asFailure()
     }
 }

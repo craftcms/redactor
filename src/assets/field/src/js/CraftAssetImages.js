@@ -123,15 +123,16 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
             handle: handle
         };
 
-        Craft.postActionRequest('assets/generate-transform', data, function(response, textStatus) {
-            if (textStatus === 'success') {
-                if (response.url) {
-                    callback(response.url);
-                } else {
-                    alert('There was an error generating the transform URL.');
+        Craft.sendActionRequest('POST', 'assets/generate-transform', {data})
+            .then((response) => {
+                const url = response.data && response.data.url;
+                if (url) {
+                    callback(url);
                 }
-            }
-        });
+            })
+            .catch(({response}) => {
+                alert('There was an error generating the transform URL.');
+            });
     },
 
     _getAssetUrlComponents: (url) => {
