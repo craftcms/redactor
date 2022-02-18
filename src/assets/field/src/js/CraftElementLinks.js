@@ -18,6 +18,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
         let refHandle = arguments.refHandle,
             callback = arguments.callback;
 
+        const selectedText = this.app.selection.getText();
         this.app.selection.save();
 
         // Create a new one each time because Redactor creates a new one and we can't reuse the references.
@@ -35,7 +36,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
                     this.modalState.selectedLink = {
                         url: element.url + '#' + refHandle + ':' + element.id + '@' + element.siteId,
-                        text: this.app.selection.getText().length > 0 ? this.app.selection.getText() : element.label
+                        text: selectedText.length > 0 ? selectedText : element.label
                     }
 
                     this.app.api('module.link.open');
