@@ -13,7 +13,7 @@
 ## 2.10.2 - 2022-02-17
 
 ### Fixed
-- Fixed a bug introduced when fixing #364. (#368](https://github.com/craftcms/redactor/issues/368))
+- Fixed a bug introduced when fixing #364. ([#368](https://github.com/craftcms/redactor/issues/368))
 
 ## 2.10.1 - 2022-02-16
 
