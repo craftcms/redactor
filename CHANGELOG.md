@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.4 - 2022-02-23
 
 ### Fixed
 - Fix a bug where sometimes Redactor field would display the wrong orientation. ([#356](https://github.com/craftcms/redactor/issues/356), [#370](https://github.com/craftcms/redactor/issues/370))
