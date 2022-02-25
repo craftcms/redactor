@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.5 - 2022-02-25
 
 ### Fixed
 - Fix a bug where sometimes Redactor field would auto-select the wrong site when showing the entry selection modal for links. ([#372](https://github.com/craftcms/redactor/issues/372))
