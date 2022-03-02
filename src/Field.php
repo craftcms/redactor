@@ -386,7 +386,7 @@ class Field extends HtmlField
 
         $id = Html::id($this->handle);
         $sitesService = Craft::$app->getSites();
-        $site = ($element ? $element->getSite() : $sitesService->getCurrentSite());
+        $elementSite = ($element ? $element->getSite() : $sitesService->getCurrentSite());
 
         $defaultTransform = '';
 
@@ -405,7 +405,7 @@ class Field extends HtmlField
             'volumes' => $this->_getVolumeKeys(),
             'transforms' => $this->_getTransforms(),
             'defaultTransform' => $defaultTransform,
-            'elementSiteId' => $site->id,
+            'elementSiteId' => $elementSite,
             'allSites' => $allSites,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,
@@ -414,7 +414,7 @@ class Field extends HtmlField
 
         if ($this->translationMethod != self::TRANSLATION_METHOD_NONE) {
             // Explicitly set the text direction
-            $locale = Craft::$app->getI18n()->getLocaleById($site->language);
+            $locale = Craft::$app->getI18n()->getLocaleById($elementSite->language);
             $settings['direction'] = $locale->getOrientation();
         }
 

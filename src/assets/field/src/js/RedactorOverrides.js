@@ -499,26 +499,6 @@ toolbarService.prototype.addButton = function(name, btnObj, position, $el, start
     return $button;
 };
 
-var eventClass = $R['classes']['editor.events'];
-
-// Fix an annoying bug where focusing on Redactor field in FireFox puts the caret before the first <p> tag, if field is empty.
-eventClass.prototype.focus = function(e)
-{
-    var $container = this.container.getElement();
-
-    if (this.editor.isPasting() || $container.hasClass('redactor-focus')) return;
-
-    $container.addClass('redactor-focus');
-    $container.removeClass('redactor-blur');
-
-    this.app.broadcast('observe', e);
-    this.app.broadcast('focus', e);
-
-    this.isFocused = true;
-    this.isBlured = false;
-    this.editor.startFocus(this.editor);
-};
-
 function attachPreviewListeners (openCallback, closeCallback) {
     Garnish.on(Craft.Preview, 'open', openCallback);
     Garnish.on(Craft.LivePreview, 'enter', openCallback);

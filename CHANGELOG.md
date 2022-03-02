@@ -1,6 +1,26 @@
 # Release Notes for Redactor for Craft CMS
 
-### 2.10.1 - 2022-02-16
+## 2.10.5 - 2022-02-25
+
+### Fixed
+- Fix a bug where sometimes Redactor field would auto-select the wrong site when showing the entry selection modal for links. ([#372](https://github.com/craftcms/redactor/issues/372))
+
+## 2.10.4 - 2022-02-23
+
+### Fixed
+- Fix a bug where sometimes Redactor field would display the wrong orientation. ([#356](https://github.com/craftcms/redactor/issues/356), [#370](https://github.com/craftcms/redactor/issues/370))
+
+## 2.10.3 - 2022-02-18
+
+### Fixed
+- Fixed a bug where linking to a Craft element inside a table would always change the original link text.
+
+## 2.10.2 - 2022-02-17
+
+### Fixed
+- Fixed a bug introduced when fixing #364. ([#368](https://github.com/craftcms/redactor/issues/368))
+
+## 2.10.1 - 2022-02-16
 
 ### Changed
 - Improved HTML sanitizing on input.

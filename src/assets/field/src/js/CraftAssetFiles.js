@@ -5,6 +5,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     volumes: null,
 
     showModal: function () {
+        const selectedText = this.app.selection.getText();
         this.app.selection.save();
 
         if (typeof this.assetSelectionModal === 'undefined') {
@@ -18,10 +19,9 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                         this.app.selection.restore();
 
                         var element = elements[0],
-                            selection = this.app.selection.getText(),
                             data = {
                                 url: element.url + '#asset:' + element.id,
-                                text: selection.length > 0 ? selection : element.label
+                                text: selectedText.length > 0 ? selectedText : element.label
                             };
                         this.app.api('module.link.insert', data);
                     }
