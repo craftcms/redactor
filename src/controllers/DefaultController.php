@@ -51,6 +51,6 @@ class DefaultController extends BaseController
             $user->can('saveAssetInVolume:' . $volume->uid) &&
             $user->can('deleteFilesAndFoldersInVolume:' . $volume->uid);
 
-        return $success ? $this->asSuccess() : $this->asFailure()
+        return $success ? $this->asSuccess() : $this->asFailure();
     }
 }
