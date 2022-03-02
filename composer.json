@@ -27,11 +27,13 @@
   "minimum-stability": "dev",
   "prefer-stable": true,
   "require": {
-    "craftcms/cms": "^4.0.0-alpha",
+    "php": "^8.0.2",
+    "craftcms/cms": "^4.0.0-alpha.1",
     "craftcms/html-field": "^2.0.0-alpha.1"
   },
   "require-dev": {
-    "phpstan/phpstan": "^0.12.96"
+    "phpstan/phpstan": "^1.4.6",
+    "craftcms/rector": "dev-main"
   },
   "autoload": {
     "psr-4": {

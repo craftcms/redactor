@@ -360,7 +360,7 @@ class Field extends HtmlField
     /**
      * @inheritdoc
      */
-    protected function inputHtml($value, ElementInterface $element = null): string
+    protected function inputHtml(mixed $value, ElementInterface $element = null): string
     {
         // register the asset/redactor bundles
         $view = Craft::$app->getView();
@@ -449,7 +449,7 @@ class Field extends HtmlField
     /**
      * @inheritdoc
      */
-    public function getStaticHtml($value, ElementInterface $element): string
+    public function getStaticHtml(mixed $value, ElementInterface $element): string
     {
         return
             Html::beginTag('div', [
@@ -465,7 +465,7 @@ class Field extends HtmlField
     /**
      * @inheritdoc
      */
-    public function serializeValue($value, ElementInterface $element = null): ?string
+    public function serializeValue(mixed $value, ?\craft\base\ElementInterface $element = null): mixed
     {
         if ($value instanceof HtmlFieldData) {
             $value = $value->getRawContent();
