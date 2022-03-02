@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "30844d7caab64c80706d0dd51edf322f",
+    "content-hash": "97d01fd44d6c767fd3377239432e5dac",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -791,23 +791,25 @@
         },
         {
             "name": "craftcms/html-field",
-            "version": "2.0.0-alpha.1",
+            "version": "2.0.0-alpha.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/html-field.git",
-                "reference": "4c4c6db102fa0c770b02590ee096d199dc196acf"
+                "reference": "f3c6798c5f248f57a09d7b1316295b77e19f715c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/html-field/zipball/4c4c6db102fa0c770b02590ee096d199dc196acf",
-                "reference": "4c4c6db102fa0c770b02590ee096d199dc196acf",
+                "url": "https://api.github.com/repos/craftcms/html-field/zipball/f3c6798c5f248f57a09d7b1316295b77e19f715c",
+                "reference": "f3c6798c5f248f57a09d7b1316295b77e19f715c",
                 "shasum": ""
             },
             "require": {
-                "craftcms/cms": "^4.0.0-alpha"
+                "craftcms/cms": "^4.0.0-alpha.1",
+                "php": "^8.0.2"
             },
             "require-dev": {
-                "phpstan/phpstan": "^0.12.96"
+                "craftcms/rector": "dev-main",
+                "phpstan/phpstan": "^1.4.6"
             },
             "type": "library",
             "autoload": {
@@ -833,7 +835,7 @@
                 "rss": "https://github.com/craftcms/html-field/commits/main.atom",
                 "source": "https://github.com/craftcms/html-field"
             },
-            "time": "2022-02-14T20:17:56+00:00"
+            "time": "2022-03-02T00:57:09+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
