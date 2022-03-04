@@ -20,7 +20,7 @@ use Twig\Markup;
 class FieldData extends HtmlFieldData
 {
     /**
-     * @var Markup[]
+     * @var Markup[]|null
      */
     private $_pages;
 

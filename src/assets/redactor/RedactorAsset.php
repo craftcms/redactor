@@ -19,7 +19,7 @@ use yii\web\JqueryAsset;
 class RedactorAsset extends AssetBundle
 {
     /**
-     * @var string the language Redactor should use
+     * @var string|null the language Redactor should use
      */
     public static $redactorLanguage;
 
