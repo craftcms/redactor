@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7807ece3efc32aa22779949924409866",
+    "content-hash": "071bcf7486f6f8af44ccd27181e22390",
     "packages": [
         {
             "name": "cebe/markdown",
@@ -791,16 +791,16 @@
         },
         {
             "name": "craftcms/html-field",
-            "version": "2.0.0-alpha.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/html-field.git",
-                "reference": "f3c6798c5f248f57a09d7b1316295b77e19f715c"
+                "reference": "60174b111d7c180d91bca59af7d86f3ccac1a1a4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/html-field/zipball/f3c6798c5f248f57a09d7b1316295b77e19f715c",
-                "reference": "f3c6798c5f248f57a09d7b1316295b77e19f715c",
+                "url": "https://api.github.com/repos/craftcms/html-field/zipball/60174b111d7c180d91bca59af7d86f3ccac1a1a4",
+                "reference": "60174b111d7c180d91bca59af7d86f3ccac1a1a4",
                 "shasum": ""
             },
             "require": {
@@ -808,8 +808,8 @@
                 "php": "^8.0.2"
             },
             "require-dev": {
-                "craftcms/rector": "dev-main",
-                "phpstan/phpstan": "^1.4.6"
+                "craftcms/phpstan": "dev-main",
+                "craftcms/rector": "dev-main"
             },
             "type": "library",
             "autoload": {
@@ -835,7 +835,7 @@
                 "rss": "https://github.com/craftcms/html-field/commits/main.atom",
                 "source": "https://github.com/craftcms/html-field"
             },
-            "time": "2022-03-02T00:57:09+00:00"
+            "time": "2022-03-04T20:53:05+00:00"
         },
         {
             "name": "craftcms/oauth2-craftid",
@@ -6457,12 +6457,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/phpstan.git",
-                "reference": "42247313449c866efacbcdb56afbd7c34331d979"
+                "reference": "8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/phpstan/zipball/42247313449c866efacbcdb56afbd7c34331d979",
-                "reference": "42247313449c866efacbcdb56afbd7c34331d979",
+                "url": "https://api.github.com/repos/craftcms/phpstan/zipball/8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b",
+                "reference": "8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b",
                 "shasum": ""
             },
             "require": {
@@ -6476,7 +6476,7 @@
                 "issues": "https://github.com/craftcms/phpstan/issues",
                 "source": "https://github.com/craftcms/phpstan/tree/main"
             },
-            "time": "2022-03-04T13:20:09+00:00"
+            "time": "2022-03-04T21:21:54+00:00"
         },
         {
             "name": "craftcms/rector",
@@ -6484,12 +6484,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/rector.git",
-                "reference": "28838d29a5a19978843dc4e82be75a956f09902c"
+                "reference": "3c19f3ab8c50de8b853603880649f4b4ed70534a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/rector/zipball/28838d29a5a19978843dc4e82be75a956f09902c",
-                "reference": "28838d29a5a19978843dc4e82be75a956f09902c",
+                "url": "https://api.github.com/repos/craftcms/rector/zipball/3c19f3ab8c50de8b853603880649f4b4ed70534a",
+                "reference": "3c19f3ab8c50de8b853603880649f4b4ed70534a",
                 "shasum": ""
             },
             "require": {
@@ -6517,7 +6517,7 @@
                 "issues": "https://github.com/craftcms/rector/issues",
                 "source": "https://github.com/craftcms/rector/tree/main"
             },
-            "time": "2022-03-04T01:08:38+00:00"
+            "time": "2022-03-04T20:41:50+00:00"
         },
         {
             "name": "nette/neon",
