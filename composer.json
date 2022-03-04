@@ -28,7 +28,7 @@
   "prefer-stable": true,
   "require": {
     "craftcms/cms": "^3.6.0",
-    "craftcms/html-field": "^1.0.4"
+    "craftcms/html-field": "^1.0.5"
   },
   "require-dev": {
     "craftcms/phpstan": "dev-main"
