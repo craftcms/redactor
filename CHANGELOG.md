@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## 3.0.0-beta.1 - 2022-03-04
+
+### Added
+- Added Craft 4 compatibility.
+
 ## 2.10.5 - 2022-02-25
 
 ### Fixed
