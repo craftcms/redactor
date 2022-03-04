@@ -22,7 +22,7 @@ class FieldData extends HtmlFieldData
     /**
      * @var Markup[]|null
      */
-    private array $_pages;
+    private ?array $_pages;
 
     /**
      * Returns an array of the individual page contents.
