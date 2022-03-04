@@ -5755,12 +5755,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/craftcms/phpstan.git",
-                "reference": "42247313449c866efacbcdb56afbd7c34331d979"
+                "reference": "8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/craftcms/phpstan/zipball/42247313449c866efacbcdb56afbd7c34331d979",
-                "reference": "42247313449c866efacbcdb56afbd7c34331d979",
+                "url": "https://api.github.com/repos/craftcms/phpstan/zipball/8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b",
+                "reference": "8bffa2fd3f55d65747573bd6fdf4f2f9bdad520b",
                 "shasum": ""
             },
             "require": {
@@ -5774,7 +5774,7 @@
                 "issues": "https://github.com/craftcms/phpstan/issues",
                 "source": "https://github.com/craftcms/phpstan/tree/main"
             },
-            "time": "2022-03-04T13:20:09+00:00"
+            "time": "2022-03-04T21:21:54+00:00"
         },
         {
             "name": "phpstan/phpstan",

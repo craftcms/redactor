@@ -38,13 +38,13 @@
       "craft\\redactor\\": "src/"
     }
   },
-  "scripts": {
-    "phpstan": "phpstan --memory-limit=1G"
-  },
   "extra": {
     "name": "Redactor",
     "handle": "redactor",
     "documentationUrl": "https://github.com/craftcms/redactor/blob/v2/README.md"
+  },
+  "scripts": {
+    "phpstan": "phpstan --memory-limit=1G"
   },
   "config": {
     "allow-plugins": {
