@@ -32,7 +32,7 @@
     "craftcms/html-field": "^2.0.0-alpha.2"
   },
   "require-dev": {
-    "phpstan/phpstan": "^1.4.6",
+    "craftcms/phpstan": "dev-main",
     "craftcms/rector": "dev-main"
   },
   "autoload": {
