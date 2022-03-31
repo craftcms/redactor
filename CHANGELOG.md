@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where removing a font color using the `fontcolor` plugin would not update the field data. ([#376](https://github.com/craftcms/redactor/issues/376))
+
 ## 2.10.5 - 2022-02-25
 
 ### Fixed
