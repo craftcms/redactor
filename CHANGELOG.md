@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fix an error where it was impossible to select any Assets with Redactor field. ([#381](https://github.com/craftcms/redactor/issues/381))
+
 ## 3.0.0-beta.1 - 2022-03-04
 
 ### Added

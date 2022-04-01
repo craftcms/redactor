@@ -293,7 +293,7 @@ class Field extends HtmlField
     public function getSettingsHtml(): ?string
     {
         $volumeOptions = [];
-        foreach (Craft::$app->getVolumes()->getPublicVolumes() as $volume) {
+        foreach (Craft::$app->getVolumes()->getAllVolumes() as $volume) {
             if ($volume->getFs()->hasUrls) {
                 $volumeOptions[] = [
                     'label' => $volume->name,
@@ -629,33 +629,11 @@ class Field extends HtmlField
         foreach ($allVolumes as $volume) {
             $allowedBySettings = $this->availableVolumes === '*' || (is_array($this->availableVolumes) && in_array($volume->uid, $this->availableVolumes));
             if ($allowedBySettings && ($this->showUnpermittedVolumes || $userService->checkPermission("viewVolume:$volume->uid"))) {
-                $allowedVolumes[] = $volume->uid;
+                $allowedVolumes[] = 'volume:' . $volume->uid;
             }
         }
 
-        $criteria['volumeId'] = Db::idsByUids('{{%volumes}}', $allowedVolumes);
-
-        $folders = Craft::$app->getAssets()->findFolders($criteria);
-
-        // Sort volumes in the same order as they are sorted in the CP
-        $sortedVolumeIds = Craft::$app->getVolumes()->getAllVolumeIds();
-        $sortedVolumeIds = array_flip($sortedVolumeIds);
-
-        $volumeKeys = [];
-
-        usort($folders, function($a, $b) use ($sortedVolumeIds) {
-            // In case Temporary volumes ever make an appearance in RTF modals, sort them to the end of the list.
-            $aOrder = $sortedVolumeIds[$a->volumeId] ?? PHP_INT_MAX;
-            $bOrder = $sortedVolumeIds[$b->volumeId] ?? PHP_INT_MAX;
-
-            return $aOrder - $bOrder;
-        });
-
-        foreach ($folders as $folder) {
-            $volumeKeys[] = 'folder:' . $folder->uid;
-        }
-
-        return $volumeKeys;
+        return $allowedVolumes;
     }
 
     /**
