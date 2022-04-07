@@ -8,7 +8,6 @@
 CHANGELOG.md export-ignore
 codeception.yml export-ignore
 composer.lock export-ignore
-gruntfile.js export-ignore
 ecs.php
 gulpfile.js export-ignore
 lib/ export-ignore
