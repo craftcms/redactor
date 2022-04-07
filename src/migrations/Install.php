@@ -18,9 +18,9 @@ class Install extends Migration
     {
         // Auto-convert old Rich Text fields
         $this->update('{{%fields}}', [
-            'type' => Field::class
+            'type' => Field::class,
         ], [
-            'type' => 'craft\\fields\\RichText'
+            'type' => 'craft\\fields\\RichText',
         ], [], false);
 
         // Update any Redactor configs

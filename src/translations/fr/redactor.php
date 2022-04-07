@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Add head' => 'Insérer un en-tête de tableau',
     'Delete column' => 'Supprimer la colonne',
