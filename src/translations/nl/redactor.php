@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Add head' => 'Tabelkop invoegen',
     'Delete column' => 'Kolom verwijderen',

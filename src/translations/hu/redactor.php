@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Add head' => 'Fejléc hozzáadása',
     'Delete column' => 'Oszlop törlése',

@@ -275,7 +275,7 @@ class Field extends HtmlField
                 if (file_exists("{$path}/{$plugin}.js")) {
                     $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
                     $view->registerJsFile("{$baseUrl}/{$plugin}.js", [
-                        'depends' => RedactorAsset::class
+                        'depends' => RedactorAsset::class,
                     ]);
                     // CSS file too?
                     if (file_exists("{$path}/{$plugin}.css")) {
@@ -306,7 +306,7 @@ class Field extends HtmlField
             'paths' => [
                 Craft::getAlias('@config/redactor/plugins'),
                 __DIR__ . '/assets/redactor-plugins/dist',
-            ]
+            ],
         ]);
         Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);
 
@@ -324,7 +324,7 @@ class Field extends HtmlField
             if ($volume->hasUrls) {
                 $volumeOptions[] = [
                     'label' => $volume->name,
-                    'value' => $volume->uid
+                    'value' => $volume->uid,
                 ];
             }
         }
@@ -333,7 +333,7 @@ class Field extends HtmlField
         foreach (Craft::$app->getAssetTransforms()->getAllTransforms() as $transform) {
             $transformOptions[] = [
                 'label' => $transform->name,
-                'value' => $transform->uid
+                'value' => $transform->uid,
             ];
         }
 
@@ -346,8 +346,8 @@ class Field extends HtmlField
             'defaultTransformOptions' => array_merge([
                 [
                     'label' => Craft::t('redactor', 'No transform'),
-                    'value' => null
-                ]
+                    'value' => null,
+                ],
             ], $transformOptions),
         ]);
     }
@@ -371,7 +371,7 @@ class Field extends HtmlField
                 } catch (InvalidArgumentException $e) {
                     $this->addError('manualConfig', Craft::t('redactor', 'This must be a valid JSON object.'));
                 }
-            }
+            },
         ];
         return $rules;
     }
@@ -531,7 +531,7 @@ class Field extends HtmlField
                 'elementType' => Entry::class,
                 'refHandle' => Entry::refHandle(),
                 'sources' => $sectionSources,
-                'criteria' => ['uri' => ':notempty:']
+                'criteria' => ['uri' => ':notempty:'],
             ];
         }
 
@@ -555,7 +555,7 @@ class Field extends HtmlField
 
         // Give plugins a chance to add their own
         $event = new RegisterLinkOptionsEvent([
-            'linkOptions' => $linkOptions
+            'linkOptions' => $linkOptions,
         ]);
         $this->trigger(self::EVENT_REGISTER_LINK_OPTIONS, $event);
         $linkOptions = $event->linkOptions;
@@ -590,7 +590,7 @@ class Field extends HtmlField
         foreach ($sections as $section) {
             if ($section->type === Section::TYPE_SINGLE) {
                 $showSingles = true;
-            } else if ($element) {
+            } elseif ($element) {
                 $sectionSiteSettings = $section->getSiteSettings();
                 foreach ($sites as $site) {
                     if (isset($sectionSiteSettings[$site->id]) && $sectionSiteSettings[$site->id]->hasUrls) {
@@ -703,7 +703,7 @@ class Field extends HtmlField
             if (!is_array($this->availableTransforms) || in_array($transform->uid, $this->availableTransforms, false)) {
                 $transformList[] = [
                     'handle' => $transform->handle,
-                    'name' => $transform->name
+                    'name' => $transform->name,
                 ];
             }
         }
@@ -727,7 +727,7 @@ class Field extends HtmlField
         // Give plugins a chance to modify the Redactor config
         $event = new ModifyRedactorConfigEvent([
             'config' => $config,
-            'field' => $this
+            'field' => $this,
         ]);
 
         $this->trigger(self::EVENT_DEFINE_REDACTOR_CONFIG, $event);

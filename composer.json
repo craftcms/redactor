@@ -31,6 +31,7 @@
     "craftcms/html-field": "^1.0.5"
   },
   "require-dev": {
+    "craftcms/ecs": "dev-main",
     "craftcms/phpstan": "dev-main"
   },
   "autoload": {
@@ -44,6 +45,8 @@
     "documentationUrl": "https://github.com/craftcms/redactor/blob/v2/README.md"
   },
   "scripts": {
+    "check-cs": "ecs check --ansi",
+    "fix-cs": "ecs check --ansi --fix",
     "phpstan": "phpstan --memory-limit=1G"
   },
   "config": {

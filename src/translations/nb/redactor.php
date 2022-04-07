@@ -1,4 +1,5 @@
 <?php
+
 return [
     // Redactor editor
     'Add head' => 'Legg til overskrift',

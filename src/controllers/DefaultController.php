@@ -39,7 +39,7 @@ class DefaultController extends BaseController
 
         if (!$asset) {
             return $this->asJson([
-                'success' => false
+                'success' => false,
             ]);
         }
 

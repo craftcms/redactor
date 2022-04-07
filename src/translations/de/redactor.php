@@ -1,4 +1,5 @@
 <?php
+
 return [
     'Link to an entry' => 'Link zu einem Eintrag',
     'Link to an asset' => 'Link zu einer Datei',
