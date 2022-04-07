@@ -41,12 +41,12 @@ class Field extends HtmlField
     /**
      * @event RegisterPluginPathsEvent The event that is triggered when registering paths that contain Redactor plugins.
      */
-    const EVENT_REGISTER_PLUGIN_PATHS = 'registerPluginPaths';
+    public const EVENT_REGISTER_PLUGIN_PATHS = 'registerPluginPaths';
 
     /**
      * @event RegisterLinkOptionsEvent The event that is triggered when registering the link options for the field.
      */
-    const EVENT_REGISTER_LINK_OPTIONS = 'registerLinkOptions';
+    public const EVENT_REGISTER_LINK_OPTIONS = 'registerLinkOptions';
 
     /**
      * @event ModifyPurifierConfigEvent The event that is triggered when creating HTML Purifier config
@@ -68,7 +68,7 @@ class Field extends HtmlField
      * );
      * ```
      */
-    const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
+    public const EVENT_MODIFY_PURIFIER_CONFIG = 'modifyPurifierConfig';
 
     /**
      * @event ModifyRedactorConfigEvent The event that is triggered when loading redactor config.
@@ -86,7 +86,7 @@ class Field extends HtmlField
      * });
      * ```
      */
-    const EVENT_DEFINE_REDACTOR_CONFIG = 'defineRedactorConfig';
+    public const EVENT_DEFINE_REDACTOR_CONFIG = 'defineRedactorConfig';
 
     /**
      * @var array List of the Redactor plugins that have already been registered for this request
@@ -249,7 +249,7 @@ class Field extends HtmlField
                 if (file_exists("$path/$plugin.js")) {
                     $baseUrl = Craft::$app->getAssetManager()->getPublishedUrl($path, true);
                     $view->registerJsFile("$baseUrl/$plugin.js", [
-                        'depends' => RedactorAsset::class
+                        'depends' => RedactorAsset::class,
                     ]);
                     // CSS file too?
                     if (file_exists("$path/$plugin.css")) {
