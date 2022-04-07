@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 3.0.0-beta.2 - 2022-04-07
 
 ### Fixed
 - Fix an error that occurred when editing Redactor fields. ([#381](https://github.com/craftcms/redactor/issues/381))
