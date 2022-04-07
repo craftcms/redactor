@@ -8,51 +8,49 @@
 ## 2.10.5 - 2022-02-25
 
 ### Fixed
-- Fix a bug where sometimes Redactor field would auto-select the wrong site when showing the entry selection modal for links. ([#372](https://github.com/craftcms/redactor/issues/372))
+- Fixed a bug where the wrong site could be auto-selected in entry selection modals. ([#372](https://github.com/craftcms/redactor/issues/372))
 
 ## 2.10.4 - 2022-02-23
 
 ### Fixed
-- Fix a bug where sometimes Redactor field would display the wrong orientation. ([#356](https://github.com/craftcms/redactor/issues/356), [#370](https://github.com/craftcms/redactor/issues/370))
+- Fixed a bug where Redactor fields could use the wrong orientation. ([#356](https://github.com/craftcms/redactor/issues/356), [#370](https://github.com/craftcms/redactor/issues/370))
 
 ## 2.10.3 - 2022-02-18
 
 ### Fixed
-- Fixed a bug where linking to a Craft element inside a table would always change the original link text.
+- Fixed a bug where linking to a Craft element inside a table would change the original link text.
 
 ## 2.10.2 - 2022-02-17
 
 ### Fixed
-- Fixed a bug introduced when fixing #364. ([#368](https://github.com/craftcms/redactor/issues/368))
+- Fixed a bug where links were always prepended to the beginning of the text. ([#368](https://github.com/craftcms/redactor/issues/368))
 
 ## 2.10.1 - 2022-02-16
 
-### Changed
-- Improved HTML sanitizing on input.
-
 ### Fixed
-- Fixed a but where Redactor fields would not initialize properly when they were the first field in a new Matrix block. ([#364](https://github.com/craftcms/redactor/issues/364))
+- Fixed a bug where Redactor fields wouldn’t initialize properly when they were the first field in a new Matrix block. ([#364](https://github.com/craftcms/redactor/issues/364))
 
 ### Security
-- Fixed an XSS vulnerability
+- Improved HTML sanitization.
+- Fixed an XSS vulnerability.
 
 ## 2.10.0 - 2022-02-11
 
 ### Changed
 - Redactor now requires Craft 3.6 or later.
-- The site selector dropdown now appears only for eligible links. ([#360](https://github.com/craftcms/redactor/issues/360))
+- The site selector dropdown now only appears for eligible links. ([#360](https://github.com/craftcms/redactor/issues/360))
 - Static element URLs that contain query string parameters are no longer converted to reference tags.
 
 ### Deprecated
 - Deprecated `craft\redactor\events\ModifyPurifierConfigEvent`. `craft\htmlfield\events\ModifyPurifierConfigEvent` should be used instead.
 
 ### Fixed
-- Fixed a bug where Live Preview wouldn't work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
+- Fixed a bug where Live Preview wouldn’t work on older Craft versions. ([#359](https://github.com/craftcms/redactor/issues/359))
 
 ## 2.9.1 - 2022-02-07
 
 ### Fixed
-- Fixed a bug where Redactor field would crash if attempting to save content that had empty links. ([#355](https://github.com/craftcms/redactor/issues/355))
+- Fixed an error that occurred when saving content that contained empty links. ([#355](https://github.com/craftcms/redactor/issues/355))
 
 ## 2.9.0 - 2022-01-31
 
@@ -77,7 +75,7 @@
 ## 2.8.8 - 2021-08-02
 
 ### Fixed
-- Fixed a bug where a Javascript error was thrown when closing live preview pane, causing Redactor to break. ([#299](https://github.com/craftcms/redactor/issues/299), [#282](https://github.com/craftcms/redactor/issues/282))
+- Fixed a Javascript error that occurred when closing Live Preview. ([#299](https://github.com/craftcms/redactor/issues/299), [#282](https://github.com/craftcms/redactor/issues/282))
 
 ## 2.8.7 - 2021-05-01
 
