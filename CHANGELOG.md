@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.7 - 2022-04-26
 
 ### Fixed
 - Fixed a bug where removing and re-inserting a link would remove other links in the same paragraph. ([#384](https://github.com/craftcms/redactor/issues/384))
