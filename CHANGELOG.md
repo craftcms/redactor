@@ -10,6 +10,11 @@
 ### Added
 - Added Craft 4 compatibility.
 
+## 2.10.7 - 2022-04-26
+
+### Fixed
+- Fixed a bug where removing and re-inserting a link would remove other links in the same paragraph. ([#384](https://github.com/craftcms/redactor/issues/384))
+
 ## 2.10.6 - 2022-04-07
 
 ### Fixed
