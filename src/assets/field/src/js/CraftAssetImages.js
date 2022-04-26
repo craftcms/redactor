@@ -11,13 +11,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     },
 
     showModal: function () {
-        if (this.app.selection.isCollapsed()) {
-            this.app.selection.save();
-            this.app.selectionMarkers = false;
-        } else {
-            this.app.selection.saveMarkers();
-            this.app.selectionMarkers = true;
-        }
+        this.saveSelection(this.app);
 
         if (typeof this.assetSelectionModal === 'undefined') {
             const criteria = {
@@ -36,13 +30,8 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 criteria: criteria,
                 onSelect: function(assets, transform) {
                     if (assets.length) {
-                        if (this.app.selectionMarkers) {
-                            this.app.selection.restoreMarkers();
-                        } else {
-                            this.app.selection.restore();
-                        }
 
-                        this.app.selectionMarkers = false;
+                        this.restoreSelection(this.app);
 
                         const data = {};
                         const isMulti = assets.length > 1;
