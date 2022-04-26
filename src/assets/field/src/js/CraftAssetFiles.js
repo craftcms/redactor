@@ -6,7 +6,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
     showModal: function () {
         const selectedText = this.app.selection.getText();
-        this.app.selection.save();
+        this.saveSelection(this.app);
 
         if (typeof this.assetSelectionModal === 'undefined') {
             var refHandle = arguments.refHandle;
@@ -16,7 +16,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
                 criteria: {siteId: this.elementSiteId},
                 onSelect: $.proxy(function(elements) {
                     if (elements.length) {
-                        this.app.selection.restore();
+                        this.restoreSelection(this.app);
 
                         var element = elements[0],
                             data = {

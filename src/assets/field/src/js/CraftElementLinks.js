@@ -19,7 +19,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
             callback = arguments.callback;
 
         const selectedText = this.app.selection.getText();
-        this.app.selection.save();
+        this.saveSelection(this.app);
 
         // Create a new one each time because Redactor creates a new one and we can't reuse the references.
         const modal = Craft.createElementSelectorModal(arguments.elementType, {
@@ -31,8 +31,7 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
             onSelect: $.proxy(function(elements) {
                 if (elements.length) {
                     const element = elements[0];
-
-                    this.app.selection.restore();
+                    this.restoreSelection(this.app);
 
                     this.modalState.selectedLink = {
                         url: element.url + '#' + refHandle + ':' + element.id + '@' + element.siteId,
