@@ -18,8 +18,8 @@ package.json export-ignore
 phpstan.neon export-ignore
 stubs/ export-ignore
 tests/ export-ignore
-.prettierrc.json
-.prettierignore
+.prettierrc.json export-ignore
+.prettierignore export-ignore
 
 # Auto detect text files and perform LF normalization
 * text=auto
