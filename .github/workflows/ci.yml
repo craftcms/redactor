@@ -8,21 +8,25 @@ on:
 jobs:
   ecs:
     name: ECS
-    uses: craftcms/.github/.github/workflows/ecs.yml@v1
+    uses: craftcms/.github/.github/workflows/ecs.yml@v2
     with:
       php_version: '7.2'
+  prettier:
+    name: Prettier
+    uses: craftcms/.github/.github/workflows/prettier.yml@v2
   phpstan:
     name: PHPStan
-    uses: craftcms/.github/.github/workflows/phpstan.yml@v1
+    uses: craftcms/.github/.github/workflows/phpstan.yml@v2
     with:
       php_version: '7.2'
   notify-slack:
     name: Notify Slack
-    needs: [ ecs, phpstan ]
+    needs: [ecs, phpstan, prettier]
     if: ${{ always() }}
-    uses: craftcms/.github/.github/workflows/notify-slack.yml@v1
+    uses: craftcms/.github/.github/workflows/notify-slack.yml@v2
     with:
-      success: ${{ needs.ecs.result == 'success' && needs.phpstan.result == 'success' }}
+      success: ${{ needs.ecs.result == 'success' && needs.prettier.result == 'success' && needs.phpstan.result == 'success' }}
+      failure: ${{ needs.ecs.result == 'failure' || needs.prettier.result == 'failure' || needs.phpstan.result == 'failure' }}
       failure_text_prefix: <!subteam^SGFL9NKNZ>
     secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
