@@ -15,6 +15,11 @@
 ### Added
 - Added Craft 4 compatibility.
 
+## 2.10.8 - 2022-05-03
+
+### Fixed
+- Fixed a bug where linking to multiple files would have unwanted consequences. ([#389](https://github.com/craftcms/redactor/issues/389))
+
 ## 2.10.7 - 2022-04-26
 
 ### Fixed

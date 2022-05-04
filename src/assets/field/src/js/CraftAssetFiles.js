@@ -5,7 +5,6 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
   volumes: null,
 
   showModal: function () {
-    const selectedText = this.app.selection.getText();
     this.saveSelection(this.app);
 
     if (typeof this.assetSelectionModal === 'undefined') {
@@ -19,12 +18,12 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
           onSelect: $.proxy(function (elements) {
             if (elements.length) {
               this.restoreSelection(this.app);
-
-              var element = elements[0],
-                data = {
-                  url: element.url + '#asset:' + element.id,
-                  text: selectedText.length > 0 ? selectedText : element.label,
-                };
+              const element = elements[0];
+              const selectedText = this.app.selection.getText();
+              const data = {
+                url: element.url + '#asset:' + element.id,
+                text: selectedText.length > 0 ? selectedText : element.label,
+              };
               this.app.api('module.link.insert', data);
             }
           }, this),
