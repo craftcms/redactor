@@ -1,16 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## 3.0.0-beta.3 - 2022-04-26
-
-### Fixed
-- Fixed a bug where removing and re-inserting a link would remove other links in the same paragraph. ([#384](https://github.com/craftcms/redactor/issues/384))
-
-## 3.0.0-beta.2 - 2022-04-07
-
-### Fixed
-- Fix an error that occurred when editing Redactor fields. ([#381](https://github.com/craftcms/redactor/issues/381))
-
-## 3.0.0-beta.1 - 2022-03-04
+## 3.0.0 - 2022-05-03
 
 ### Added
 - Added Craft 4 compatibility.
