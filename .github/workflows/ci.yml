@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-      - '3.0'
+      - v2
   pull_request:
 jobs:
   ecs:
