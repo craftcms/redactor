@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where uploading assets could fail. ([#414](https://github.com/craftcms/redactor/issues/414))
+
 ## 2.10.8 - 2022-05-03
 
 ### Fixed
