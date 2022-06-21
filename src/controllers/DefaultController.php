@@ -48,8 +48,8 @@ class DefaultController extends BaseController
         $user = Craft::$app->getUser()->getIdentity();
 
         $success =
-            $user->can('saveAssetInVolume:' . $volume->uid) &&
-            $user->can('deleteFilesAndFoldersInVolume:' . $volume->uid);
+            $user->can("saveAssets:$volume->uid") &&
+            $user->can("deleteAssets:$volume->uid");
 
         return $success ? $this->asSuccess() : $this->asFailure();
     }

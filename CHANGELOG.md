@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## Unreleased
+
+### Fixed
+- Fixed a bug where non-admin users weren’t able to insert images or link to assets. ([#409](https://github.com/craftcms/redactor/issues/409)) 
+
 ## 3.0.0 - 2022-05-03
 
 ### Added
