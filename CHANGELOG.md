@@ -3,6 +3,9 @@
 ## Unreleased
 
 ### Fixed
+- Fixed a bug where entry link modals would lose context on multi-site. ([#410](https://github.com/craftcms/redactor/issues/410))
+
+### Fixed
 - Fixed a bug where non-admin users weren’t able to insert images or link to assets. ([#409](https://github.com/craftcms/redactor/issues/409)) 
 
 ## 3.0.0 - 2022-05-03

@@ -405,7 +405,7 @@ class Field extends HtmlField
             'volumes' => $this->_getVolumeKeys(),
             'transforms' => $this->_getTransforms(),
             'defaultTransform' => $defaultTransform,
-            'elementSiteId' => $elementSite,
+            'elementSiteId' => $elementSite->id,
             'allSites' => $allSites,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,
