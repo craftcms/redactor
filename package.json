@@ -1,23 +1,15 @@
 {
   "private": true,
-  "main": "gulpfile.js",
+  "main": "webpack.config.js",
   "scripts": {
-    "gulp:redactor": "gulp redactor",
-    "gulp:field": "gulp field"
+    "prebuild": "npm run check-prettier",
+    "build": "webpack --node-env=production --progress",
+    "serve": "webpack-dev-server --node-env=development",
+    "check-prettier": "prettier --check .",
+    "fix-prettier": "prettier --write ."
   },
   "devDependencies": {
-    "craftcms-sass": "^3.5.6",
-    "del": "^5.1.0",
-    "gulp": "^3.9.1",
-    "gulp-autoprefixer": "^7.0.1",
-    "gulp-clean-css": "^3.10.0",
-    "gulp-rename": "^1.4.0",
-    "gulp-sass": "^3.1.0",
-    "gulp-sourcemaps": "^2.6.5",
-    "gulp-uglify-es": "^2.0.0",
-    "merge-stream": "^1.0.1",
-    "moment": "^2.24.0",
-    "natives": "^1.1.6"
-  },
-  "dependencies": {}
+    "@craftcms/sass": "^1.0.1",
+    "@craftcms/webpack": "^1.0.0"
+  }
 }

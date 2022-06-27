@@ -39,14 +39,14 @@ class RedactorAsset extends AssetBundle
      * @inheritdoc
      */
     public $css = [
-        'redactor.css',
+        'css/redactor.css',
     ];
 
     /**
      * @inheritdoc
      */
     public $js = [
-        'redactor.min.js',
+        'redactor.js',
     ];
 
     /**

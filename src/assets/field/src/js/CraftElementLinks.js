@@ -12,17 +12,17 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
 
   // Do nothing on start.
   start: function () {},
-  showModal: function (arguments, zIndex) {
-    let refHandle = arguments.refHandle,
-      callback = arguments.callback;
+  showModal: function (args, zIndex) {
+    let refHandle = args.refHandle,
+      callback = args.callback;
 
     this.saveSelection(this.app);
 
     // Create a new one each time because Redactor creates a new one and we can't reuse the references.
-    const modal = Craft.createElementSelectorModal(arguments.elementType, {
-      storageKey: 'RedactorInput.LinkTo.' + arguments.elementType,
-      sources: arguments.sources,
-      criteria: arguments.criteria,
+    const modal = Craft.createElementSelectorModal(args.elementType, {
+      storageKey: 'RedactorInput.LinkTo.' + args.elementType,
+      sources: args.sources,
+      criteria: args.criteria,
       defaultSiteId: this.elementSiteId,
       autoFocusSearchBox: false,
       onSelect: $.proxy(function (elements) {
