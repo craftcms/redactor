@@ -8,9 +8,12 @@ module.exports = getConfig({
       CraftAssetImageEditor: './js/CraftAssetImageEditor.js',
       CraftAssetImages: './js/CraftAssetImages.js',
       CraftElementLinks: './js/CraftElementLinks.js',
-      PluginBase: './js/PluginBase',
+      PluginBase: './js/PluginBase.js',
       RedactorInput: './js/RedactorInput.js',
       RedactorOverrides: './js/RedactorOverrides.js',
+    },
+    devServer: {
+      hot: false,
     },
     module: {
       rules: [
