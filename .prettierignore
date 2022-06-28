@@ -4,6 +4,6 @@ composer.lock
 lib/*
 vendor/*
 src/assets/redactor/dist/*
-src/assets/field/dist/*
-src/assets/redactor/src/lib/*
+src/assets/redactor/src/redactor/*
+src/assets/redactor/src/redactor-plugins/*
 src/templates/*

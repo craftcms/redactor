@@ -39,14 +39,14 @@ class RedactorAsset extends AssetBundle
      * @inheritdoc
      */
     public $css = [
-        'css/redactor-styles.css',
+        'redactor/redactor.css',
     ];
 
     /**
      * @inheritdoc
      */
     public $js = [
-        'redactor.js',
+        'redactor/redactor.js',
     ];
 
     /**
@@ -64,7 +64,7 @@ class RedactorAsset extends AssetBundle
         }
 
         foreach ($languages as $lang) {
-            $subPath = '_langs' . DIRECTORY_SEPARATOR . "{$lang}.js";
+            $subPath = 'redactor' . DIRECTORY_SEPARATOR . '_langs' . DIRECTORY_SEPARATOR . "{$lang}.js";
             if (is_file($this->sourcePath . DIRECTORY_SEPARATOR . $subPath)) {
                 $this->js[] = $subPath;
                 self::$redactorLanguage = $lang;

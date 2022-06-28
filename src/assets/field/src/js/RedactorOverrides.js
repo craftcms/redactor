@@ -556,11 +556,10 @@ function attachPreviewListeners(openCallback, closeCallback) {
   Garnish.on(Craft.LivePreview, 'exit', closeCallback);
 }
 
-export {
-  imageResizeClass,
-  toolbarFixedClass,
-  inputCleanerService,
-  contextBarClass,
-  toolbarDropdownClass,
-  toolbarService,
-};
+window.imageResizeClass = imageResizeClass;
+window.toolbarFixedClass = toolbarFixedClass;
+window.inputCleanerService = inputCleanerService;
+window.toolbarDropdownClass = toolbarDropdownClass;
+window.contextBarClass = contextBarClass;
+window.toolbarDropdownClass = toolbarDropdownClass;
+window.toolbarService = toolbarService;
