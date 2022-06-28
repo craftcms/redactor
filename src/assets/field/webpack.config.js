@@ -1,5 +1,3 @@
-/* jshint esversion: 6 */
-/* globals module, require */
 const {getConfig} = require('@craftcms/webpack');
 
 module.exports = getConfig({
@@ -13,6 +11,42 @@ module.exports = getConfig({
       PluginBase: './js/PluginBase',
       RedactorInput: './js/RedactorInput.js',
       RedactorOverrides: './js/RedactorOverrides.js',
+    },
+    module: {
+      rules: [
+        {
+          test: require.resolve('./src/js/RedactorOverrides.js'),
+          loader: 'expose-loader',
+          options: {
+            exposes: [
+              {
+                globalName: 'imageResizeClass',
+                moduleLocalName: 'imageResizeClass',
+              },
+              {
+                globalName: 'toolbarFixedClass',
+                moduleLocalName: 'toolbarFixedClass',
+              },
+              {
+                globalName: 'inputCleanerService',
+                moduleLocalName: 'inputCleanerService',
+              },
+              {
+                globalName: 'contextBarClass',
+                moduleLocalName: 'contextBarClass',
+              },
+              {
+                globalName: 'toolbarDropdownClass',
+                moduleLocalName: 'toolbarDropdownClass',
+              },
+              {
+                globalName: 'toolbarService',
+                moduleLocalName: 'toolbarService',
+              },
+            ],
+          },
+        },
+      ],
     },
   },
 });

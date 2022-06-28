@@ -1,5 +1,4 @@
 const {getConfig} = require('@craftcms/webpack');
-const MergeIntoSingleFilePlugin = require('webpack-merge-and-include-globally');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const postcss  = require('postcss');
