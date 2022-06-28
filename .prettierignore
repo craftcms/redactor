@@ -5,6 +5,5 @@ lib/*
 vendor/*
 src/assets/redactor/dist/*
 src/assets/field/dist/*
-src/assets/redactor/dist/*
-src/assets/redactor-plugins/dist/*
+src/assets/redactor/src/lib/*
 src/templates/*

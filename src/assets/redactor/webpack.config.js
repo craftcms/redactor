@@ -1,7 +1,7 @@
 const {getConfig} = require('@craftcms/webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
-const postcss  = require('postcss');
+const postcss = require('postcss');
 
 module.exports = getConfig({
   context: __dirname,
@@ -32,6 +32,6 @@ module.exports = getConfig({
           },
         ],
       }),
-    ]
-  }
+    ],
+  },
 });

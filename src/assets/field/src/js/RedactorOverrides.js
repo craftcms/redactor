@@ -563,4 +563,4 @@ export {
   contextBarClass,
   toolbarDropdownClass,
   toolbarService,
-}
+};
