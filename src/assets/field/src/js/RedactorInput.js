@@ -221,8 +221,9 @@ window.livePreviewHideFullscreen = false;
         }
 
         Craft.RedactorInput.currentInstance = this;
+        this.$textarea.redactor(this.redactorConfig);
 
-        this.redactor = $R(selector, this.redactorConfig);
+        this.redactor = $R(selector);
 
         if (typeof this.redactorConfig.buttons === 'undefined') {
           this.redactorConfig.buttons = [];
