@@ -62,15 +62,7 @@ class FieldAsset extends AssetBundle
 
         if ($view instanceof View) {
             $view->registerTranslations('redactor', [
-                'Insert image',
-                'Insert URL',
-                'Choose image',
-                'Link',
-                'Link to an entry',
-                'Insert link',
-                'Unlink',
-                'Link to an asset',
-                'Link to a category',
+                'Link to the current site',
             ]);
         }
 

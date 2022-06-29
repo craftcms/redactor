@@ -10,8 +10,7 @@
   },
   "devDependencies": {
     "@craftcms/sass": "^1.0.1",
-    "@craftcms/webpack": "^1.0.0",
-    "css-minimizer-webpack-plugin": "^4.0.0",
+    "@craftcms/webpack": "^1.1.0",
     "prettier": "2.7.1"
   }
 }
