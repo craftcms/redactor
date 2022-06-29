@@ -1,3 +1,5 @@
+import '../css/RedactorInput.scss';
+
 window.livePreviewHideFullscreen = false;
 
 (function ($) {
@@ -207,7 +209,6 @@ window.livePreviewHideFullscreen = false;
       initRedactor: function () {
         var selector = '#' + this.id;
         this.$textarea = $(selector);
-
         if (
           typeof this.redactorConfig.toolbarFixed === 'undefined' ||
           this.redactorConfig.toolbarFixed

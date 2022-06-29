@@ -279,7 +279,7 @@ class Field extends HtmlField
         $event = new RegisterPluginPathsEvent([
             'paths' => [
                 Craft::getAlias('@config/redactor/plugins'),
-                __DIR__ . '/assets/redactor-plugins/dist',
+                __DIR__ . '/assets/redactor/dist/redactor-plugins',
             ],
         ]);
         Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);
@@ -405,7 +405,7 @@ class Field extends HtmlField
             'volumes' => $this->_getVolumeKeys(),
             'transforms' => $this->_getTransforms(),
             'defaultTransform' => $defaultTransform,
-            'elementSiteId' => $elementSite,
+            'elementSiteId' => $elementSite->id,
             'allSites' => $allSites,
             'redactorConfig' => $redactorConfig,
             'redactorLang' => $redactorLang,

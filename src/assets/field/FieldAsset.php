@@ -7,6 +7,9 @@
 
 namespace craft\redactor\assets\field;
 
+use Craft;
+use craft\base\ElementInterface;
+use craft\helpers\Json;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\web\assets\cp\CpAsset;
 use craft\web\View;
@@ -41,13 +44,13 @@ class FieldAsset extends AssetBundle
      * @inheritdoc
      */
     public $js = [
-        'js/PluginBase.min.js',
-        'js/CraftAssetImageEditor.min.js',
-        'js/CraftAssetImages.min.js',
-        'js/CraftAssetFiles.min.js',
-        'js/CraftElementLinks.min.js',
-        'js/RedactorInput.min.js',
-        'js/RedactorOverrides.min.js',
+        'PluginBase.js',
+        'CraftAssetImageEditor.js',
+        'CraftAssetImages.js',
+        'CraftAssetFiles.js',
+        'CraftElementLinks.js',
+        'RedactorInput.js',
+        'RedactorOverrides.js',
     ];
 
     /**
@@ -70,5 +73,21 @@ class FieldAsset extends AssetBundle
                 'Link to a category',
             ]);
         }
+
+        $refHandles = [];
+        foreach (Craft::$app->getElements()->getAllElementTypes() as $elementType) {
+            /** @var string|ElementInterface $elementType */
+            if ($elementType::isLocalized() && ($refHandle = $elementType::refHandle()) !== null) {
+                $refHandles[] = $refHandle;
+            }
+        }
+        $refHandlesJson = Json::encode($refHandles);
+
+        $js = <<<JS
+window.Craft.Redactor = {
+  localizedRefHandles: $refHandlesJson,
+};
+JS;
+        $view->registerJs($js, View::POS_HEAD);
     }
 }
