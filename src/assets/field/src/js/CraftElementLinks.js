@@ -75,43 +75,44 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
           url: null,
         };
 
-        let elementUrl = $form.find('input[name=url]').val();
+        let existingUrl = $form.find('input[name=url]').val();
 
         // Only add site selector if it looks like an element reference link
-        if (elementUrl.match(/#(category|entry|product):\d+/)) {
-          let siteOptions = this.allSites;
-          let selectedSite = 0;
+        const refHandlesRegex = Craft.Redactor.localizedRefHandles.join('|');
+        const match = existingUrl.match(
+          new RegExp(`(#(?:${refHandlesRegex}):\\d+)(?:@(\\d+))?`)
+        );
 
-          if (elementUrl.split('@').length > 1) {
-            selectedSite = parseInt(elementUrl.split('@').pop(), 10);
-          }
+        if (match) {
+          let siteOptions = this.allSites;
+          const existingSiteId = match[2] ? parseInt(match[2], 10) : null;
 
           const $select = $('<select id="modal-site-selector"></select>').on(
             'change',
-            function (ev) {
-              let existingUrl = $form.find('input[name=url]').val();
+            (ev) => {
               const selectedSiteId = parseInt($(ev.currentTarget).val(), 10);
-
-              if (existingUrl.match(/.*(@\d+)$/)) {
-                let urlParts = existingUrl.split('@');
-                urlParts.pop();
-                existingUrl = urlParts.join('@');
-              }
+              let ref = match[1];
 
               if (selectedSiteId) {
-                existingUrl += '@' + selectedSiteId;
+                ref += `@${selectedSiteId}`;
               }
 
-              $form.find('input[name=url]').val(existingUrl);
-            }.bind(this)
+              const newUrl = existingUrl.replace(match[0], ref);
+              $form.find('input[name=url]').val(newUrl);
+            }
           );
 
-          let selected = selectedSite === 0 ? ' selected="selected"' : '';
-          $select.append(`<option value="0"${selected}>Multisite</option>`);
+          let selected = !existingSiteId ? ' selected="selected"' : '';
+          $select.append(
+            `<option value="0"${selected}>${Craft.t(
+              'app',
+              'Link to the current site'
+            )}</option>`
+          );
 
           for ([siteId, siteName] of Object.entries(siteOptions)) {
             let selected =
-              selectedSite === parseInt(siteId, 10)
+              existingSiteId === parseInt(siteId, 10)
                 ? ' selected="selected"'
                 : '';
             $select.append(

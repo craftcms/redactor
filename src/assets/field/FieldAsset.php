@@ -7,6 +7,9 @@
 
 namespace craft\redactor\assets\field;
 
+use Craft;
+use craft\base\ElementInterface;
+use craft\helpers\Json;
 use craft\redactor\assets\redactor\RedactorAsset;
 use craft\web\AssetBundle;
 use craft\web\assets\cp\CpAsset;
@@ -70,5 +73,21 @@ class FieldAsset extends AssetBundle
                 'Link to a category',
             ]);
         }
+
+        $refHandles = [];
+        foreach (Craft::$app->getElements()->getAllElementTypes() as $elementType) {
+            /** @var string|ElementInterface $elementType */
+            if ($elementType::isLocalized() && ($refHandle = $elementType::refHandle()) !== null) {
+                $refHandles[] = $refHandle;
+            }
+        }
+        $refHandlesJson = Json::encode($refHandles);
+
+        $js = <<<JS
+window.Craft.Redactor = {
+  localizedRefHandles: $refHandlesJson,
+};
+JS;
+        $view->registerJs($js, View::POS_HEAD);
     }
 }

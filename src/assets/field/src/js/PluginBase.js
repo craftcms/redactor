@@ -1,4 +1,4 @@
-Craft.Redactor = {};
+Craft.Redactor = Craft.Redactor || {};
 
 Craft.Redactor.PluginBase = {
   app: null,

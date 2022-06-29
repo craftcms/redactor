@@ -4,6 +4,7 @@
 
 ### Fixed
 - Fixed a bug where uploading assets could fail. ([#414](https://github.com/craftcms/redactor/issues/414))
+- Fixed a bug where the “Site” setting within Edit Link modals wasn’t working properly. ([#410](https://github.com/craftcms/redactor/issues/410))
 
 ## 2.10.8 - 2022-05-03
 
