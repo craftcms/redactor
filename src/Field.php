@@ -305,7 +305,7 @@ class Field extends HtmlField
         $event = new RegisterPluginPathsEvent([
             'paths' => [
                 Craft::getAlias('@config/redactor/plugins'),
-                __DIR__ . '/assets/redactor-plugins/dist',
+                __DIR__ . '/assets/redactor/dist/redactor-plugins',
             ],
         ]);
         Event::trigger(self::class, self::EVENT_REGISTER_PLUGIN_PATHS, $event);

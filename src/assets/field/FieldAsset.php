@@ -41,13 +41,13 @@ class FieldAsset extends AssetBundle
      * @inheritdoc
      */
     public $js = [
-        'js/PluginBase.min.js',
-        'js/CraftAssetImageEditor.min.js',
-        'js/CraftAssetImages.min.js',
-        'js/CraftAssetFiles.min.js',
-        'js/CraftElementLinks.min.js',
-        'js/RedactorInput.min.js',
-        'js/RedactorOverrides.min.js',
+        'PluginBase.js',
+        'CraftAssetImageEditor.js',
+        'CraftAssetImages.js',
+        'CraftAssetFiles.js',
+        'CraftElementLinks.js',
+        'RedactorInput.js',
+        'RedactorOverrides.js',
     ];
 
     /**
