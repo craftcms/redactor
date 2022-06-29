@@ -1,6 +1,6 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 2.10.9 - 2022-06-29
 
 ### Fixed
 - Fixed a bug where Redactor fields weren’t being configured with the current site properly. ([#382](https://github.com/craftcms/redactor/issues/382), [#412](https://github.com/craftcms/redactor/issues/412), [#414](https://github.com/craftcms/redactor/issues/414))
