@@ -2,16 +2,11 @@ const {getConfig} = require('@craftcms/webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const postcss = require('postcss');
-const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 const postcssConfig = require('@craftcms/webpack/postcss.config.js');
 
 module.exports = getConfig({
   context: __dirname,
   config: {
-    optimization: {
-      minimizer: [`...`, new CssMinimizerPlugin()],
-    },
-
     plugins: [
       new CopyWebpackPlugin({
         patterns: [
