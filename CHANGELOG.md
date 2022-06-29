@@ -1,9 +1,11 @@
 # Release Notes for Redactor for Craft CMS
 
-## Unreleased
+## 3.0.1 - 2022-06-29
 
 ### Fixed
-- Fixed a bug where non-admin users weren’t able to insert images or link to assets. ([#409](https://github.com/craftcms/redactor/issues/409)) 
+- Fixed a bug where non-admin users weren’t able to insert images or link to assets. ([#409](https://github.com/craftcms/redactor/issues/409))
+- Fixed a bug where Redactor fields weren’t being configured with the current site properly. ([#382](https://github.com/craftcms/redactor/issues/382), [#412](https://github.com/craftcms/redactor/issues/412), [#414](https://github.com/craftcms/redactor/issues/414))
+- Fixed a bug where the “Site” setting within Edit Link modals wasn’t working properly. ([#410](https://github.com/craftcms/redactor/issues/410)) 
 
 ## 3.0.0 - 2022-05-03
 
