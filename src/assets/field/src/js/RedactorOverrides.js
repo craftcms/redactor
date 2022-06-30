@@ -489,7 +489,14 @@ contextBarClass.prototype.init = function (app) {
 };
 
 contextBarClass.prototype.close = function (e) {
-  if (!this.$contextbar) return;
+  if (
+    !this.$contextbar ||
+    !this.$contextbar.nodes.length ||
+    this.$contextbar.nodes[0].style.display === 'none'
+  ) {
+    return;
+  }
+
   if (e) {
     var $target = $R.dom(e.target);
     if (this.$el && $target.closest(this.$el).length !== 0) {
