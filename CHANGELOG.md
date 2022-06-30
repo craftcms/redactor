@@ -1,5 +1,10 @@
 # Release Notes for Redactor for Craft CMS
 
+## 3.0.2 - 2022-06-30
+
+### Fixed
+- Fixed a bug where HTML changes could be reverted, if a link on image had been clicked on prior to switching to the HTML view. ([#419](https://github.com/craftcms/redactor/issues/419))
+
 ## 3.0.1 - 2022-06-29
 
 ### Fixed
