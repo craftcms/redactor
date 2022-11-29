@@ -1,8 +1,12 @@
 *.md
 *.php
 composer.lock
-lib
-vendor
-src/assets/field/dist
+cpresources/*
+lib/*
+src/templates/*
+src/web/assets/**/dist/*
 src/assets/redactor
-src/templates
+src/assets/field/dist
+tests/_craft/*
+vendor/*
+.ddev/*
