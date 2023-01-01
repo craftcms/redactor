@@ -1,5 +1,9 @@
 # Release Notes for Redactor for Craft CMS
 
+## 2.10.11 - 2022-12-31
+
+- Fixed a bug where image URLs would be broken after selecting them, if the URL contained any underscores. ([#441](https://github.com/craftcms/redactor/issues/441))
+
 ## 2.10.10 - 2022-06-30
 
 ### Fixed

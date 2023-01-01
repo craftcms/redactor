@@ -125,9 +125,9 @@ var plugin = $.extend({}, Craft.Redactor.PluginBase, {
     (transform ? 'transform:' + transform : 'url'),
 
   _removeTransformFromUrl: (url) =>
-    url.replace(/(.*)(_[a-z0-9+].*\/)(.*)/, '$1$3'),
+    url.replace(/(^|\/)(_[^\/]+\/)([^\/]+)$/, '$1$3'),
 
-  _isTransformUrl: (url) => /(.*)(_[a-z0-9+].*\/)(.*)/.test(url),
+  _isTransformUrl: (url) => /(^|\/)_[^\/]+\/[^\/]+$/.test(url),
 
   _getTransformUrl: function (assetId, handle, callback) {
     var data = {
