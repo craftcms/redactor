@@ -204,6 +204,17 @@ window.livePreviewHideFullscreen = false;
             $('body').removeClass('redactor-element-editor-open')
           );
         }
+
+        // https://github.com/craftcms/redactor/issues/445
+        Garnish.on(Craft.BaseElementSelectorModal, 'show', () => {
+          if (
+            $('#content').hasClass('redactor-body-fullscreen') || // for redactor fullscreen triggered from a page (not a slideout)
+            $('body').hasClass('redactor-body-fullscreen') // for redactor fullscreen triggered from a slideout
+          ) {
+            $('.modal-shade').css('z-index', '101');
+            $('.modal').css('z-index', '102');
+          }
+        });
       },
 
       initRedactor: function () {

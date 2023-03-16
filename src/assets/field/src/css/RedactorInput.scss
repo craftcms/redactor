@@ -170,10 +170,6 @@
 }
 
 .redactor-box {
-  &.redactor-box-fullscreen {
-    z-index: 100 !important;
-  }
-
   .redactor-toolbar,
   .redactor-air {
     a {
@@ -314,7 +310,7 @@
 .redactor-dropdown {
   @include menu-styles;
   padding: 0;
-  z-index: 100;
+  z-index: 102;
 
   li {
     border-bottom: none;
