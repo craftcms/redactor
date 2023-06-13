@@ -60,7 +60,7 @@ Redactor fields use [HTML Purifier](http://htmlpurifier.org) to ensure that no m
 
 You can create custom HTML Purifier configs that will be available to your Redactor fields. They should be created as JSON files in your `config/htmlpurifier/` folder.
 
-Copy [Default.json](https://github.com/craftcms/craft/blob/master/config/htmlpurifier/Default.json) as a starting point, which is the default config that Redactor fields use if no custom HTML Purifier config is selected.
+Copy [Default.json](https://github.com/craftcms/craft/blob/main/config/htmlpurifier/Default.json) as a starting point, which is the default config that Redactor fields use if no custom HTML Purifier config is selected.
 
 See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/plain.html) for a list of available config options.
 
