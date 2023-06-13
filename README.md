@@ -64,6 +64,25 @@ Copy [Default.json](https://github.com/craftcms/craft/blob/main/config/htmlpurif
 
 See the [HTML Purifier documentation](http://htmlpurifier.org/live/configdoc/plain.html) for a list of available config options.
 
+For advanced customization, you can modify the `HTMLPurifier_Config` object directly via the `craft\redactor\Field::EVENT_MODIFY_PURIFIER_CONFIG` event.
+
+```php
+use craft\htmlfield\events\ModifyPurifierConfigEvent;
+use craft\redactor\Field;
+use HTMLPurifier_Config;
+use yii\base\Event;
+
+Event::on(
+    Field::class,
+    Field::EVENT_MODIFY_PURIFIER_CONFIG,
+    function(ModifyPurifierConfigEvent $event) {
+        /** @var HTMLPurifier_Config $config */
+        $config = $event->config;
+        // ...
+    }
+);
+```
+
 ### Redactor JS Plugins
 
 All [first party Redactor JS plugins](https://imperavi.com/redactor/plugins/) are bundled by default. To enable them, just add the plugin handle to the `plugin` array in your Redactor config.

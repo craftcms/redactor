@@ -54,16 +54,18 @@ class Field extends HtmlField
      * Plugins can get notified when HTML Purifier config is being constructed.
      *
      * ```php
+     * use craft\htmlfield\events\ModifyPurifierConfigEvent;
      * use craft\redactor\Field;
-     * use craft\htmlfield\ModifyPurifierConfigEvent;
-     * use HTMLPurifier_AttrDef_Text;
+     * use HTMLPurifier_Config;
      * use yii\base\Event;
      *
      * Event::on(
      *     Field::class,
      *     Field::EVENT_MODIFY_PURIFIER_CONFIG,
      *     function(ModifyPurifierConfigEvent $event) {
-     *          // ...
+     *         // @var HTMLPurifier_Config $config
+     *         $config = $event->config;
+     *         // ...
      *     }
      * );
      * ```
