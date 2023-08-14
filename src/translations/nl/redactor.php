@@ -14,6 +14,7 @@ return [
     'Insert row below' => 'Rij hieronder invoegen',
     'Insert table' => 'Tabel invoegen',
     'Link to a category' => 'Link naar een categorie',
+	'link to an asset' => 'Link naar een bestand',
     'Link to an entry' => 'Link naar inhoud',
     'Table' => 'Tabel',
     'Video' => 'Video',
