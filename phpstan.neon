@@ -5,3 +5,5 @@ parameters:
     level: 4
     paths:
         - src
+    ignoreErrors:
+        - '#^Access to an undefined property .*Interface\b.*::\$\w+\.$#'
