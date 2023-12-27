@@ -172,19 +172,4 @@
       value: field.purifierConfig
     }) }}
   </div>
-
-  {% if craft.app.db.isMysql %}
-    {{ forms.selectField({
-      label: "Column Type"|t('redactor'),
-      id: 'column-type',
-      name: 'columnType',
-      instructions: "The type of column this field should get in the database."|t('redactor'),
-      options: [
-        { value: 'text', label: 'text (~64KB)' },
-        { value: 'mediumtext', label: 'mediumtext (~16MB)' },
-      ],
-      value: field.columnType,
-      warning: (field.id ? "Changing this may result in data loss."|t('redactor')),
-    }) }}
-  {% endif %}
 </div>
