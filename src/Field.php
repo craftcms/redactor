@@ -362,7 +362,7 @@ class Field extends HtmlField
     /**
      * @inheritdoc
      */
-    protected function inputHtml(mixed $value, ?ElementInterface $element, $inline): string
+    protected function inputHtml(mixed $value, ?ElementInterface $element, bool $inline): string
     {
         // register the asset/redactor bundles
         $view = Craft::$app->getView();
