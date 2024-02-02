@@ -4,7 +4,6 @@ namespace craft\redactor\migrations;
 
 use craft\db\Migration;
 use craft\redactor\Field;
-use craft\redactor\Plugin;
 
 /**
  * Install migration.
