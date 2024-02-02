@@ -231,6 +231,14 @@ class Field extends HtmlField
     }
 
     /**
+     * @inheritdoc
+     */
+    public static function icon(): string
+    {
+        return '@craft/redactor/icon-mask.svg';
+    }
+
+    /**
      * Registers a Redactor plugin's JS & CSS files.
      *
      * @param string $plugin
