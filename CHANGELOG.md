@@ -1,5 +1,9 @@
 # Release Notes for Redactor for Craft CMS
 
+## 4.0.0 - 2024-03-21
+
+- Redactor now requires Craft CMS 5.0.0-beta.1 or later.
+
 ## 3.0.4 - 2023-03-16
 
 - Fixed several styling issues with Redactor’s fullscreen mode. ([#450](https://github.com/craftcms/redactor/pull/450), [#445](https://github.com/craftcms/redactor/issues/445))
