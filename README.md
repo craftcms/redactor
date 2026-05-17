@@ -41,7 +41,7 @@ For example, if you created a `config/redactor/Standard.json` file with the foll
 
 ```json
 {
-  "buttons": ["html", "format", "bold", "italic", "lists", "link", "file"],
+  "buttons": ["html", "formatting", "bold", "italic", "lists", "link", "file"],
   "plugins": ["fullscreen"]
 }
 ```
